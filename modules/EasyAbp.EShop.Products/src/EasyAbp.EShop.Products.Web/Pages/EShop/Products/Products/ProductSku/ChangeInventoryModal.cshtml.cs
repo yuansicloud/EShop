@@ -33,7 +33,7 @@ namespace EasyAbp.EShop.Products.Web.Pages.EShop.Products.Products.ProductSku
 
         public virtual async Task OnGetAsync()
         {
-            var dto = await _service.GetAsync(ProductId, ProductSkuId);
+            var dto = await _service.GetAsync(ProductId, ProductSkuId, StoreId);
             
             ViewModel = new ChangeProductInventoryViewModel
             {

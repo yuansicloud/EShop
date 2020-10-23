@@ -58,15 +58,15 @@ namespace EasyAbp.EShop.Products.Web.Pages.EShop.Products.Products.Product
                     {MaxResultCount = LimitedResultRequestDto.MaxMaxResultCount}))?.Items
                 .Select(dto => new SelectListItem(dto.DisplayName, dto.Id.ToString())).ToList();
 
-            var productDto = await _service.GetAsync(Id, storeId);
+            var productWithExtraDataDto = await _service.GetAsync(Id, storeId);
 
-            var detailDto = await _productDetailAppService.GetAsync(productDto.ProductDetailId);
+            var detailDto = await _productDetailAppService.GetAsync(productWithExtraDataDto.Product.ProductDetailId);
             
-            Product = ObjectMapper.Map<ProductDto, CreateEditProductViewModel>(productDto);
+            Product = ObjectMapper.Map<ProductDto, CreateEditProductViewModel>(productWithExtraDataDto.Product);
 
             Product.CategoryIds = (await _productCategoryAppService.GetListAsync(new GetProductCategoryListDto
             {
-                ProductId = productDto.Id,
+                ProductId = productWithExtraDataDto.Product.Id,
                 MaxResultCount = LimitedResultRequestDto.MaxMaxResultCount
             })).Items.Select(x => x.CategoryId).ToList();
 
@@ -81,9 +81,9 @@ namespace EasyAbp.EShop.Products.Web.Pages.EShop.Products.Products.Product
 
         public virtual async Task<IActionResult> OnPostAsync()
         {
-            var product = await _service.GetAsync(Id, Product.StoreId);
+            var productWithExtraDataDto = await _service.GetAsync(Id, Product.StoreId);
 
-            var detail = await _productDetailAppService.GetAsync(product.ProductDetailId);
+            var detail = await _productDetailAppService.GetAsync(productWithExtraDataDto.Product.ProductDetailId);
 
             await _productDetailAppService.UpdateAsync(detail.Id,
                 ObjectMapper

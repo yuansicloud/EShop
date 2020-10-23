@@ -10,7 +10,7 @@ namespace EasyAbp.EShop.Products.ProductInventories.Dtos
         
         public Guid ProductSkuId { get; set; }
         
-        public Guid? StoreId { get; set; }
+        public Guid StoreId { get; set; }
         
         /// <summary>
         /// Reduce inventory if the value is less than 0

@@ -8,7 +8,7 @@ namespace EasyAbp.EShop.Products.ProductInventories
 {
     public interface IProductInventoryAppService : IApplicationService
     {
-        Task<ProductInventoryDto> GetAsync(Guid productId, Guid productSkuId);
+        Task<ProductInventoryDto> GetAsync(Guid productId, Guid productSkuId, Guid storeId);
         
         Task<ProductInventoryDto> UpdateAsync(UpdateProductInventoryDto input);
     }

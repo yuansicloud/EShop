@@ -9,6 +9,8 @@ namespace EasyAbp.EShop.Products.ProductInventories.Dtos
         public Guid ProductId { get; set; }
 
         public Guid ProductSkuId { get; set; }
+        
+        public Guid StoreId { get; set; }
 
         public int Inventory { get; set; }
 

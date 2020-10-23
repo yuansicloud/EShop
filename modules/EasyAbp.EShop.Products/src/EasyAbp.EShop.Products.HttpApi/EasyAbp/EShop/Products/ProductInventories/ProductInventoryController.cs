@@ -19,9 +19,9 @@ namespace EasyAbp.EShop.Products.ProductInventories
         }
 
         [HttpGet]
-        public Task<ProductInventoryDto> GetAsync(Guid productId, Guid productSkuId)
+        public Task<ProductInventoryDto> GetAsync(Guid productId, Guid productSkuId, Guid storeId)
         {
-            return _service.GetAsync(productId, productSkuId);
+            return _service.GetAsync(productId, productSkuId, storeId);
         }
 
         [HttpPut]

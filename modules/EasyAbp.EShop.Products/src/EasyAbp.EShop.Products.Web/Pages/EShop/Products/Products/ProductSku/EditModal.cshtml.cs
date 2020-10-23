@@ -36,11 +36,11 @@ namespace EasyAbp.EShop.Products.Web.Pages.EShop.Products.Products.ProductSku
 
         public virtual async Task OnGetAsync()
         {
-            var product = await _productAppService.GetAsync(ProductId, StoreId);
+            var productWithExtraDataDto = await _productAppService.GetAsync(ProductId, StoreId);
 
             ProductSku =
                 ObjectMapper.Map<ProductSkuDto, EditProductSkuViewModel>(
-                    product.ProductSkus.Single(x => x.Id == ProductSkuId));
+                    productWithExtraDataDto.Product.ProductSkus.Single(x => x.Id == ProductSkuId));
         }
         
         public virtual async Task<IActionResult> OnPostAsync()

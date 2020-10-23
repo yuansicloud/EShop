@@ -17,10 +17,10 @@ namespace EasyAbp.EShop.Products.ProductInventories
         {
         }
 
-        public async Task<InventoryDataModel> GetInventoryDataAsync(Guid productSkuId, CancellationToken cancellationToken = default)
+        public virtual async Task<InventoryDataModel> GetInventoryDataAsync(Guid productSkuId, Guid storeId, CancellationToken cancellationToken = default)
         {
             return await GetQueryable()
-                .Where(x => x.ProductSkuId == productSkuId)
+                .Where(x => x.ProductSkuId == productSkuId && x.StoreId == storeId)
                 .Select(x => new InventoryDataModel
                 {
                     Inventory = x.Inventory,
@@ -29,10 +29,10 @@ namespace EasyAbp.EShop.Products.ProductInventories
                 .FirstOrDefaultAsync(cancellationToken);
         }
 
-        public async Task<Dictionary<Guid, InventoryDataModel>> GetInventoryDataDictionaryAsync(List<Guid> productSkuIds, CancellationToken cancellationToken = default)
+        public virtual async Task<Dictionary<Guid, InventoryDataModel>> GetInventoryDataDictionaryAsync(List<Guid> productSkuIds, Guid storeId, CancellationToken cancellationToken = default)
         {
             return await GetQueryable()
-                .Where(x => productSkuIds.Contains(x.ProductSkuId))
+                .Where(x => productSkuIds.Contains(x.ProductSkuId) && x.StoreId == storeId)
                 .ToDictionaryAsync(x => x.ProductSkuId, x => new InventoryDataModel
                 {
                     Inventory = x.Inventory,

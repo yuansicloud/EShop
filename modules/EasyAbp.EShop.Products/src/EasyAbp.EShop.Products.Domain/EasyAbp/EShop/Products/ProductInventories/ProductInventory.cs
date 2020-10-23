@@ -9,6 +9,8 @@ namespace EasyAbp.EShop.Products.ProductInventories
         
         public virtual Guid ProductSkuId { get; protected set; }
         
+        public virtual Guid StoreId { get; protected set; }
+        
         public virtual int Inventory { get; protected set; }
         
         public virtual long Sold { get; protected set; }
@@ -21,11 +23,13 @@ namespace EasyAbp.EShop.Products.ProductInventories
             Guid id,
             Guid productId,
             Guid productSkuId,
+            Guid storeId,
             int inventory,
             long sold) : base(id)
         {
             ProductId = productId;
             ProductSkuId = productSkuId;
+            StoreId = storeId;
             Inventory = inventory;
             Sold = sold;
         }

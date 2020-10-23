@@ -1,7 +1,10 @@
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using EasyAbp.EShop.Products.EntityFrameworkCore;
+using EasyAbp.EShop.Products.ProductInventories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 
@@ -20,7 +23,21 @@ namespace EasyAbp.EShop.Products.Products
                 .Include(x => x.ProductSkus);
         }
 
-        public IQueryable<Product> GetQueryable(Guid storeId, Guid? categoryId = null)
+        public async Task<ProductWithExtraData> GetWithExtraDataAsync(Guid id, Guid storeId)
+        {
+            var queryable = WithDetails().Where(x => x.Id == id);
+
+            return await GetProductWithExtraDataQueryable(queryable, storeId).SingleAsync();
+        }
+
+        public async Task<ProductWithExtraData> GetByUniqueNameWithExtraDataAsync(string uniqueName, Guid storeId)
+        {
+            var queryable = WithDetails().Where(x => x.UniqueName == uniqueName);
+
+            return await GetProductWithExtraDataQueryable(queryable, storeId).SingleAsync();
+        }
+
+        public IQueryable<ProductWithExtraData> GetQueryable(Guid storeId, Guid? categoryId = null)
         {
             var queryable = GetStoreQueryable(storeId);
 
@@ -29,10 +46,26 @@ namespace EasyAbp.EShop.Products.Products
                 queryable = JoinProductCategories(queryable, categoryId.Value);
             }
 
-            return queryable;
+            return GetProductWithExtraDataQueryable(queryable, storeId);
         }
 
-        public IQueryable<Product> WithDetails(Guid storeId, Guid? categoryId = null)
+        protected IQueryable<ProductWithExtraData> GetProductWithExtraDataQueryable(IQueryable<Product> queryable,
+            Guid storeId)
+        {
+            var productInventoryRepository = ServiceProvider.GetRequiredService<IProductInventoryRepository>();
+
+            return queryable.Select(x => new
+                ProductWithExtraData
+                {
+                    Product = x,
+                    Inventory = productInventoryRepository.Where(y => y.ProductId == x.Id && y.StoreId == storeId)
+                        .Sum(y => y.Inventory),
+                    Sold = productInventoryRepository.Where(y => y.ProductId == x.Id && y.StoreId == storeId)
+                        .Sum(y => y.Sold),
+                });
+        }
+
+        public IQueryable<ProductWithExtraData> WithDetails(Guid storeId, Guid? categoryId = null)
         {
             var queryable = WithStoreDetails(storeId);
 
@@ -41,7 +74,7 @@ namespace EasyAbp.EShop.Products.Products
                 queryable = JoinProductCategories(queryable, categoryId.Value);
             }
 
-            return queryable;
+            return GetProductWithExtraDataQueryable(queryable, storeId);
         }
 
         protected virtual IQueryable<Product> GetStoreQueryable(Guid storeId)

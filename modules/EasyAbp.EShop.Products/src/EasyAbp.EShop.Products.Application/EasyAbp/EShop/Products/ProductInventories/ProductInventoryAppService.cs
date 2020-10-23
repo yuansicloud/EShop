@@ -28,13 +28,13 @@ namespace EasyAbp.EShop.Products.ProductInventories
         }
 
         [Authorize(ProductsPermissions.ProductInventory.Default)]
-        public virtual async Task<ProductInventoryDto> GetAsync(Guid productId, Guid productSkuId)
+        public virtual async Task<ProductInventoryDto> GetAsync(Guid productId, Guid productSkuId, Guid storeId)
         {
             var productInventory = await _repository.FindAsync(x => x.ProductSkuId == productSkuId);
 
             if (productInventory == null)
             {
-                productInventory = new ProductInventory(GuidGenerator.Create(), productId, productSkuId, 0, 0);
+                productInventory = new ProductInventory(GuidGenerator.Create(), productId, productSkuId, storeId, 0, 0);
 
                 await _repository.InsertAsync(productInventory, true);
             }
@@ -47,17 +47,15 @@ namespace EasyAbp.EShop.Products.ProductInventories
             await AuthorizationService.CheckMultiStorePolicyAsync(input.StoreId,
                 ProductsPermissions.ProductInventory.Update, ProductsPermissions.ProductInventory.CrossStore);
 
-            if (input.StoreId.HasValue)
-            {
-                await CheckStoreIsProductOwnerAsync(input.ProductId, input.StoreId.Value);
-            }
-            
-            var productInventory = await _repository.FindAsync(x => x.ProductSkuId == input.ProductSkuId);
+            await CheckStoreIsProductOwnerAsync(input.ProductId, input.StoreId);
+
+            var productInventory =
+                await _repository.FindAsync(x => x.ProductSkuId == input.ProductSkuId && x.StoreId == input.StoreId);
 
             if (productInventory == null)
             {
-                productInventory =
-                    new ProductInventory(GuidGenerator.Create(), input.ProductId, input.ProductSkuId, 0, 0);
+                productInventory = new ProductInventory(GuidGenerator.Create(), input.ProductId, input.ProductSkuId,
+                    input.StoreId, 0, 0);
 
                 await _repository.InsertAsync(productInventory, true);
             }
@@ -90,8 +88,7 @@ namespace EasyAbp.EShop.Products.ProductInventories
             }
             else
             {
-                if (!await _productInventoryProvider.TryReduceInventoryAsync(productInventory, -changedInventory, false)
-                )
+                if (!await _productInventoryProvider.TryReduceInventoryAsync(productInventory, -changedInventory, false))
                 {
                     throw new InventoryChangeFailedException(productInventory.ProductId, productInventory.ProductSkuId,
                         productInventory.Inventory, changedInventory);

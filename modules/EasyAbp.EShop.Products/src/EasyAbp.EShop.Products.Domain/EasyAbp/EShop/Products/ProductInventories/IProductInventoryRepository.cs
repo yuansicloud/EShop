@@ -9,8 +9,8 @@ namespace EasyAbp.EShop.Products.ProductInventories
 {
     public interface IProductInventoryRepository : IRepository<ProductInventory, Guid>
     {
-        Task<InventoryDataModel> GetInventoryDataAsync(Guid productSkuId, CancellationToken cancellationToken = default);
+        Task<InventoryDataModel> GetInventoryDataAsync(Guid productSkuId, Guid storeId, CancellationToken cancellationToken = default);
         
-        Task<Dictionary<Guid, InventoryDataModel>> GetInventoryDataDictionaryAsync(List<Guid> productSkuIds, CancellationToken cancellationToken = default);
+        Task<Dictionary<Guid, InventoryDataModel>> GetInventoryDataDictionaryAsync(List<Guid> productSkuIds, Guid storeId, CancellationToken cancellationToken = default);
     }
 }

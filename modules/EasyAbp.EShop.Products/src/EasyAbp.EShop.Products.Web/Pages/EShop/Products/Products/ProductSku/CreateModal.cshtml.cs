@@ -43,11 +43,11 @@ namespace EasyAbp.EShop.Products.Web.Pages.EShop.Products.Products.ProductSku
 
         public virtual async Task OnGetAsync()
         {
-            var product = await _productAppService.GetAsync(ProductId, StoreId);
+            var productWithExtraDataDto = await _productAppService.GetAsync(ProductId, StoreId);
 
             Attributes = new Dictionary<string, ICollection<SelectListItem>>();
             
-            foreach (var attribute in product.ProductAttributes.ToList())
+            foreach (var attribute in productWithExtraDataDto.Product.ProductAttributes.ToList())
             {
                 Attributes.Add(attribute.DisplayName,
                     attribute.ProductAttributeOptions
@@ -61,7 +61,9 @@ namespace EasyAbp.EShop.Products.Web.Pages.EShop.Products.Products.ProductSku
 
             createDto.AttributeOptionIds = SelectedAttributeOptionIdDict.Values.ToList();
             
-            var skuDto = await _productAppService.CreateSkuAsync(ProductId, StoreId, createDto);
+            var productWithExtraDataDto = await _productAppService.CreateSkuAsync(ProductId, StoreId, createDto);
+
+            var skuDto = productWithExtraDataDto.Product.ProductSkus.OrderByDescending(x => x.CreationTime).First();
 
             await _productInventoryAppService.UpdateAsync(new UpdateProductInventoryDto
             {

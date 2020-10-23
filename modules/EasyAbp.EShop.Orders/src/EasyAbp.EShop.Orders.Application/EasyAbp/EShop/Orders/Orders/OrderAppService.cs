@@ -123,7 +123,7 @@ namespace EasyAbp.EShop.Orders.Orders
 
             foreach (var productId in productIds.Distinct().ToList())
             {
-                dict.Add(productId, await _productAppService.GetAsync(productId, storeId));
+                dict.Add(productId, (await _productAppService.GetAsync(productId, storeId)).Product);
             }
 
             return dict;

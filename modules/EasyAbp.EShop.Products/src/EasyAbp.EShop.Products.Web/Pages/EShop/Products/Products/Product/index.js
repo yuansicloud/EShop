@@ -24,13 +24,13 @@ $(function () {
                             {
                                 text: l('ProductSku'),
                                 action: function (data) {
-                                    document.location.href = document.location.origin + '/EShop/Products/Products/ProductSku?ProductId=' + data.record.id + '&StoreId=' + storeId;
+                                    document.location.href = document.location.origin + '/EShop/Products/Products/ProductSku?ProductId=' + data.record.product.id + '&StoreId=' + storeId;
                                 }
                             },
                             {
                                 text: l('Edit'),
                                 action: function (data) {
-                                    editModal.open({ id: data.record.id, storeId: storeId });
+                                    editModal.open({ id: data.record.product.id, storeId: storeId });
                                 }
                             },
                             {
@@ -50,11 +50,11 @@ $(function () {
                 }
             },
             { data: "productGroupDisplayName" },
-            { data: "uniqueName" },
-            { data: "displayName" },
-            { data: "inventoryStrategy" },
+            { data: "product.uniqueName" },
+            { data: "product.displayName" },
+            { data: "product.inventoryStrategy" },
             { data: "sold" },
-            { data: "isPublished" },
+            { data: "product.isPublished" },
         ]
     }));
 

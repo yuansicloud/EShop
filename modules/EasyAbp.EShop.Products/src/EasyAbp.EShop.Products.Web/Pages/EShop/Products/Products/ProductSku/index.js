@@ -16,9 +16,9 @@ $(function () {
             if (callback) {
                 service.get(productId, storeId).then(function (result) {
                     callback({
-                        recordsTotal: result.productSkus.length,
-                        recordsFiltered: result.productSkus.length,
-                        data: fillProductSkusContentDescription(result).productSkus
+                        recordsTotal: result.product.productSkus.length,
+                        recordsFiltered: result.product.productSkus.length,
+                        data: fillProductSkusContentDescription(result.product).productSkus
                     });
                 });
             }
@@ -102,6 +102,7 @@ $(function () {
             }
             sku.contentDescription = options.join(',');
         }
+        console.log(product)
         return product;
     }
 });
