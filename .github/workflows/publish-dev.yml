@@ -46,8 +46,8 @@ jobs:
         uses: tanaka-takayoshi/nuget-publish-to-github-packages-action@v2.1
         with:
           nupkg-path:  'dest\*.nupkg'
-          repo-owner:  'EasyAbp'
-          gh-user:  'EasyAbp'
+          repo-owner:  'slarkerino'
+          gh-user:  'slarkerino'
           token:  ${{ secrets.GITHUB_TOKEN }}
 
       - name: dotnet nuget push to NuGet
