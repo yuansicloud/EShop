@@ -15,7 +15,7 @@ jobs:
         uses: juliangruber/read-file-action@v1
         with:
           path: ./common.props
-
+          trim: false
       - name: get version
         id: getVersion
         uses: AsasInnab/regex-action@v1
