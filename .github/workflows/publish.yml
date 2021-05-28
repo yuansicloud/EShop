@@ -1,9 +1,8 @@
-name: publish to nuget
+name: publish YSCloud branch to nuget
 on:
   push:
     branches:
-      - master
-      - main
+      - YSCloud
 jobs:
   publish:
     runs-on: windows-latest
@@ -16,7 +15,7 @@ jobs:
         uses: juliangruber/read-file-action@v1
         with:
           path: ./common.props
-
+          trim: false
       - name: get version
         id: getVersion
         uses: AsasInnab/regex-action@v1
@@ -47,12 +46,9 @@ jobs:
         uses: tanaka-takayoshi/nuget-publish-to-github-packages-action@v2.1
         with:
           nupkg-path:  'dest\*.nupkg'
-          repo-owner:  'EasyAbp'
-          gh-user:  'EasyAbp'
+          repo-owner:  'yuansicloud'
+          gh-user:  'slarkerino'
           token:  ${{ secrets.GITHUB_TOKEN }}
-
-      - name: dotnet nuget push to NuGet
-        run: dotnet nuget push dest\*.nupkg -k ${{secrets.NUGET_API_KEY}} -s https://api.nuget.org/v3/index.json --skip-duplicate
 
       - name: determine if the tag exists
         uses: mukunku/tag-exists-action@v1.0.0
