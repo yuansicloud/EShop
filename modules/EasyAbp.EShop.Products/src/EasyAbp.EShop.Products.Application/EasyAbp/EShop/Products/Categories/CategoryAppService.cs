@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
+using EasyAbp.Abp.Trees;
 using EasyAbp.EShop.Products.Categories.Dtos;
 using EasyAbp.EShop.Products.Permissions;
 using Microsoft.AspNetCore.Authorization;
@@ -29,8 +30,14 @@ namespace EasyAbp.EShop.Products.Categories
 
         protected override async Task<IQueryable<Category>> CreateFilteredQueryAsync(GetCategoryListDto input)
         {
-            var query = (await base.CreateFilteredQueryAsync(input)).Where(x => x.ParentId == input.ParentId);
-            
+            var query = (await base.CreateFilteredQueryAsync(input))
+                .WhereIf(input.ParentId.HasValue, x => x.ParentId == input.ParentId.Value)
+                .WhereIf(!input.Filter.IsNullOrEmpty(), x => x.DisplayName.Contains(input.Filter)
+                || x.UniqueName.Contains(input.Filter)
+                || x.Description.Contains(input.Filter))
+                .WhereIf(!input.Code.IsNullOrEmpty(), x => x.Code.StartsWith(input.Code))
+                .WhereIf(input.Level.HasValue, x => x.Level == input.Level.Value);
+
             return input.ShowHidden ? query : query.Where(x => !x.IsHidden);
         }
 
@@ -40,25 +47,25 @@ namespace EasyAbp.EShop.Products.Categories
             {
                 throw new NotAllowedToGetCategoryListWithShowHiddenException();
             }
-            
+
             return await base.GetListAsync(input);
         }
 
         public virtual async Task<PagedResultDto<CategorySummaryDto>> GetSummaryListAsync(GetCategoryListDto input)
         {
             await CheckGetListPolicyAsync();
-            
+
             var query = _repository.AsQueryable();
-            
+
             var totalCount = await AsyncExecuter.CountAsync(query);
 
             query = query.OrderBy(x => x.Code);
-            
+
             if (!input.Sorting.IsNullOrWhiteSpace())
             {
                 query = query.OrderBy(input.Sorting);
             }
-            
+
             query = query.PageBy(input.SkipCount, input.MaxResultCount);
 
             var categories = await AsyncExecuter.ToListAsync(query);

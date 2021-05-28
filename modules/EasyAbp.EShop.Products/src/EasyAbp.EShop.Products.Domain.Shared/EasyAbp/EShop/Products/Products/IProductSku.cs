@@ -22,5 +22,9 @@ namespace EasyAbp.EShop.Products.Products
         string MediaResources { get; }
         
         Guid? ProductDetailId { get; }
+
+        int Threshold { get; }
+
+        bool IsFixedPrice { get; }
     }
 }

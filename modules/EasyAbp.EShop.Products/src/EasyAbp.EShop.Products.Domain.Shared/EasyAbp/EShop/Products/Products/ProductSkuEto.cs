@@ -27,5 +27,9 @@ namespace EasyAbp.EShop.Products.Products
         public Guid? ProductDetailId { get; set; }
         
         public ExtraPropertyDictionary ExtraProperties { get; set; }
+
+        public int Threshold { get; set; }
+
+        public bool IsFixedPrice { get; set; }
     }
 }
