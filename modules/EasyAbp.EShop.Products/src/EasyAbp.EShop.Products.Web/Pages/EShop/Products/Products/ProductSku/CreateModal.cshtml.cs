@@ -9,6 +9,7 @@ using EasyAbp.EShop.Products.Products.Dtos;
 using EasyAbp.EShop.Products.Web.Pages.EShop.Products.Products.ProductSku.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using CreateProductSkuViewModel = EasyAbp.EShop.Products.Web.Pages.EShop.Products.Products.ProductSku.ViewModels.CreateProductSkuViewModel;
 
 namespace EasyAbp.EShop.Products.Web.Pages.EShop.Products.Products.ProductSku
 {

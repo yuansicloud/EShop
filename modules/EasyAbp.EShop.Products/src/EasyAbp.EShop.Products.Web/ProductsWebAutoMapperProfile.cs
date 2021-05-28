@@ -54,7 +54,7 @@ namespace EasyAbp.EShop.Products.Web
             CreateMap<ProductAttributeDto, CreateEditProductAttributeViewModel>();
             CreateMap<CreateEditProductAttributeViewModel, CreateUpdateProductAttributeDto>()
                 .Ignore(dto => dto.ExtraProperties);
-            CreateMap<CreateProductSkuViewModel, CreateProductSkuDto>()
+            CreateMap<Pages.EShop.Products.Products.ProductSku.ViewModels.CreateProductSkuViewModel, CreateProductSkuDto>()
                 .Ignore(dto => dto.ExtraProperties)
                 .ForSourceMember(model => model.Inventory, opt => opt.DoNotValidate())
                 .Ignore(dto => dto.AttributeOptionIds);

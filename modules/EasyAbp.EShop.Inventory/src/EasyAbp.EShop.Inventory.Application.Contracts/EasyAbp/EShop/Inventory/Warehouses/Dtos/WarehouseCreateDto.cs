@@ -13,7 +13,7 @@ namespace EasyAbp.EShop.Inventory.Warehouses.Dtos
         public string Name { get; set; }
 
         [DisplayName("WarehouseAddress")]
-        public Address Address { get; set; }
+        public Inventories.Address Address { get; set; }
 
         [DisplayName("WarehouseDescription")]
         public string Description { get; set; }
