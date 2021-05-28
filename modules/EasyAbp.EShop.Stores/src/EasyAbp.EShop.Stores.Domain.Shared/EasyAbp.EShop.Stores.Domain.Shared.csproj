@@ -1,24 +1,34 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <Import Project="..\..\..\..\common.props" />
+    <Import Project="..\..\..\..\common.props" />
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace />
-    <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <RootNamespace />
+        <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Volo.Abp.Validation" Version="$(AbpVersion)" />
-  </ItemGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+      <DocumentationFile>EasyAbp.EShop.Stores.Domain.Shared.xml</DocumentationFile>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="EasyAbp\EShop\Stores\Localization\Stores\*.json" />
-    <Content Remove="EasyAbp\EShop\Stores\Localization\Stores\*.json" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Volo.Abp.Ddd.Domain" Version="$(AbpVersion)" />
+        <PackageReference Include="Volo.Abp.Validation" Version="$(AbpVersion)" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="5.0.*" />
-  </ItemGroup>
-  
+    <ItemGroup>
+        <EmbeddedResource Include="EasyAbp\EShop\Stores\Localization\Stores\*.json" />
+        <Content Remove="EasyAbp\EShop\Stores\Localization\Stores\*.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="5.0.*" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="EasyAbp.EShop.Stores.Domain.Shared.xml">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
 </Project>

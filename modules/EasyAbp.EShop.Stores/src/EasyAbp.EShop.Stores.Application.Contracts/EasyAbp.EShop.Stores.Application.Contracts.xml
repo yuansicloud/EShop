@@ -1,0 +1,105 @@
+﻿<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EasyAbp.EShop.Stores.Application.Contracts</name>
+    </assembly>
+    <members>
+        <member name="T:EasyAbp.EShop.Stores.StoreOwners.Dtos.CreateUpdateStoreOwnerDto">
+            <summary>
+            创建更新店铺管理员模型
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Stores.StoreOwners.Dtos.CreateUpdateStoreOwnerDto.StoreId">
+            <summary>
+            店铺ID
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Stores.StoreOwners.Dtos.CreateUpdateStoreOwnerDto.OwnerUserId">
+            <summary>
+            管理员ID
+            </summary>
+        </member>
+        <member name="T:EasyAbp.EShop.Stores.StoreOwners.Dtos.StoreOwnerDto">
+            <summary>
+            店铺管理员模型
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Stores.StoreOwners.Dtos.StoreOwnerDto.StoreId">
+            <summary>
+            店铺ID
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Stores.StoreOwners.Dtos.StoreOwnerDto.OwnerUserId">
+            <summary>
+            店铺用户ID
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Stores.StoreOwners.Dtos.StoreOwnerDto.OwnerUserName">
+            <summary>
+            店铺管理员用户名
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Stores.StoreOwners.Dtos.StoreOwnerDto.OwnerName">
+            <summary>
+            店铺管理员姓名
+            </summary>
+        </member>
+        <member name="T:EasyAbp.EShop.Stores.Stores.Dtos.CreateUpdateStoreDto">
+            <summary>
+            创建及更新店铺模型
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Stores.Stores.Dtos.CreateUpdateStoreDto.Name">
+            <summary>
+            店铺名称
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Stores.Stores.Dtos.CreateUpdateStoreDto.Address">
+            <summary>
+            店铺地址
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Stores.Stores.Dtos.CreateUpdateStoreDto.MediaResources">
+            <summary>
+            店铺图片
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Stores.Stores.Dtos.CreateUpdateStoreDto.StoreOwnerIds">
+            <summary>
+            店铺管理员IDs
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Stores.Stores.Dtos.GetStoreListInput.OnlyManageable">
+            <summary>
+            只获取当前用户可以管理的店铺
+            Store owner users can get stores that they owns.
+            Users who have the <code>EasyAbp.EShop.Stores.Store.CrossStore</code> permission can get all stores.
+            </summary>
+        </member>
+        <member name="T:EasyAbp.EShop.Stores.Stores.Dtos.StoreDto">
+            <summary>
+            店铺模型
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Stores.Stores.Dtos.StoreDto.Name">
+            <summary>
+            店铺名称
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Stores.Stores.Dtos.StoreDto.Address">
+            <summary>
+            店铺地址
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Stores.Stores.Dtos.StoreDto.MediaResources">
+            <summary>
+            店铺图片
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Stores.Stores.Dtos.StoreDto.StoreOwners">
+            <summary>
+            店铺管理员
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,170 @@
+﻿<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EasyAbp.EShop.Stores.HttpApi</name>
+    </assembly>
+    <members>
+        <member name="T:EasyAbp.EShop.Stores.StoreOwners.StoreOwnerController">
+            <summary>
+            店铺管理园控制器
+            </summary>
+        </member>
+        <member name="F:EasyAbp.EShop.Stores.StoreOwners.StoreOwnerController._service">
+            <summary>
+            Defines the _service.
+            </summary>
+        </member>
+        <member name="M:EasyAbp.EShop.Stores.StoreOwners.StoreOwnerController.#ctor(EasyAbp.EShop.Stores.StoreOwners.IStoreOwnerAppService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:EasyAbp.EShop.Stores.StoreOwners.StoreOwnerController"/> class.
+            </summary>
+            <param name="service">The service<see cref="T:EasyAbp.EShop.Stores.StoreOwners.IStoreOwnerAppService"/>.</param>
+        </member>
+        <member name="M:EasyAbp.EShop.Stores.StoreOwners.StoreOwnerController.GetAsync(System.Guid)">
+            <summary>
+            详情
+            </summary>
+            <param name="id">The id<see cref="T:System.Guid"/>.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task`1"/>.</returns>
+        </member>
+        <member name="M:EasyAbp.EShop.Stores.StoreOwners.StoreOwnerController.GetListAsync(EasyAbp.EShop.Stores.StoreOwners.Dtos.GetStoreOwnerListDto)">
+            <summary>
+            列表
+            </summary>
+            <param name="input">The input<see cref="T:EasyAbp.EShop.Stores.StoreOwners.Dtos.GetStoreOwnerListDto"/>.</param>
+            <returns>The <see cref="!:Task&lt;PagedResultDto&lt;StoreOwnerDto&gt;&gt;"/>.</returns>
+        </member>
+        <member name="M:EasyAbp.EShop.Stores.StoreOwners.StoreOwnerController.CreateAsync(EasyAbp.EShop.Stores.StoreOwners.Dtos.CreateUpdateStoreOwnerDto)">
+            <summary>
+            创建
+            </summary>
+            <param name="input">The input<see cref="T:EasyAbp.EShop.Stores.StoreOwners.Dtos.CreateUpdateStoreOwnerDto"/>.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task`1"/>.</returns>
+        </member>
+        <member name="M:EasyAbp.EShop.Stores.StoreOwners.StoreOwnerController.UpdateAsync(System.Guid,EasyAbp.EShop.Stores.StoreOwners.Dtos.CreateUpdateStoreOwnerDto)">
+            <summary>
+            编辑
+            </summary>
+            <param name="id">The id<see cref="T:System.Guid"/>.</param>
+            <param name="input">The input<see cref="T:EasyAbp.EShop.Stores.StoreOwners.Dtos.CreateUpdateStoreOwnerDto"/>.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task`1"/>.</returns>
+        </member>
+        <member name="M:EasyAbp.EShop.Stores.StoreOwners.StoreOwnerController.DeleteAsync(System.Guid)">
+            <summary>
+            删除
+            </summary>
+            <param name="id">The id<see cref="T:System.Guid"/>.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task"/>.</returns>
+        </member>
+        <member name="T:EasyAbp.EShop.Stores.Stores.StoreController">
+            <summary>
+            店铺控制器
+            </summary>
+        </member>
+        <member name="F:EasyAbp.EShop.Stores.Stores.StoreController._service">
+            <summary>
+            Defines the _service.
+            </summary>
+        </member>
+        <member name="M:EasyAbp.EShop.Stores.Stores.StoreController.#ctor(EasyAbp.EShop.Stores.Stores.IStoreAppService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:EasyAbp.EShop.Stores.Stores.StoreController"/> class.
+            </summary>
+            <param name="service">The service<see cref="T:EasyAbp.EShop.Stores.Stores.IStoreAppService"/>.</param>
+        </member>
+        <member name="M:EasyAbp.EShop.Stores.Stores.StoreController.GetAsync(System.Guid)">
+            <summary>
+            详情
+            </summary>
+            <param name="id">The id<see cref="T:System.Guid"/>.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task`1"/>.</returns>
+        </member>
+        <member name="M:EasyAbp.EShop.Stores.Stores.StoreController.GetListAsync(EasyAbp.EShop.Stores.Stores.Dtos.GetStoreListInput)">
+            <summary>
+            列表
+            </summary>
+            <param name="input">The input<see cref="T:EasyAbp.EShop.Stores.Stores.Dtos.GetStoreListInput"/>.</param>
+            <returns>The <see cref="!:Task&lt;PagedResultDto&lt;StoreDto&gt;&gt;"/>.</returns>
+        </member>
+        <member name="M:EasyAbp.EShop.Stores.Stores.StoreController.CreateAsync(EasyAbp.EShop.Stores.Stores.Dtos.CreateUpdateStoreDto)">
+            <summary>
+            创建
+            </summary>
+            <param name="input">The input<see cref="T:EasyAbp.EShop.Stores.Stores.Dtos.CreateUpdateStoreDto"/>.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task`1"/>.</returns>
+        </member>
+        <member name="M:EasyAbp.EShop.Stores.Stores.StoreController.UpdateAsync(System.Guid,EasyAbp.EShop.Stores.Stores.Dtos.CreateUpdateStoreDto)">
+            <summary>
+            编辑
+            </summary>
+            <param name="id">The id<see cref="T:System.Guid"/>.</param>
+            <param name="input">The input<see cref="T:EasyAbp.EShop.Stores.Stores.Dtos.CreateUpdateStoreDto"/>.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task`1"/>.</returns>
+        </member>
+        <member name="M:EasyAbp.EShop.Stores.Stores.StoreController.DeleteAsync(System.Guid)">
+            <summary>
+            删除
+            </summary>
+            <param name="id">The id<see cref="T:System.Guid"/>.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task"/>.</returns>
+        </member>
+        <member name="M:EasyAbp.EShop.Stores.Stores.StoreController.GetDefaultAsync">
+            <summary>
+            获取默认店铺
+            </summary>
+            <returns>The <see cref="T:System.Threading.Tasks.Task`1"/>.</returns>
+        </member>
+        <member name="T:EasyAbp.EShop.Stores.Transactions.TransactionController">
+            <summary>
+            店铺流水控制器
+            </summary>
+        </member>
+        <member name="F:EasyAbp.EShop.Stores.Transactions.TransactionController._service">
+            <summary>
+            Defines the _service.
+            </summary>
+        </member>
+        <member name="M:EasyAbp.EShop.Stores.Transactions.TransactionController.#ctor(EasyAbp.EShop.Stores.Transactions.ITransactionAppService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:EasyAbp.EShop.Stores.Transactions.TransactionController"/> class.
+            </summary>
+            <param name="service">The service<see cref="T:EasyAbp.EShop.Stores.Transactions.ITransactionAppService"/>.</param>
+        </member>
+        <member name="M:EasyAbp.EShop.Stores.Transactions.TransactionController.GetAsync(System.Guid)">
+            <summary>
+            详情
+            </summary>
+            <param name="id">The id<see cref="T:System.Guid"/>.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task`1"/>.</returns>
+        </member>
+        <member name="M:EasyAbp.EShop.Stores.Transactions.TransactionController.GetListAsync(EasyAbp.EShop.Stores.Transactions.Dtos.GetTransactionListInput)">
+            <summary>
+            列表
+            </summary>
+            <param name="input">The input<see cref="T:EasyAbp.EShop.Stores.Transactions.Dtos.GetTransactionListInput"/>.</param>
+            <returns>The <see cref="!:Task&lt;PagedResultDto&lt;TransactionDto&gt;&gt;"/>.</returns>
+        </member>
+        <member name="M:EasyAbp.EShop.Stores.Transactions.TransactionController.CreateAsync(EasyAbp.EShop.Stores.Transactions.Dtos.CreateUpdateTransactionDto)">
+            <summary>
+            创建
+            </summary>
+            <param name="input">The input<see cref="T:EasyAbp.EShop.Stores.Transactions.Dtos.CreateUpdateTransactionDto"/>.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task`1"/>.</returns>
+        </member>
+        <member name="M:EasyAbp.EShop.Stores.Transactions.TransactionController.UpdateAsync(System.Guid,EasyAbp.EShop.Stores.Transactions.Dtos.CreateUpdateTransactionDto)">
+            <summary>
+            编辑
+            </summary>
+            <param name="id">The id<see cref="T:System.Guid"/>.</param>
+            <param name="input">The input<see cref="T:EasyAbp.EShop.Stores.Transactions.Dtos.CreateUpdateTransactionDto"/>.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task`1"/>.</returns>
+        </member>
+        <member name="M:EasyAbp.EShop.Stores.Transactions.TransactionController.DeleteAsync(System.Guid)">
+            <summary>
+            删除
+            </summary>
+            <param name="id">The id<see cref="T:System.Guid"/>.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task"/>.</returns>
+        </member>
+    </members>
+</doc>

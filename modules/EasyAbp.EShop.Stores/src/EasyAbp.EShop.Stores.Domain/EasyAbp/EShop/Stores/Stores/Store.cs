@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Sockets;
 using JetBrains.Annotations;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
@@ -14,6 +15,10 @@ namespace EasyAbp.EShop.Stores.Stores
         
         // Todo: more properties.
         
+        public virtual Address Address { get; protected set; }
+
+        public virtual string MediaResources { get; protected set; }
+
         protected Store() {}
 
         public Store(

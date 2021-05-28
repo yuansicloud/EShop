@@ -1,4 +1,4 @@
-using Volo.Abp.Reflection;
+﻿using Volo.Abp.Reflection;
 
 namespace EasyAbp.EShop.Stores.Permissions
 {

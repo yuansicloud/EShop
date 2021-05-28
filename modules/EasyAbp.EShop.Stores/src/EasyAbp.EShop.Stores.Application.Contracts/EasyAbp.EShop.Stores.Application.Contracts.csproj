@@ -7,10 +7,20 @@
     <RootNamespace />
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>EasyAbp.EShop.Stores.Application.Contracts.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Volo.Abp.Ddd.Application.Contracts" Version="$(AbpVersion)" />
     <PackageReference Include="Volo.Abp.Authorization" Version="$(AbpVersion)" />
     <ProjectReference Include="..\EasyAbp.EShop.Stores.Domain.Shared\EasyAbp.EShop.Stores.Domain.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="EasyAbp.EShop.Stores.Application.Contracts.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

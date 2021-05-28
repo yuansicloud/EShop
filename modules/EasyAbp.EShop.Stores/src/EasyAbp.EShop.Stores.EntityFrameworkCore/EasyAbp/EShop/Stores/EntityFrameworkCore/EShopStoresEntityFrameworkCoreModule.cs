@@ -1,4 +1,4 @@
-using EasyAbp.EShop.Stores.StoreOwners;
+﻿using EasyAbp.EShop.Stores.StoreOwners;
 using EasyAbp.EShop.Stores.Transactions;
 using EasyAbp.EShop.Stores.Stores;
 using Microsoft.Extensions.DependencyInjection;

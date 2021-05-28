@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.AutoMapper" Version="$(AbpVersion)" />
+    <PackageReference Include="Volo.Abp.Ddd.Application" Version="$(AbpVersion)" />
+    <PackageReference Include="Volo.Abp.Users.Abstractions" Version="$(AbpVersion)" />
+    <ProjectReference Include="..\EasyAbp.EShop.Stores.Application.Contracts\EasyAbp.EShop.Stores.Application.Contracts.csproj" />
+    <ProjectReference Include="..\EasyAbp.EShop.Stores.Application.Shared\EasyAbp.EShop.Stores.Application.Shared.csproj" />
+    <ProjectReference Include="..\EasyAbp.EShop.Stores.Domain\EasyAbp.EShop.Stores.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

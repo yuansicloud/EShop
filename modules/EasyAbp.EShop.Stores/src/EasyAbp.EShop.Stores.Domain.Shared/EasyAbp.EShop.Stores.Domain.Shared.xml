@@ -1,0 +1,28 @@
+﻿<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EasyAbp.EShop.Stores.Domain.Shared</name>
+    </assembly>
+    <members>
+        <member name="P:EasyAbp.EShop.Stores.Stores.Address.Street">
+            <summary>
+            街道地址
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Stores.Stores.Address.Area">
+            <summary>
+            区/县
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Stores.Stores.Address.City">
+            <summary>
+            市
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Stores.Stores.Address.Province">
+            <summary>
+            省
+            </summary>
+        </member>
+    </members>
+</doc>

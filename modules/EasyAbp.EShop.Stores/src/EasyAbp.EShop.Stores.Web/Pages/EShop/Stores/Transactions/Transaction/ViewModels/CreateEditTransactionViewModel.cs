@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using EasyAbp.EShop.Stores.Transactions;
 

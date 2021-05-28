@@ -1,4 +1,4 @@
-using EasyAbp.EShop.Stores.StoreOwners;
+﻿using EasyAbp.EShop.Stores.StoreOwners;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp.Data;
 using Volo.Abp.EntityFrameworkCore;

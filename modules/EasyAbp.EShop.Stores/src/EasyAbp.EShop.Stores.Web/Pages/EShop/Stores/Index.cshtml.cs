@@ -1,4 +1,4 @@
-namespace EasyAbp.EShop.Stores.Web.Pages.EShop.Stores
+﻿namespace EasyAbp.EShop.Stores.Web.Pages.EShop.Stores
 {
     public class IndexModel : StoresPageModel
     {
