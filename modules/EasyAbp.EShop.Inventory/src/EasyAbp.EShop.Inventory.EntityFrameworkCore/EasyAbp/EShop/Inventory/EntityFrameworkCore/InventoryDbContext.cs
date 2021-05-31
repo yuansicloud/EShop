@@ -35,7 +35,7 @@ namespace EasyAbp.EShop.Inventory.EntityFrameworkCore
         {
             base.OnModelCreating(builder);
 
-            builder.ConfigureInventory();
+            builder.ConfigureEShopInventory();
         }
     }
 }

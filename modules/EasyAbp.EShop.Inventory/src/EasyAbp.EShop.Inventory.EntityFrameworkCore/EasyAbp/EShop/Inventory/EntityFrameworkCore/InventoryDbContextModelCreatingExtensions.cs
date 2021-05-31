@@ -14,7 +14,7 @@ namespace EasyAbp.EShop.Inventory.EntityFrameworkCore
 {
     public static class InventoryDbContextModelCreatingExtensions
     {
-        public static void ConfigureInventory(
+        public static void ConfigureEShopInventory(
             this ModelBuilder builder,
             Action<InventoryModelBuilderConfigurationOptions> optionsAction = null)
         {
