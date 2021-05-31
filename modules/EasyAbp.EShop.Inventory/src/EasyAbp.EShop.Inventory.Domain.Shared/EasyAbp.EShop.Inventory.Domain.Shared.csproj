@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-	<Import Project="..\..\common.props" />
+  <Import Project="..\..\..\..\common.props" />
 
-	<PropertyGroup>
+  <PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<RootNamespace>EasyAbp.EShop.Inventory</RootNamespace>
 		<GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
