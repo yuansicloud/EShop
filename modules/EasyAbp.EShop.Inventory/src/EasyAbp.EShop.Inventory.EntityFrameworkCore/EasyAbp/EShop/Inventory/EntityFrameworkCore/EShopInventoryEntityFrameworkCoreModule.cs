@@ -12,10 +12,10 @@ using Volo.Abp.Modularity;
 namespace EasyAbp.EShop.Inventory.EntityFrameworkCore
 {
     [DependsOn(
-        typeof(InventoryDomainModule),
+        typeof(EShopInventoryDomainModule),
         typeof(AbpEntityFrameworkCoreModule)
     )]
-    public class InventoryEntityFrameworkCoreModule : AbpModule
+    public class EShopInventoryEntityFrameworkCoreModule : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {

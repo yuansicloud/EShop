@@ -5,10 +5,10 @@ using Volo.Abp.MongoDB;
 namespace EasyAbp.EShop.Inventory.MongoDB
 {
     [DependsOn(
-        typeof(InventoryDomainModule),
+        typeof(EShopInventoryDomainModule),
         typeof(AbpMongoDbModule)
         )]
-    public class InventoryMongoDbModule : AbpModule
+    public class EShopInventoryMongoDbModule : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {

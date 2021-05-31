@@ -8,15 +8,15 @@ using Volo.Abp.Modularity;
 namespace EasyAbp.EShop.Inventory
 {
     [DependsOn(
-        typeof(InventoryApplicationContractsModule),
+        typeof(EShopInventoryApplicationContractsModule),
         typeof(AbpAspNetCoreMvcModule))]
-    public class InventoryHttpApiModule : AbpModule
+    public class EShopInventoryHttpApiModule : AbpModule
     {
         public override void PreConfigureServices(ServiceConfigurationContext context)
         {
             PreConfigure<IMvcBuilder>(mvcBuilder =>
             {
-                mvcBuilder.AddApplicationPartIfNotExists(typeof(InventoryHttpApiModule).Assembly);
+                mvcBuilder.AddApplicationPartIfNotExists(typeof(EShopInventoryHttpApiModule).Assembly);
             });
         }
 

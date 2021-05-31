@@ -12,13 +12,13 @@ namespace EasyAbp.EShop.Inventory
     [DependsOn(
         typeof(AbpAutoMapperModule),
         typeof(AbpDddDomainModule),
-        typeof(InventoryDomainSharedModule)
+        typeof(EShopInventoryDomainSharedModule)
     )]
-    public class InventoryDomainModule : AbpModule
+    public class EShopInventoryDomainModule : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
-            context.Services.AddAutoMapperObjectMapper<InventoryDomainModule>();
+            context.Services.AddAutoMapperObjectMapper<EShopInventoryDomainModule>();
 
             Configure<AbpAutoMapperOptions>(options =>
             {

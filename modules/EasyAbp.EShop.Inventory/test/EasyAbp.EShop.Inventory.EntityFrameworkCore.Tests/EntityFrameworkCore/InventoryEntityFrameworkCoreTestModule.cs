@@ -10,7 +10,7 @@ namespace EasyAbp.EShop.Inventory.EntityFrameworkCore
 {
     [DependsOn(
         typeof(InventoryTestBaseModule),
-        typeof(InventoryEntityFrameworkCoreModule),
+        typeof(EShopInventoryEntityFrameworkCoreModule),
         typeof(AbpEntityFrameworkCoreSqliteModule)
         )]
     public class InventoryEntityFrameworkCoreTestModule : AbpModule

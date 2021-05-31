@@ -4,7 +4,7 @@ using Volo.Abp.Modularity;
 namespace EasyAbp.EShop.Inventory
 {
     [DependsOn(
-        typeof(InventoryHttpApiClientModule),
+        typeof(EShopInventoryHttpApiClientModule),
         typeof(AbpHttpClientIdentityModelModule)
         )]
     public class InventoryConsoleApiClientModule : AbpModule

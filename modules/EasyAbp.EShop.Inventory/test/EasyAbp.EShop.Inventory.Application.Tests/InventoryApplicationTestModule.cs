@@ -3,7 +3,7 @@
 namespace EasyAbp.EShop.Inventory
 {
     [DependsOn(
-        typeof(InventoryApplicationModule),
+        typeof(EShopInventoryApplicationModule),
         typeof(InventoryDomainTestModule)
         )]
     public class InventoryApplicationTestModule : AbpModule

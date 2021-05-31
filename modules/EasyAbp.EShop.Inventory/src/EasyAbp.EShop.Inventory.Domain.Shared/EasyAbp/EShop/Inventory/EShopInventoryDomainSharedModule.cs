@@ -11,13 +11,13 @@ namespace EasyAbp.EShop.Inventory
     [DependsOn(
         typeof(AbpValidationModule)
     )]
-    public class InventoryDomainSharedModule : AbpModule
+    public class EShopInventoryDomainSharedModule : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
             Configure<AbpVirtualFileSystemOptions>(options =>
             {
-                options.FileSets.AddEmbedded<InventoryDomainSharedModule>();
+                options.FileSets.AddEmbedded<EShopInventoryDomainSharedModule>();
             });
 
             Configure<AbpLocalizationOptions>(options =>

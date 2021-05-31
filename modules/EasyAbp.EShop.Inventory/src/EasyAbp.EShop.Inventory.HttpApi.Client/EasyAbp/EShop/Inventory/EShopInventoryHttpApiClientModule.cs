@@ -5,16 +5,16 @@ using Volo.Abp.Modularity;
 namespace EasyAbp.EShop.Inventory
 {
     [DependsOn(
-        typeof(InventoryApplicationContractsModule),
+        typeof(EShopInventoryApplicationContractsModule),
         typeof(AbpHttpClientModule))]
-    public class InventoryHttpApiClientModule : AbpModule
+    public class EShopInventoryHttpApiClientModule : AbpModule
     {
         public const string RemoteServiceName = "Inventory";
 
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
             context.Services.AddHttpClientProxies(
-                typeof(InventoryApplicationContractsModule).Assembly,
+                typeof(EShopInventoryApplicationContractsModule).Assembly,
                 RemoteServiceName
             );
         }

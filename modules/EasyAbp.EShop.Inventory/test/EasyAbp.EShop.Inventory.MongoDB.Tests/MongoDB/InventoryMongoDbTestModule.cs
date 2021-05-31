@@ -7,7 +7,7 @@ namespace EasyAbp.EShop.Inventory.MongoDB
 {
     [DependsOn(
         typeof(InventoryTestBaseModule),
-        typeof(InventoryMongoDbModule)
+        typeof(EShopInventoryMongoDbModule)
         )]
     public class InventoryMongoDbTestModule : AbpModule
     {

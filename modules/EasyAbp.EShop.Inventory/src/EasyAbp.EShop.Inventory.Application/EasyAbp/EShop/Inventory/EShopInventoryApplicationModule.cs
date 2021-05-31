@@ -6,19 +6,19 @@ using Volo.Abp.Application;
 namespace EasyAbp.EShop.Inventory
 {
     [DependsOn(
-        typeof(InventoryDomainModule),
-        typeof(InventoryApplicationContractsModule),
+        typeof(EShopInventoryDomainModule),
+        typeof(EShopInventoryApplicationContractsModule),
         typeof(AbpDddApplicationModule),
         typeof(AbpAutoMapperModule)
         )]
-    public class InventoryApplicationModule : AbpModule
+    public class EShopInventoryApplicationModule : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
-            context.Services.AddAutoMapperObjectMapper<InventoryApplicationModule>();
+            context.Services.AddAutoMapperObjectMapper<EShopInventoryApplicationModule>();
             Configure<AbpAutoMapperOptions>(options =>
             {
-                options.AddMaps<InventoryApplicationModule>(validate: true);
+                options.AddMaps<EShopInventoryApplicationModule>(validate: true);
             });
         }
     }

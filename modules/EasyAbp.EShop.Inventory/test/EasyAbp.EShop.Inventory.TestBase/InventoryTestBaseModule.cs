@@ -12,7 +12,7 @@ namespace EasyAbp.EShop.Inventory
         typeof(AbpAutofacModule),
         typeof(AbpTestBaseModule),
         typeof(AbpAuthorizationModule),
-        typeof(InventoryDomainModule)
+        typeof(EShopInventoryDomainModule)
         )]
     public class InventoryTestBaseModule : AbpModule
     {

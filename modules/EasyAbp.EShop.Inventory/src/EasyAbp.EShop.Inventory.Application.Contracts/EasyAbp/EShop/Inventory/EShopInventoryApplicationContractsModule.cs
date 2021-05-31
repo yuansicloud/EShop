@@ -5,11 +5,11 @@ using Volo.Abp.Authorization;
 namespace EasyAbp.EShop.Inventory
 {
     [DependsOn(
-        typeof(InventoryDomainSharedModule),
+        typeof(EShopInventoryDomainSharedModule),
         typeof(AbpDddApplicationContractsModule),
         typeof(AbpAuthorizationModule)
         )]
-    public class InventoryApplicationContractsModule : AbpModule
+    public class EShopInventoryApplicationContractsModule : AbpModule
     {
 
     }

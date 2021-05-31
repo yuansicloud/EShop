@@ -8,7 +8,7 @@ namespace EasyAbp.EShop.Inventory
         protected InventoryAppService()
         {
             LocalizationResource = typeof(InventoryResource);
-            ObjectMapperContext = typeof(InventoryApplicationModule);
+            ObjectMapperContext = typeof(EShopInventoryApplicationModule);
         }
     }
 }
