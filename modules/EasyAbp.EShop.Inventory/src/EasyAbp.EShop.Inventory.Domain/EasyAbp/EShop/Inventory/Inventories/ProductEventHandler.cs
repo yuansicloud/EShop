@@ -7,8 +7,6 @@ using Volo.Abp.DependencyInjection;
 using Volo.Abp.EventBus.Distributed;
 using Volo.Abp.Guids;
 using Volo.Abp.MultiTenancy;
-using Volo.Abp.ObjectMapping;
-using Volo.Abp.Uow;
 
 namespace EasyAbp.EShop.Inventory.EasyAbp.EShop.Inventory.Inventories
 {
@@ -19,6 +17,7 @@ namespace EasyAbp.EShop.Inventory.EasyAbp.EShop.Inventory.Inventories
         private readonly IWarehouseManager _warehouseManager;
         private readonly IGuidGenerator _guidGenerator;
         private readonly IStockManager _stockManager;
+
         public ProductEventHandler(
             IGuidGenerator guidGenerator,
             ICurrentTenant currentTenant,
