@@ -21,6 +21,8 @@ namespace EasyAbp.EShop.Inventory.Stocks
         private readonly IDistributedEventBus _distributedEventBus;
         private readonly IUnitOfWorkManager _unitOfWorkManager;
         private readonly IStockRepository _stockRepository;
+        private readonly IInstockRepository _instockRepository;
+        private readonly IOutstockRepository _outstockRepository;
 
         public StockManager(
             IObjectMapper objectMapper,
@@ -35,19 +37,34 @@ namespace EasyAbp.EShop.Inventory.Stocks
         }
 
 
-        public Task<Stock> CreateAsync(Stock stock)
+        public async Task<Stock> CreateAsync(Stock stock)
         {
-            throw new NotImplementedException();
+            await _stockRepository.InsertAsync(stock);
+
+            //TODO: Localize
+            await AdjustStock(stock.ProductSkuId, stock.WarehouseId, 0, "初始化库存");
+
+            return stock;
         }
 
-        public Task<Instock> CreateAsync(Instock instock)
+        public async Task<Instock> CreateAsync(Instock instock)
         {
-            throw new NotImplementedException();
+            await _instockRepository.InsertAsync(instock);
+
+            //TODO: Localize
+            await AdjustStock(instock.ProductSkuId, instock.WarehouseId, instock.Units, instock.Description);
+
+            return instock;
         }
 
-        public Task<Outstock> CreateAsync(Outstock instock)
+        public async Task<Outstock> CreateAsync(Outstock outstock)
         {
-            throw new NotImplementedException();
+            await _outstockRepository.InsertAsync(outstock);
+
+            //TODO: Localize
+            await AdjustStock(outstock.ProductSkuId, outstock.WarehouseId, -outstock.Units, outstock.Description);
+
+            return outstock;
         }
 
         public Task<Reallocation> CreateAsync(Reallocation instock)

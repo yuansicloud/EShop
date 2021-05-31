@@ -7,6 +7,7 @@ using EasyAbp.EShop.Stores.Stores;
 using System.Linq;
 using System.Threading.Tasks;
 using Volo.Abp.EventBus.Distributed;
+using EasyAbp.EShop.Inventory.Stocks;
 
 namespace EasyAbp.EShop.Inventory.Instocks
 {
@@ -24,21 +25,26 @@ namespace EasyAbp.EShop.Inventory.Instocks
 
         private readonly IDistributedEventBus _distributedEventBus;
 
+        private readonly IStockManager _stockManager;
+
         public InstockAppService(
-            IInstockRepository repository, 
+            IInstockRepository repository,
+            IStockManager stockManager,
             IDistributedEventBus distributedEventBus
          ) : base(repository)
         {
             _repository = repository;
-
+            _stockManager = stockManager;
             _distributedEventBus = distributedEventBus;
         }
 
-        public override Task<InstockDto> CreateAsync(InstockCreateDto input)
+        public override async Task<InstockDto> CreateAsync(InstockCreateDto input)
         {
-            //await _distributedEventBus.PublishAsync()
+            
+            return await MapToGetOutputDtoAsync(
+                await _stockManager.CreateAsync(
+                    await MapToEntityAsync(input)));
 
-            return base.CreateAsync(input);
         }
 
         protected override async Task<IQueryable<Instock>> CreateFilteredQueryAsync(GetInstockListInput input)

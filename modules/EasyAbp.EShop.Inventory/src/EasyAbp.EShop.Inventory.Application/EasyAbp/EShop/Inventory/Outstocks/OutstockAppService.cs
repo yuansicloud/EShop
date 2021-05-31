@@ -6,6 +6,7 @@ using Volo.Abp.Application.Services;
 using EasyAbp.EShop.Stores.Stores;
 using System.Linq;
 using System.Threading.Tasks;
+using EasyAbp.EShop.Inventory.Stocks;
 
 namespace EasyAbp.EShop.Inventory.Outstocks
 {
@@ -20,10 +21,23 @@ namespace EasyAbp.EShop.Inventory.Outstocks
         protected override string CrossStorePolicyName { get; set; } = InventoryPermissions.Stock.CrossStore;
 
         private readonly IOutstockRepository _repository;
-        
-        public OutstockAppService(IOutstockRepository repository) : base(repository)
+
+        private readonly IStockManager _stockManager;
+
+        public OutstockAppService(
+            IOutstockRepository repository, 
+            IStockManager stockManager) : base(repository)
         {
             _repository = repository;
+            _stockManager = stockManager;
+        }
+
+        public override async Task<OutstockDto> CreateAsync(OutstockCreateDto input)
+        {
+            return await MapToGetOutputDtoAsync(
+                await _stockManager.CreateAsync(
+                    await MapToEntityAsync(input)));
+
         }
 
         protected override async Task<IQueryable<Outstock>> CreateFilteredQueryAsync(GetOutstockListInput input)
