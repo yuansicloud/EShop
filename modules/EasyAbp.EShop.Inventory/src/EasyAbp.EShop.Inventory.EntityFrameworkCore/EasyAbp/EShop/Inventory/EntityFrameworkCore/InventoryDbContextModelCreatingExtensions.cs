@@ -53,6 +53,8 @@ namespace EasyAbp.EShop.Inventory.EntityFrameworkCore
                 b.ConfigureByConvention();
 
                 /* Configure more properties here */
+
+                b.Property(x => x.UnitPrice).HasColumnType("decimal(20,8)");
             });
 
             builder.Entity<Outstock>(b =>
@@ -61,6 +63,8 @@ namespace EasyAbp.EShop.Inventory.EntityFrameworkCore
                 b.ConfigureByConvention();
 
                 /* Configure more properties here */
+
+                b.Property(x => x.UnitPrice).HasColumnType("decimal(20,8)");
             });
 
             builder.Entity<Reallocation>(b =>
@@ -69,6 +73,7 @@ namespace EasyAbp.EShop.Inventory.EntityFrameworkCore
                 b.ConfigureByConvention();
 
                 /* Configure more properties here */
+
             });
 
             builder.Entity<StockHistory>(b =>
@@ -109,9 +114,9 @@ namespace EasyAbp.EShop.Inventory.EntityFrameworkCore
             builder.Entity<Supplier>(b =>
             {
                 b.ToTable(options.TablePrefix + "Suppliers", options.Schema);
-                b.ConfigureByConvention(); 
-                
+                b.ConfigureByConvention();
 
+                b.OwnsOne(b => b.Address);
                 /* Configure more properties here */
             });
         }
