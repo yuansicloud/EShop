@@ -422,6 +422,67 @@ namespace EasyAbp.EShop.Products.Products
             return dto;
         }
 
+        public async Task<ProductDto> UpdateSkuListAsync(Guid productId, List<CreateProductSkuDto> input)
+        {
+            var product = await GetEntityByIdAsync(productId);
+
+            await CheckMultiStorePolicyAsync(product.StoreId, UpdatePolicyName);
+
+            CheckProductIsNotStatic(product);
+
+            var deleteSkus = product.ProductSkus.ToList();
+
+            foreach (var sku in input)
+            {
+                bool toCreate = true;
+
+                foreach(var orginalSku in product.ProductSkus)
+                {
+                    var originalIds = await _attributeOptionIdsSerializer.DeserializeAsync(orginalSku.SerializedAttributeOptionIds);
+
+                    if (Enumerable.SequenceEqual(originalIds.OrderBy(t => t), sku.AttributeOptionIds.OrderBy(t => t)))
+                    {
+                        ObjectMapper.Map(input, orginalSku);
+
+                        await _productManager.UpdateSkuAsync(product, orginalSku);
+
+                        toCreate = false;
+
+                        deleteSkus = deleteSkus.Where(s => s.Id != orginalSku.Id).ToList();
+
+                        break;
+                    }
+                }
+
+                if (toCreate)
+                {
+                    var newSku = ObjectMapper.Map<CreateProductSkuDto, ProductSku>(sku);
+
+                    EntityHelper.TrySetId(newSku, GuidGenerator.Create);
+
+                    await _productManager.CreateSkuAsync(product, newSku);
+                }
+
+            }
+
+            foreach (var deleteSku in deleteSkus)
+            {
+                await _productManager.DeleteSkuAsync(product, deleteSku);
+            }
+
+            var dto = await MapToGetOutputDtoAsync(product);
+
+            await LoadDtoExtraDataAsync(product, dto);
+            await LoadDtosProductGroupDisplayNameAsync(new[] { dto });
+
+            UnitOfWorkManager.Current.OnCompleted(async () =>
+            {
+                await ClearProductViewCacheAsync(product.StoreId);
+            });
+
+            return dto;
+        }
+
         public async Task<ProductDto> DeleteSkuAsync(Guid productId, Guid productSkuId)
         {
             var product = await GetEntityByIdAsync(productId);
@@ -460,5 +521,6 @@ namespace EasyAbp.EShop.Products.Products
                 }
             ).ToList()));
         }
+
     }
 }

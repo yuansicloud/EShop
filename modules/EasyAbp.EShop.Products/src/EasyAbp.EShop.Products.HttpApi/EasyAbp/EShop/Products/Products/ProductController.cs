@@ -3,6 +3,7 @@
     using EasyAbp.EShop.Products.Products.Dtos;
     using Microsoft.AspNetCore.Mvc;
     using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using Volo.Abp;
     using Volo.Abp.Application.Dtos;
@@ -149,6 +150,20 @@
         public Task<ListResultDto<ProductGroupDto>> GetProductGroupListAsync()
         {
             return _service.GetProductGroupListAsync();
+        }
+
+        /// <summary>
+        /// 更新商品SKU列表（包含创建，编辑，删除）
+        /// </summary>
+        /// <param name="id">The id<see cref="Guid"/>.</param>
+        /// <param name="productSkuId">The productSkuId<see cref="Guid"/>.</param>
+        /// <param name="input">The input<see cref="UpdateProductSkuDto"/>.</param>
+        /// <returns>The <see cref="Task{ProductDto}"/>.</returns>
+        [HttpPut]
+        [Route("{productId}/sku/list")]
+        public Task<ProductDto> UpdateSkuListAsync(Guid productId, List<CreateProductSkuDto> input)
+        {
+            return _service.UpdateSkuListAsync(productId, input);
         }
     }
 }

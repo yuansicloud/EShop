@@ -9,7 +9,7 @@ using Volo.Abp.ObjectExtending;
 namespace EasyAbp.EShop.Products.Products.Dtos
 {
     [Serializable]
-    public class CreateUpdateProductDto : ExtensibleObject, IMultiStore
+    public class CreateUpdateProductDto : ExtensibleObject, IMultiStore, IProduct
     {
         [DisplayName("ProductStoreId")]
         public Guid StoreId { get; set; }
@@ -43,6 +43,10 @@ namespace EasyAbp.EShop.Products.Products.Dtos
 
         [DisplayName("ProductIsPublished")]
         public bool IsPublished { get; set; }
+
+        public bool IsHidden { get; set; }
+
+        public bool IsStatic { get; set; }
 
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
