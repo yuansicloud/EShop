@@ -80,6 +80,11 @@ namespace EasyAbp.EShop.Orders.Orders
             return await MapToGetOutputDtoAsync(order);
         }
 
+        public async Task<OrderDto> CreateByStaffAsync(CreateOrderDto input)
+        {
+            return null;
+        }
+
         public override async Task<OrderDto> CreateAsync(CreateOrderDto input)
         {
             // Todo: Check if the store is open.

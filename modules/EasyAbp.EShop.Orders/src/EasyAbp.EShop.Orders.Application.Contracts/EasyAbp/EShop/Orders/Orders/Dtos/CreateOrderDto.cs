@@ -17,6 +17,8 @@ namespace EasyAbp.EShop.Orders.Orders.Dtos
         [DisplayName("OrderCustomerRemark")]
         public string CustomerRemark { get; set; }
 
+        public string StaffRemark { get; set; }
+
         [DisplayName("OrderLine")]
         public List<CreateOrderLineDto> OrderLines { get; set; }
 

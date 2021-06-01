@@ -442,7 +442,7 @@ namespace EasyAbp.EShop.Products.Products
 
                     if (Enumerable.SequenceEqual(originalIds.OrderBy(t => t), sku.AttributeOptionIds.OrderBy(t => t)))
                     {
-                        ObjectMapper.Map(input, orginalSku);
+                        ObjectMapper.Map(sku, orginalSku);
 
                         await _productManager.UpdateSkuAsync(product, orginalSku);
 
