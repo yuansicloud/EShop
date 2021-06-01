@@ -10,7 +10,7 @@
     /// <summary>
     /// 库存存品控制器
     /// </summary>
-    [RemoteService(Name = "Inventory")]
+    [RemoteService(Name = "EasyAbpEShopInventory")]
     [Route("/api/e-shop/inventory/stock")]
     public class StockController : InventoryController, IStockAppService
     {

@@ -12,6 +12,7 @@ using Microsoft.Extensions.Options;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Caching;
 using Volo.Abp.Domain.Entities;
+using EasyAbp.EShop.Inventory.Aggregates;
 
 namespace EasyAbp.EShop.Products.Products
 {
@@ -31,7 +32,7 @@ namespace EasyAbp.EShop.Products.Products
         private readonly IProductViewCacheKeyProvider _productViewCacheKeyProvider;
         private readonly IAttributeOptionIdsSerializer _attributeOptionIdsSerializer;
         private readonly IProductRepository _repository;
-
+        private readonly IAggregateAppService _stockAggregateAppService;
         public ProductAppService(
             IProductManager productManager,
             IOptions<EShopProductsOptions> options,
@@ -39,6 +40,7 @@ namespace EasyAbp.EShop.Products.Products
             IProductInventoryProvider productInventoryProvider,
             IProductViewCacheKeyProvider productViewCacheKeyProvider,
             IAttributeOptionIdsSerializer attributeOptionIdsSerializer,
+            IAggregateAppService stockAggregateAppService,
             IProductRepository repository) : base(repository)
         {
             _productManager = productManager;
@@ -48,12 +50,13 @@ namespace EasyAbp.EShop.Products.Products
             _productViewCacheKeyProvider = productViewCacheKeyProvider;
             _attributeOptionIdsSerializer = attributeOptionIdsSerializer;
             _repository = repository;
+            _stockAggregateAppService = stockAggregateAppService;
         }
 
         protected override async Task<IQueryable<Product>> CreateFilteredQueryAsync(GetProductListInput input)
         {
             var query = input.CategoryId.HasValue
-                ? _repository.WithDetails(input.CategoryId.Value)
+                ? await _repository.WithDetailsAsync(input.CategoryId.Value, input.ShowRecursive)
                 : (await _repository.WithDetailsAsync());
 
             return query
@@ -289,6 +292,11 @@ namespace EasyAbp.EShop.Products.Products
 
                 await LoadDtoExtraDataAsync(product, productDto);
 
+                if (input.ShowStock)
+                {
+                    await LoadDtoStockDataAsync(productDto, input.TermStartTime, input.TermEndTime)
+            }
+
                 items.Add(productDto);
             }
 
@@ -310,6 +318,25 @@ namespace EasyAbp.EShop.Products.Products
                 productSkuDto.Inventory = inventoryData.Inventory;
                 productSkuDto.Sold = inventoryData.Sold;
                 productDto.Sold += productSkuDto.Sold;
+            }
+
+            return productDto;
+        }
+
+        protected virtual async Task<ProductDto> LoadDtoStockDataAsync(ProductDto productDto, DateTime? termStartTime, DateTime? termEndTime)
+        {
+            var productStockDetail = await _stockAggregateAppService.GetProductStockDetail(productDto.Id, termStartTime, termEndTime);
+
+            ObjectMapper.Map(productStockDetail, productDto.ProductStockDetail);
+
+            foreach (var productSkuDto in productDto.ProductSkus)
+            {
+                var skuStockDetail = productStockDetail.ProductSkuStockDetails.SingleOrDefault(s => s.ProductSkuId == productSkuDto.Id);
+
+                if (skuStockDetail is not null)
+                {
+                    ObjectMapper.Map(skuStockDetail, productSkuDto.ProductSkuStockDetail);
+                }
             }
 
             return productDto;

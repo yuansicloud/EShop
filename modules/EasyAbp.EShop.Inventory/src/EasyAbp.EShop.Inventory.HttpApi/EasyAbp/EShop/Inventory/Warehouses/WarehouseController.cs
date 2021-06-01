@@ -10,7 +10,7 @@
     /// <summary>
     /// 库房控制器
     /// </summary>
-    [RemoteService(Name = "Inventory")]
+    [RemoteService(Name = "EasyAbpEShopInventory")]
     [Route("/api/e-shop/inventory/warehouse")]
     public class WarehouseController : InventoryController, IWarehouseAppService
     {

@@ -1,13 +1,10 @@
-﻿namespace EasyAbp.EShop.Inventory.Stocks
-{
-    using EasyAbp.EShop.Stores.Stores;
-    using System;
-    using Volo.Abp.Data;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-    /// <summary>
-    /// 存品接口
-    /// </summary>
-    public interface IStock : IHasExtraProperties, IMultiStore
+namespace EasyAbp.EShop.Inventory.StockDetails
+{
+    public interface IProductSkuStockDetail
     {
         /// <summary>
         /// 锁定库存数量.
@@ -30,18 +27,23 @@
         int Quantity { get; }
 
         /// <summary>
-        /// 排序
+        /// 库存数
         /// </summary>
-        int DisplayOrder { get; }
+        int InstockQuantity { get; }
 
         /// <summary>
-        /// 是否启用
+        /// 库存数
         /// </summary>
-        bool IsEnabled { get; }
+        int OutStockQuantity { get; }
 
         /// <summary>
-        /// 描述
+        /// 期初库存数
         /// </summary>
-        string Description { get; }
+        int? TermStartQuantity { get; }
+
+        /// <summary>
+        /// 期末库存数
+        /// </summary>
+        int? TermEndQuantity { get; }
     }
 }

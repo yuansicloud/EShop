@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -29,13 +30,8 @@ namespace EasyAbp.EShop.Products.Products
             return await base.InsertAsync(entity, autoSave, cancellationToken);
         }
 
-        public virtual async Task CheckUniqueNameAsync(Product entity, CancellationToken cancellationToken = new CancellationToken())
+        protected virtual async Task CheckUniqueNameAsync(Product entity, CancellationToken cancellationToken = new CancellationToken())
         {
-            if (entity.UniqueName.IsNullOrEmpty())
-            {
-                return;
-            }
-            
             if (await (await GetDbSetAsync()).AnyAsync(
                 x => x.StoreId == entity.StoreId && x.UniqueName == entity.UniqueName && x.Id != entity.Id,
                 cancellationToken))
@@ -51,20 +47,33 @@ namespace EasyAbp.EShop.Products.Products
                 .Include(x => x.ProductSkus);
         }
 
-        public IQueryable<Product> GetQueryable(Guid categoryId)
+        public async Task<IQueryable<Product>> GetQueryableAsync(Guid categoryId, bool showRecursive)
         {
-            return JoinProductCategories(DbSet, categoryId);
+            return await JoinProductCategoriesAsync(await GetDbSetAsync(), categoryId, showRecursive);
         }
 
-        public IQueryable<Product> WithDetails(Guid categoryId)
+        public async Task<IQueryable<Product>> WithDetailsAsync(Guid categoryId, bool showRecursive)
         {
-            return JoinProductCategories(WithDetails(), categoryId);
+            return await JoinProductCategoriesAsync(await WithDetailsAsync(), categoryId, showRecursive);
         }
 
-        protected virtual IQueryable<Product> JoinProductCategories(IQueryable<Product> queryable, Guid categoryId)
+        protected virtual async Task<IQueryable<Product>> JoinProductCategoriesAsync(IQueryable<Product> queryable, Guid categoryId, bool showRecursive)
         {
+            List<Guid> categoryIds = new() { categoryId };
+
+            if (showRecursive)
+            {
+                var category = await (await GetDbContextAsync()).Categories.SingleOrDefaultAsync(c => c.Id == categoryId);
+
+                if (category != null)
+                {
+                    categoryIds.AddRange((await GetDbContextAsync()).Categories.Where(c => c.Code.StartsWith(category.Code)).Select(c => c.Id));
+                }
+
+            }
+
             return queryable.Join(
-                DbContext.ProductCategories.Where(productCategory => productCategory.CategoryId == categoryId),
+                (await GetDbContextAsync()).ProductCategories.Where(productCategory => categoryIds.Contains(productCategory.CategoryId)),
                 product => product.Id,
                 productCategory => productCategory.ProductId,
                 (product, productCategory) => product

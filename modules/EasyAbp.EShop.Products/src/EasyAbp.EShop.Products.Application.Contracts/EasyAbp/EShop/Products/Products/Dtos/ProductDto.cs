@@ -1,5 +1,6 @@
 namespace EasyAbp.EShop.Products.Products.Dtos
 {
+    using EasyAbp.EShop.Inventory.Aggregates.Dtos;
     using EasyAbp.EShop.Products.ProductCategories.Dtos;
     using System;
     using System.Collections.Generic;
@@ -101,6 +102,11 @@ namespace EasyAbp.EShop.Products.Products.Dtos
         /// 商品类别
         /// </summary>
         public ICollection<ProductCategoryDto> ProductCategories { get; set; }
+
+        /// <summary>
+        /// 商品库存详情
+        /// </summary>
+        public ProductStockDetailDto ProductStockDetail { get; set; }
 
         /// The GetSkuById.
         /// </summary>

@@ -10,7 +10,7 @@
     /// <summary>
     /// 出库记录控制器
     /// </summary>
-    [RemoteService(Name = "Inventory")]
+    [RemoteService(Name = "EasyAbpEShopInventory")]
     [Route("/api/e-shop/inventory/outstock")]
     public class OutstockController : InventoryController, IOutstockAppService
     {

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
+using EasyAbp.EShop.Inventory.EasyAbp.EShop.Inventory.Stocks.Dtos;
 using EasyAbp.EShop.Inventory.Permissions;
 using EasyAbp.EShop.Inventory.Stocks.Dtos;
 using EasyAbp.EShop.Stores.Stores;
@@ -22,6 +23,7 @@ namespace EasyAbp.EShop.Inventory.Stocks
 
         private readonly IStockRepository _repository;
         private readonly IStockManager _stockManager;
+
         public StockAppService(IStockRepository repository, IStockManager stockManager) : base(repository)
         {
             _repository = repository;

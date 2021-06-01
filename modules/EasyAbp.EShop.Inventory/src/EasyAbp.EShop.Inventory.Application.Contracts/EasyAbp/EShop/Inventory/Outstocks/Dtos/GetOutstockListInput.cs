@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Volo.Abp.Application.Dtos;
 
 namespace EasyAbp.EShop.Inventory.Outstocks.Dtos
@@ -11,6 +9,11 @@ namespace EasyAbp.EShop.Inventory.Outstocks.Dtos
         /// 商品SKU ID
         /// </summary>
         public Guid? ProductSkuId { get; set; }
+
+        /// <summary>
+        /// 商品SPU ID
+        /// </summary>
+        public Guid? ProductId { get; set; }
 
         /// <summary>
         /// 仓库ID

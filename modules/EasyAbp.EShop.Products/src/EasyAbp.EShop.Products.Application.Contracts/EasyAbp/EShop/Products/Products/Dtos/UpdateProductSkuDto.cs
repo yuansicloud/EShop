@@ -35,5 +35,16 @@ namespace EasyAbp.EShop.Products.Products.Dtos
 
         [DisplayName("ProductSkuProductDetailId")]
         public Guid? ProductDetailId { get; set; }
+
+        /// <summary>
+        /// 可否调价（true 为不可调价）
+        /// </summary>
+        public bool IsFixedPrice { get; set; }
+
+        /// <summary>
+        /// 预警值 
+        /// </summary>
+        public int Threshold { get; set; }
+
     }
 }

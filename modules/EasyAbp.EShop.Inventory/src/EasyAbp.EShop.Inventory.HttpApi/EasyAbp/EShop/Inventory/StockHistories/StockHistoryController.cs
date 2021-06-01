@@ -10,7 +10,7 @@
     /// <summary>
     /// 库存历史记录控制器
     /// </summary>
-    [RemoteService(Name = "Inventory")]
+    [RemoteService(Name = "EasyAbpEShopInventory")]
     [Route("/api/e-shop/inventory/stock-history")]
     public class StockHistoryController : InventoryController, IStockHistoryAppService
     {

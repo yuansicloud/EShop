@@ -76,8 +76,13 @@
         public bool IsFixedPrice { get; set; }
 
         /// <summary>
-        /// 预警值 
+        /// 预警值
         /// </summary>
         public int Threshold { get; set; }
+
+        /// <summary>
+        /// 商品SKU库存详情
+        /// </summary>
+        public ProductSkuStockDetailDto ProductSkuStockDetail { get; set; }
     }
 }

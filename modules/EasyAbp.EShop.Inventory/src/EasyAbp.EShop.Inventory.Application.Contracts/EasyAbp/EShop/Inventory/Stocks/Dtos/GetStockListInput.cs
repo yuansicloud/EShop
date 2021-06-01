@@ -14,6 +14,11 @@
         public Guid? ProductSkuId { get; set; }
 
         /// <summary>
+        /// 商品SPU ID
+        /// </summary>
+        public Guid? ProductId { get; set; }
+
+        /// <summary>
         /// 是否启用
         /// </summary>
         public bool? IsEnabled { get; set; }

@@ -10,7 +10,7 @@
     /// <summary>
     /// 调库记录控制器
     /// </summary>
-    [RemoteService(Name = "Inventory")]
+    [RemoteService(Name = "EasyAbpEShopInventory")]
     [Route("/api/e-shop/inventory/reallocation")]
     public class ReallocationController : InventoryController, IReallocationAppService
     {
