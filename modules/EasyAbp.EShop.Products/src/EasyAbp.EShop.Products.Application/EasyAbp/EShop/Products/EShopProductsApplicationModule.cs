@@ -4,11 +4,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.AutoMapper;
 using Volo.Abp.Modularity;
 using Volo.Abp.Application;
+using EasyAbp.EShop.Inventory;
 
 namespace EasyAbp.EShop.Products
 {
     [DependsOn(
         typeof(EShopProductsDomainModule),
+        typeof(EShopInventoryApplicationContractsModule),
         typeof(EShopProductsApplicationContractsModule),
         typeof(EShopStoresDomainSharedModule),
         typeof(EShopStoresApplicationSharedModule),
