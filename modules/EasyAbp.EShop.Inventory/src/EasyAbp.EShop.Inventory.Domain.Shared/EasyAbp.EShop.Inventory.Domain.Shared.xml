@@ -114,6 +114,81 @@
             商品SPU
             </summary>
         </member>
+        <member name="P:EasyAbp.EShop.Inventory.StockDetails.IProductSkuStockDetail.LockedQuantity">
+            <summary>
+            锁定库存数量.
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Inventory.StockDetails.IProductSkuStockDetail.ProductId">
+            <summary>
+            商品SPU
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Inventory.StockDetails.IProductSkuStockDetail.ProductSkuId">
+            <summary>
+            商品SKU
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Inventory.StockDetails.IProductSkuStockDetail.Quantity">
+            <summary>
+            库存数
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Inventory.StockDetails.IProductSkuStockDetail.InstockQuantity">
+            <summary>
+            库存数
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Inventory.StockDetails.IProductSkuStockDetail.OutStockQuantity">
+            <summary>
+            库存数
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Inventory.StockDetails.IProductSkuStockDetail.TermStartQuantity">
+            <summary>
+            期初库存数
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Inventory.StockDetails.IProductSkuStockDetail.TermEndQuantity">
+            <summary>
+            期末库存数
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Inventory.StockDetails.IProductStockDetail.LockedQuantity">
+            <summary>
+            锁定库存数量.
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Inventory.StockDetails.IProductStockDetail.ProductId">
+            <summary>
+            商品SPU
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Inventory.StockDetails.IProductStockDetail.Quantity">
+            <summary>
+            库存数
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Inventory.StockDetails.IProductStockDetail.InstockQuantity">
+            <summary>
+            库存数
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Inventory.StockDetails.IProductStockDetail.OutStockQuantity">
+            <summary>
+            库存数
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Inventory.StockDetails.IProductStockDetail.TermStartQuantity">
+            <summary>
+            期初库存数
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Inventory.StockDetails.IProductStockDetail.TermEndQuantity">
+            <summary>
+            期末库存数
+            </summary>
+        </member>
         <member name="T:EasyAbp.EShop.Inventory.StockHistories.IStockHistory">
             <summary>
             库存存品历史记录

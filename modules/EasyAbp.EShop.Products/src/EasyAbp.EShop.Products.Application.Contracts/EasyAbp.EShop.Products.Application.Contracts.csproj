@@ -11,6 +11,7 @@
     <PackageReference Include="EasyAbp.Abp.Trees.Application.Contracts" Version="$(EasyAbpAbpTreesModuleVersion)" />
     <PackageReference Include="Volo.Abp.Ddd.Application.Contracts" Version="$(AbpVersion)" />
     <PackageReference Include="Volo.Abp.Authorization" Version="$(AbpVersion)" />
+    <ProjectReference Include="..\..\..\EasyAbp.EShop.Inventory\src\EasyAbp.EShop.Inventory.Domain.Shared\EasyAbp.EShop.Inventory.Domain.Shared.csproj" />
     <ProjectReference Include="..\EasyAbp.EShop.Products.Domain.Shared\EasyAbp.EShop.Products.Domain.Shared.csproj" />
   </ItemGroup>
 

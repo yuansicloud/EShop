@@ -9,6 +9,11 @@
             商品SKU ID
             </summary>
         </member>
+        <member name="P:EasyAbp.EShop.Inventory.Instocks.Dtos.GetInstockListInput.ProductId">
+            <summary>
+            商品SPU ID
+            </summary>
+        </member>
         <member name="P:EasyAbp.EShop.Inventory.Instocks.Dtos.GetInstockListInput.WarehouseId">
             <summary>
             仓库ID
@@ -104,6 +109,11 @@
             商品SKU ID
             </summary>
         </member>
+        <member name="P:EasyAbp.EShop.Inventory.Outstocks.Dtos.GetOutstockListInput.ProductId">
+            <summary>
+            商品SPU ID
+            </summary>
+        </member>
         <member name="P:EasyAbp.EShop.Inventory.Outstocks.Dtos.GetOutstockListInput.WarehouseId">
             <summary>
             仓库ID
@@ -189,6 +199,11 @@
             商品SKU ID
             </summary>
         </member>
+        <member name="P:EasyAbp.EShop.Inventory.Reallocations.Dtos.GetReallocationListInput.ProductId">
+            <summary>
+            商品SPU ID
+            </summary>
+        </member>
         <member name="P:EasyAbp.EShop.Inventory.Reallocations.Dtos.GetReallocationListInput.SourceWarehouseId">
             <summary>
             调出仓库ID
@@ -234,6 +249,11 @@
             商品SKU ID
             </summary>
         </member>
+        <member name="P:EasyAbp.EShop.Inventory.StockHistories.Dtos.GetStockHistoryListInput.ProductId">
+            <summary>
+            商品SPU ID
+            </summary>
+        </member>
         <member name="P:EasyAbp.EShop.Inventory.StockHistories.Dtos.GetStockHistoryListInput.WarehouseId">
             <summary>
             仓库ID
@@ -267,6 +287,11 @@
         <member name="P:EasyAbp.EShop.Inventory.Stocks.Dtos.GetStockListInput.ProductSkuId">
             <summary>
             商品SKU ID
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Inventory.Stocks.Dtos.GetStockListInput.ProductId">
+            <summary>
+            商品SPU ID
             </summary>
         </member>
         <member name="P:EasyAbp.EShop.Inventory.Stocks.Dtos.GetStockListInput.IsEnabled">

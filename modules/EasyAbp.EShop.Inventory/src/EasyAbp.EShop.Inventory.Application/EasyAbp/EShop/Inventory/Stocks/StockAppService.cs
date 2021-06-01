@@ -1,13 +1,9 @@
-﻿using System;
-using System.Linq;
-using System.Linq.Dynamic.Core;
-using System.Threading.Tasks;
-using EasyAbp.EShop.Inventory.EasyAbp.EShop.Inventory.Stocks.Dtos;
-using EasyAbp.EShop.Inventory.Permissions;
+﻿using EasyAbp.EShop.Inventory.Permissions;
 using EasyAbp.EShop.Inventory.Stocks.Dtos;
 using EasyAbp.EShop.Stores.Stores;
-using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace EasyAbp.EShop.Inventory.Stocks
 {
@@ -51,6 +47,5 @@ namespace EasyAbp.EShop.Inventory.Stocks
                 .WhereIf(input.CreationStartTime.HasValue, s => s.CreationTime.Date >= input.CreationStartTime.Value.Date)
                 .WhereIf(input.CreationEndTime.HasValue, s => s.CreationTime.Date >= input.CreationEndTime.Value.Date);
         }
-
     }
 }

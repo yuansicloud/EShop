@@ -4,6 +4,22 @@
         <name>EasyAbp.EShop.Inventory.HttpApi</name>
     </assembly>
     <members>
+        <member name="T:EasyAbp.EShop.Inventory.Aggregates.AggregateController">
+            <summary>
+            库存详情聚合控制器
+            </summary>
+        </member>
+        <member name="F:EasyAbp.EShop.Inventory.Aggregates.AggregateController._service">
+            <summary>
+            Defines the _service.
+            </summary>
+        </member>
+        <member name="M:EasyAbp.EShop.Inventory.Aggregates.AggregateController.#ctor(EasyAbp.EShop.Inventory.Aggregates.IAggregateAppService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:EasyAbp.EShop.Inventory.Aggregates.AggregateController"/> class.
+            </summary>
+            <param name="service">The service<see cref="T:EasyAbp.EShop.Inventory.Aggregates.IAggregateAppService"/>.</param>
+        </member>
         <member name="T:EasyAbp.EShop.Inventory.Instocks.InstockController">
             <summary>
             入库记录控制器

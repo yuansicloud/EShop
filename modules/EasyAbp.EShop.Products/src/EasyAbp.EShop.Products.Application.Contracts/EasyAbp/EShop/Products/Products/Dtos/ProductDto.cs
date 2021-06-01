@@ -1,6 +1,5 @@
 namespace EasyAbp.EShop.Products.Products.Dtos
 {
-    using EasyAbp.EShop.Inventory.Aggregates.Dtos;
     using EasyAbp.EShop.Products.ProductCategories.Dtos;
     using System;
     using System.Collections.Generic;
