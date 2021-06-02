@@ -9,7 +9,7 @@ using Volo.Abp.Application.Services;
 
 namespace EasyAbp.EShop.Inventory.Warehouses
 {
-    public class WarehouseAppService : MultiStoreCrudAppService<Warehouse, WarehouseDto, Guid, PagedAndSortedResultRequestDto, WarehouseCreateDto, WarehouseUpdateDto>,
+    public class WarehouseAppService : MultiStoreCrudAppService<Warehouse, WarehouseDto, Guid, GetWarehouseListInput, WarehouseCreateDto, WarehouseUpdateDto>,
         IWarehouseAppService
     {
         protected override string GetPolicyName { get; set; } = InventoryPermissions.Warehouse.Default;
@@ -25,14 +25,11 @@ namespace EasyAbp.EShop.Inventory.Warehouses
             _repository = repository;
         }
 
-        //protected override async Task<IQueryable<Warehouse>> CreateFilteredQueryAsync(GetWarehouseListInput input)
-        //{
-        //    return (await _repository.WithDetailsAsync())
-        //        .WhereIf(!input.Filter.IsNullOrEmpty(), s => s.Description.Contains(input.Filter))
-        //        .WhereIf(input.ProductSkuId.HasValue, s => s.ProductSkuId == input.ProductSkuId.Value)
-        //        .WhereIf(input.WarehouseId.HasValue, s => s.WarehouseId == input.WarehouseId.Value)
-        //        .WhereIf(input.StoreId.HasValue, s => s.StoreId == input.StoreId.Value)
-        //        .WhereIf(input.IsEnabled.HasValue, s => s.IsEnabled == input.IsEnabled);
-        //}
+        protected override async Task<IQueryable<Warehouse>> CreateFilteredQueryAsync(GetWarehouseListInput input)
+        {
+            return (await _repository.WithDetailsAsync())
+                .WhereIf(!input.Filter.IsNullOrEmpty(), s => s.Description.Contains(input.Filter) || s.Name.Contains(input.Filter) || s.ContactName.Contains(input.Filter))
+                .WhereIf(input.StoreId.HasValue, s => s.StoreId == input.StoreId.Value);
+        }
     }
 }

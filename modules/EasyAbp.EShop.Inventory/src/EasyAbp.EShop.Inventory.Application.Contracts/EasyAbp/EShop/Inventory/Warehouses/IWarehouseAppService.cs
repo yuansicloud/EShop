@@ -8,8 +8,8 @@ namespace EasyAbp.EShop.Inventory.Warehouses
     public interface IWarehouseAppService :
         ICrudAppService< 
             WarehouseDto, 
-            Guid, 
-            PagedAndSortedResultRequestDto,
+            Guid,
+            GetWarehouseListInput,
             WarehouseCreateDto,
             WarehouseUpdateDto>
     {

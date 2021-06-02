@@ -4,7 +4,10 @@ using System.Text;
 
 namespace EasyAbp.EShop.Inventory.Warehouses.Dtos
 {
-    class GetWarehouseListInput
+    public class GetWarehouseListInput
     {
+        public Guid? StoreId { get; set; }
+
+        public string Filter { get; set; }
     }
 }
