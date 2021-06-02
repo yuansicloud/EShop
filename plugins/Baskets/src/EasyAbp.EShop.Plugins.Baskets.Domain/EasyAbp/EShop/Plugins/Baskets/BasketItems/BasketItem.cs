@@ -50,6 +50,8 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
         
         public virtual bool IsInvalid { get; protected set; }
 
+        public virtual bool IsStatic { get; protected set; }
+
         protected BasketItem()
         {
         }
