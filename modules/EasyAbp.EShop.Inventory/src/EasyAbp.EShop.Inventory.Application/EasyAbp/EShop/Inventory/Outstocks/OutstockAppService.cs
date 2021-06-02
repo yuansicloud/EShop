@@ -7,6 +7,8 @@ using EasyAbp.EShop.Stores.Stores;
 using System.Linq;
 using System.Threading.Tasks;
 using EasyAbp.EShop.Inventory.Stocks;
+using System.Collections.Generic;
+using Volo.Abp;
 
 namespace EasyAbp.EShop.Inventory.Outstocks
 {
@@ -32,12 +34,27 @@ namespace EasyAbp.EShop.Inventory.Outstocks
             _stockManager = stockManager;
         }
 
+
         public override async Task<OutstockDto> CreateAsync(OutstockCreateDto input)
         {
+            await MapOutstockNumber(input);
+
             return await MapToGetOutputDtoAsync(
                 await _stockManager.CreateAsync(
                     await MapToEntityAsync(input)));
 
+        }
+
+        public async Task MultiCreateAsync(List<OutstockCreateDto> input)
+        {
+            var instockNumber = await GenerateOutstockNumber();
+
+            foreach (var dto in input)
+            {
+                await MapOutstockNumber(dto, instockNumber);
+
+                await CreateAsync(dto);
+            }
         }
 
         protected override async Task<IQueryable<Outstock>> CreateFilteredQueryAsync(GetOutstockListInput input)
@@ -51,6 +68,21 @@ namespace EasyAbp.EShop.Inventory.Outstocks
                 .WhereIf(input.CreationEndTime.HasValue, s => s.CreationTime.Date >= input.CreationEndTime.Value.Date)
                 .WhereIf(input.OutstockStartTime.HasValue, s => s.OutstockTime.Date >= input.OutstockStartTime.Value.Date)
                 .WhereIf(input.OutstockEndTime.HasValue, s => s.OutstockTime.Date >= input.OutstockEndTime.Value.Date);
+        }
+
+        protected virtual async Task<OutstockCreateDto> MapOutstockNumber(OutstockCreateDto dto, string instockNumber = null)
+        {
+            if (dto.OutstockNumber.Trim().IsNullOrEmpty())
+            {
+                dto.OutstockNumber = instockNumber ?? await GenerateOutstockNumber();
+            }
+
+            return dto;
+        }
+
+        protected virtual Task<string> GenerateOutstockNumber()
+        {
+            return Task.FromResult("CK" + Clock.Now.ToString("yyyyMMddHHmmssffff") + RandomHelper.GetRandom(0, 99).ToString("00"));
         }
     }
 }

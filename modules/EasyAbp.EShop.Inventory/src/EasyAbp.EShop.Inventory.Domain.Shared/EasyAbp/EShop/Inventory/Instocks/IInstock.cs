@@ -46,6 +46,16 @@
         /// <summary>
         /// 供应商 ID
         /// </summary>
-        Guid SupplierId { get; }
+        //Guid SupplierId { get; }
+
+        /// <summary>
+        /// 入库类型
+        /// </summary>
+        InstockType InstockType { get; }
+
+        /// <summary>
+        /// 入库单号
+        /// </summary>
+        string InstockNumber { get; }
     }
 }

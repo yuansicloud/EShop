@@ -8,6 +8,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Volo.Abp.EventBus.Distributed;
 using EasyAbp.EShop.Inventory.Stocks;
+using System.Collections.Generic;
+using Volo.Abp;
 
 namespace EasyAbp.EShop.Inventory.Instocks
 {
@@ -40,11 +42,24 @@ namespace EasyAbp.EShop.Inventory.Instocks
 
         public override async Task<InstockDto> CreateAsync(InstockCreateDto input)
         {
-            
+            await MapInstockNumber(input);
+
             return await MapToGetOutputDtoAsync(
                 await _stockManager.CreateAsync(
                     await MapToEntityAsync(input)));
 
+        }
+
+        public async Task MultiCreateAsync(List<InstockCreateDto> input)
+        {
+            var instockNumber = await GenerateInstockNumber();
+
+            foreach(var dto in input)
+            {
+                await MapInstockNumber(dto, instockNumber);
+
+                await CreateAsync(dto);
+            }
         }
 
         protected override async Task<IQueryable<Instock>> CreateFilteredQueryAsync(GetInstockListInput input)
@@ -54,11 +69,26 @@ namespace EasyAbp.EShop.Inventory.Instocks
                 .WhereIf(input.ProductSkuId.HasValue, s => s.ProductSkuId == input.ProductSkuId.Value)
                 .WhereIf(input.WarehouseId.HasValue, s => s.WarehouseId == input.WarehouseId.Value)
                 .WhereIf(input.StoreId.HasValue, s => s.StoreId == input.StoreId.Value)
-                .WhereIf(input.SupplierId.HasValue, s => s.SupplierId == input.SupplierId.Value)
+                //.WhereIf(input.SupplierId.HasValue, s => s.SupplierId == input.SupplierId.Value)
                 .WhereIf(input.CreationStartTime.HasValue, s => s.CreationTime.Date >= input.CreationStartTime.Value.Date)
                 .WhereIf(input.CreationEndTime.HasValue, s => s.CreationTime.Date >= input.CreationEndTime.Value.Date)
                 .WhereIf(input.InstockStartTime.HasValue, s => s.InstockTime.Date >= input.InstockStartTime.Value.Date)
                 .WhereIf(input.InstockEndTime.HasValue, s => s.InstockTime.Date >= input.InstockEndTime.Value.Date);
+        }
+
+        protected virtual async Task<InstockCreateDto> MapInstockNumber(InstockCreateDto dto, string instockNumber = null)
+        {
+            if (dto.InstockNumber.Trim().IsNullOrEmpty())
+            {
+                dto.InstockNumber = instockNumber ?? await GenerateInstockNumber();
+            }
+
+            return dto;
+        }
+
+        protected virtual Task<string> GenerateInstockNumber()
+        {
+            return Task.FromResult("RK" + Clock.Now.ToString("yyyyMMddHHmmssffff") + RandomHelper.GetRandom(0, 99).ToString("00"));
         }
     }
 }

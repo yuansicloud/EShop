@@ -51,5 +51,9 @@
         public Guid StoreId { get; set; }
 
         public Guid ProductId { get; set; }
+
+        public OutstockType OutstockType { get; set; }
+
+        public string OutstockNumber { get; set; }
     }
 }

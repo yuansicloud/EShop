@@ -347,6 +347,8 @@ namespace EasyAbp.EShop.Products.Products
         {
             await LoadDtoInventoryDataAsync(product, productDto);
             await LoadDtoPriceDataAsync(product, productDto);
+            await LoadDtoAttributeOptionDisplayNamesAsync(productDto);
+
 
             return productDto;
         }
@@ -370,6 +372,21 @@ namespace EasyAbp.EShop.Products.Products
             }
 
             return productDto;
+        }
+
+        protected virtual Task<ProductDto> LoadDtoAttributeOptionDisplayNamesAsync(ProductDto productDto)
+        {
+            foreach (var productSku in productDto.ProductSkus)
+            {
+                var attributeOptions = productDto.ProductAttributes
+                    .SelectMany(a => a.ProductAttributeOptions);
+
+                productSku.AttributeOptionDisplayNames = productSku.AttributeOptionIds
+                    .Select(i => attributeOptions.SingleOrDefault(o => o.Id == i)?.DisplayName)
+                    .ToList(); 
+            }
+
+            return Task.FromResult(productDto);
         }
 
         public override async Task DeleteAsync(Guid id)

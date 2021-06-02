@@ -53,8 +53,12 @@
         /// <summary>
         /// 供应商ID
         /// </summary>
-        public Guid SupplierId { get; set; }
+        //public Guid SupplierId { get; set; }
 
         public Guid ProductId { get; set; }
+
+        public InstockType InstockType { get; set; }
+
+        public string InstockNumber { get; set; }
     }
 }

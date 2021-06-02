@@ -44,9 +44,44 @@
             入库人
             </summary>
         </member>
-        <member name="P:EasyAbp.EShop.Inventory.Instocks.IInstock.SupplierId">
+        <member name="P:EasyAbp.EShop.Inventory.Instocks.IInstock.InstockType">
             <summary>
-            供应商 ID
+            入库类型
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Inventory.Instocks.IInstock.InstockNumber">
+            <summary>
+            入库单号
+            </summary>
+        </member>
+        <member name="T:EasyAbp.EShop.Inventory.Instocks.InstockType">
+            <summary>
+            入库类型
+            </summary>
+        </member>
+        <member name="F:EasyAbp.EShop.Inventory.Instocks.InstockType.Purchase">
+            <summary>
+            采购
+            </summary>
+        </member>
+        <member name="F:EasyAbp.EShop.Inventory.Instocks.InstockType.InventoryProfit">
+            <summary>
+            盘盈
+            </summary>
+        </member>
+        <member name="F:EasyAbp.EShop.Inventory.Instocks.InstockType.OrderRefund">
+            <summary>
+            订单退货
+            </summary>
+        </member>
+        <member name="F:EasyAbp.EShop.Inventory.Instocks.InstockType.DataRepair">
+            <summary>
+            数据矫正
+            </summary>
+        </member>
+        <member name="F:EasyAbp.EShop.Inventory.Instocks.InstockType.Other">
+            <summary>
+            其他
             </summary>
         </member>
         <member name="P:EasyAbp.EShop.Inventory.Inventories.Address.Street">
@@ -107,6 +142,46 @@
         <member name="P:EasyAbp.EShop.Inventory.Outstocks.IOutstock.Description">
             <summary>
             Gets the Description.
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Inventory.Outstocks.IOutstock.OutstockType">
+            <summary>
+            出库类型
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Inventory.Outstocks.IOutstock.OutstockNumber">
+            <summary>
+            出库单号
+            </summary>
+        </member>
+        <member name="T:EasyAbp.EShop.Inventory.Outstocks.OutstockType">
+            <summary>
+            出库类型
+            </summary>
+        </member>
+        <member name="F:EasyAbp.EShop.Inventory.Outstocks.OutstockType.Sale">
+            <summary>
+            售卖
+            </summary>
+        </member>
+        <member name="F:EasyAbp.EShop.Inventory.Outstocks.OutstockType.InventoryLoss">
+            <summary>
+            盘亏
+            </summary>
+        </member>
+        <member name="F:EasyAbp.EShop.Inventory.Outstocks.OutstockType.Damage">
+            <summary>
+            报损
+            </summary>
+        </member>
+        <member name="F:EasyAbp.EShop.Inventory.Outstocks.OutstockType.InternalUsage">
+            <summary>
+            内部消耗
+            </summary>
+        </member>
+        <member name="F:EasyAbp.EShop.Inventory.Outstocks.OutstockType.Other">
+            <summary>
+            其他
             </summary>
         </member>
         <member name="P:EasyAbp.EShop.Inventory.Reallocations.IReallocation.ProductId">

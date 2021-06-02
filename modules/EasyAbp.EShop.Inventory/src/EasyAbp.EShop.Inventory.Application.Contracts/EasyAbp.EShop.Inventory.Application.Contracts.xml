@@ -99,7 +99,7 @@
             店铺ID
             </summary>
         </member>
-        <member name="P:EasyAbp.EShop.Inventory.Instocks.Dtos.InstockDto.SupplierId">
+        <member name="P:EasyAbp.EShop.Inventory.Instocks.Dtos.InstockDto.ProductId">
             <summary>
             供应商ID
             </summary>

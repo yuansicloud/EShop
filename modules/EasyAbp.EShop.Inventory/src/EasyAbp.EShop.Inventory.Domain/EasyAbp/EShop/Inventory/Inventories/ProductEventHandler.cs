@@ -1,6 +1,7 @@
 ﻿using EasyAbp.EShop.Inventory.Stocks;
 using EasyAbp.EShop.Inventory.Warehouses;
 using EasyAbp.EShop.Products.Products;
+using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Threading.Tasks;
 using Volo.Abp.DependencyInjection;
@@ -17,12 +18,13 @@ namespace EasyAbp.EShop.Inventory.EasyAbp.EShop.Inventory.Inventories
         private readonly IWarehouseManager _warehouseManager;
         private readonly IGuidGenerator _guidGenerator;
         private readonly IStockManager _stockManager;
-
+        private readonly ILogger<ProductEventHandler> _logger;
         public ProductEventHandler(
             IGuidGenerator guidGenerator,
             ICurrentTenant currentTenant,
             IStockRepository stockRepository,
             IStockManager stockManager,
+            ILogger<ProductEventHandler> logger,
             IWarehouseManager warehouseManager)
         {
             _guidGenerator = guidGenerator;
@@ -30,10 +32,13 @@ namespace EasyAbp.EShop.Inventory.EasyAbp.EShop.Inventory.Inventories
             _stockRepository = stockRepository;
             _warehouseManager = warehouseManager;
             _stockManager = stockManager;
+            _logger = logger;
         }
 
         public virtual async Task HandleEventAsync(ProductEto eventData)
         {
+            _logger.LogInformation("收到商品变动事件", eventData);
+
             var warehouse = await _warehouseManager.GetDefaultWarehouse(eventData.StoreId);
 
             foreach (var sku in eventData.ProductSkus)

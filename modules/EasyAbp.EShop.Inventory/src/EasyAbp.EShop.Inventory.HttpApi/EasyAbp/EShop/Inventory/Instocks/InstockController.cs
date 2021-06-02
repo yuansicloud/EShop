@@ -3,6 +3,7 @@
     using EasyAbp.EShop.Inventory.Instocks.Dtos;
     using Microsoft.AspNetCore.Mvc;
     using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using Volo.Abp;
     using Volo.Abp.Application.Dtos;
@@ -72,6 +73,18 @@
         public Task<PagedResultDto<InstockDto>> GetListAsync(GetInstockListInput input)
         {
             return _service.GetListAsync(input);
+        }
+
+        /// <summary>
+        /// 多个创建
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("multi-create")]
+        public Task MultiCreateAsync(List<InstockCreateDto> input)
+        {
+            return _service.MultiCreateAsync(input);
         }
 
         /// <summary>

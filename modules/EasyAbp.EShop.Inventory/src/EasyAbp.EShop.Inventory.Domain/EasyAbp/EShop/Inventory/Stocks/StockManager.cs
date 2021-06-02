@@ -147,5 +147,10 @@ namespace EasyAbp.EShop.Inventory.Stocks
             return await _stockRepository.UpdateAsync(stock);
         }
 
+        protected async Task CheckStockExist(Guid productSkuId, Guid warehouseId)
+        {
+
+        }
+
     }
 }

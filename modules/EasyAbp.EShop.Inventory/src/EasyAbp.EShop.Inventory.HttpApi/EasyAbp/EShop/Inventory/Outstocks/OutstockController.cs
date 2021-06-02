@@ -3,6 +3,7 @@
     using EasyAbp.EShop.Inventory.Outstocks.Dtos;
     using Microsoft.AspNetCore.Mvc;
     using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using Volo.Abp;
     using Volo.Abp.Application.Dtos;
@@ -75,6 +76,18 @@
         }
 
         /// <summary>
+        /// 多个创建
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("multi-create")]
+        public Task MultiCreateAsync(List<OutstockCreateDto> input)
+        {
+            return _service.MultiCreateAsync(input);
+        }
+
+        /// <summary>
         /// 编辑
         /// </summary>
         /// <param name="id">The id<see cref="Guid"/>.</param>
@@ -86,5 +99,7 @@
         {
             return _service.UpdateAsync(id, input);
         }
+
+
     }
 }

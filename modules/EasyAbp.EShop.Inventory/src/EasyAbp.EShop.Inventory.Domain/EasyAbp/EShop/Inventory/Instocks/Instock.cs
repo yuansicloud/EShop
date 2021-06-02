@@ -25,9 +25,13 @@ namespace EasyAbp.EShop.Inventory.Instocks
 
         public Guid? TenantId { get; protected set; }
 
-        public Guid SupplierId { get; protected set; }
+        //public Guid SupplierId { get; protected set; }
 
         public Guid ProductId { get; protected set; }
+
+        public InstockType InstockType { get; protected set; }
+
+        public string InstockNumber { get; protected set; }
 
         protected Instock()
         {
@@ -42,13 +46,14 @@ namespace EasyAbp.EShop.Inventory.Instocks
             decimal unitPrice,
             int units,
             string operatorName,
-            Guid supplierId,
+            //Guid supplierId,
             Guid warehouseId,
             Guid storeId,
+            InstockType instockType,
             Guid? tenantId
         ) : base(id)
         {
-            SupplierId = supplierId;
+            //SupplierId = supplierId;
             InstockTime = instockTime;
             ProductSkuId = productSkuId;
             ProductId = productId;
@@ -59,6 +64,12 @@ namespace EasyAbp.EShop.Inventory.Instocks
             WarehouseId = warehouseId;
             StoreId = storeId;
             TenantId = tenantId;
+            InstockType = instockType;
+        }
+
+        public void SetInstockNumber(string instockNumber)
+        {
+            InstockNumber = instockNumber;
         }
     }
 }

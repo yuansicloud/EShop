@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using EasyAbp.EShop.Inventory.Outstocks.Dtos;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
@@ -13,6 +15,6 @@ namespace EasyAbp.EShop.Inventory.Outstocks
             OutstockCreateDto,
             OutstockUpdateDto>
     {
-
+        Task MultiCreateAsync(List<OutstockCreateDto> input);
     }
 }

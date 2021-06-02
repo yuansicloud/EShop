@@ -42,5 +42,15 @@
         /// Gets the Description.
         /// </summary>
         string Description { get; }
+
+        /// <summary>
+        /// 出库类型
+        /// </summary>
+        OutstockType OutstockType { get; }
+
+        /// <summary>
+        /// 出库单号
+        /// </summary>
+        string OutstockNumber { get; }
     }
 }

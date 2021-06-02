@@ -29,6 +29,10 @@ namespace EasyAbp.EShop.Inventory.Outstocks
 
         public Guid ProductId { get; protected set; }
 
+        public OutstockType OutstockType { get; protected set; }
+
+        public string OutstockNumber { get; protected set; }
+
         protected Outstock()
         {
         }
@@ -44,6 +48,7 @@ namespace EasyAbp.EShop.Inventory.Outstocks
             string description,
             Guid warehouseId,
             Guid storeId,
+            OutstockType outstockType,
             Guid? tenantId
         ) : base(id)
         {
@@ -56,7 +61,13 @@ namespace EasyAbp.EShop.Inventory.Outstocks
             Description = description;
             WarehouseId = warehouseId;
             StoreId = storeId;
+            OutstockType = outstockType;
             TenantId = tenantId;
+        }
+
+        public void SetOutstockNumber(string outstockNumber)
+        {
+            OutstockNumber = outstockNumber;
         }
     }
 }
