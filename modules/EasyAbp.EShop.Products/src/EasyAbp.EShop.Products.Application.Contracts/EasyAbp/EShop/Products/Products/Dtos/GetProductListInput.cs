@@ -23,10 +23,10 @@ namespace EasyAbp.EShop.Products.Products.Dtos
         /// </summary>
         public bool ShowRecursive { get; set; }
 
-        /// <summary>
-        /// 是否显示真实详细库存
-        /// </summary>
-        public bool ShowStock { get; set; } = false;
+        ///// <summary>
+        ///// 是否显示真实详细库存
+        ///// </summary>
+        //public bool ShowStock { get; set; } = false;
 
         /// <summary>
         /// 是否显示隐藏商品（需要权限）
@@ -43,14 +43,14 @@ namespace EasyAbp.EShop.Products.Products.Dtos
         /// </summary>
         public string Filter { get; set; }
 
-        /// <summary>
-        /// 库存记录开始时间
-        /// </summary>
-        public DateTime? TermStartTime { get; set; }
+        ///// <summary>
+        ///// 库存记录开始时间
+        ///// </summary>
+        //public DateTime? TermStartTime { get; set; }
 
-        /// <summary>
-        /// 库存记录结束时间
-        /// </summary>
-        public DateTime? TermEndTime { get; set; }
+        ///// <summary>
+        ///// 库存记录结束时间
+        ///// </summary>
+        //public DateTime? TermEndTime { get; set; }
     }
 }
