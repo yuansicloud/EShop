@@ -45,12 +45,14 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
         public virtual decimal TotalPrice { get; protected set; }
         
         public virtual decimal TotalDiscount { get; protected set; }
-        
+
         public virtual int Inventory { get; protected set; }
         
         public virtual bool IsInvalid { get; protected set; }
 
         public virtual bool IsStatic { get; protected set; }
+
+        public virtual bool IsFixedPrice { get; protected set; }
 
         protected BasketItem()
         {
