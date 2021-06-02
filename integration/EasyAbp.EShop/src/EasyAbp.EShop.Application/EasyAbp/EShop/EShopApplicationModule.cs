@@ -7,7 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.AutoMapper;
 using Volo.Abp.Modularity;
 using Volo.Abp.Application;
-using EasyAbp.EShop.Inventory;
 
 namespace EasyAbp.EShop
 {
@@ -20,8 +19,7 @@ namespace EasyAbp.EShop
         typeof(EShopPaymentsApplicationModule),
         typeof(EShopPluginsApplicationModule),
         typeof(EShopProductsApplicationModule),
-        typeof(EShopStoresApplicationModule),
-        typeof(EShopInventoryApplicationModule)
+        typeof(EShopStoresApplicationModule)
         )]
     public class EShopApplicationModule : AbpModule
     {
