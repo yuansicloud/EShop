@@ -65,7 +65,7 @@ namespace EasyAbp.EShop.Inventory.Instocks
         protected override async Task<IQueryable<Instock>> CreateFilteredQueryAsync(GetInstockListInput input)
         {
             return (await _repository.WithDetailsAsync())
-                .WhereIf(!input.Filter.IsNullOrEmpty(), s => s.Description.Contains(input.Filter))
+                .WhereIf(!input.Filter.IsNullOrEmpty(), s => s.Description.Contains(input.Filter) || s.InstockNumber.Contains(input.Filter))
                 .WhereIf(input.ProductSkuId.HasValue, s => s.ProductSkuId == input.ProductSkuId.Value)
                 .WhereIf(input.WarehouseId.HasValue, s => s.WarehouseId == input.WarehouseId.Value)
                 .WhereIf(input.StoreId.HasValue, s => s.StoreId == input.StoreId.Value)
