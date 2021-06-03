@@ -57,6 +57,6 @@ namespace EasyAbp.EShop.Inventory.Aggregates.Dtos
             }
         }
 
-        public List<ProductSkuStockDetailDto> ProductSkuStockDetails = new();
+        public List<ProductSkuStockDetailDto> ProductSkuStockDetails { get; set; } = new();
     }
 }
