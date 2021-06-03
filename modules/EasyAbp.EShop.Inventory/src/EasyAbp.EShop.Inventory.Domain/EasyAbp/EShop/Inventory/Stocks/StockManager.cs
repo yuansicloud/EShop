@@ -49,7 +49,7 @@ namespace EasyAbp.EShop.Inventory.Stocks
 
         public async Task<Instock> CreateAsync(Instock instock)
         {
-            await _instockRepository.InsertAsync(instock);
+            await _instockRepository.InsertAsync(instock, true);
 
             //TODO: Localize
             await AdjustStock(instock.ProductSkuId, instock.WarehouseId, instock.Units, instock.Description);
@@ -59,7 +59,7 @@ namespace EasyAbp.EShop.Inventory.Stocks
 
         public async Task<Outstock> CreateAsync(Outstock outstock)
         {
-            await _outstockRepository.InsertAsync(outstock);
+            await _outstockRepository.InsertAsync(outstock, true);
 
             //TODO: Localize
             await AdjustStock(outstock.ProductSkuId, outstock.WarehouseId, -outstock.Units, outstock.Description);
