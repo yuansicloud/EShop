@@ -36,6 +36,7 @@ namespace EasyAbp.EShop.Products.Products
 
         public virtual int Threshold { get; protected set; }
 
+        public virtual Guid ProductId { get; protected set; }
 
         protected ProductSku()
         {
@@ -53,6 +54,7 @@ namespace EasyAbp.EShop.Products.Products
             int orderMinQuantity,
             int orderMaxQuantity,
             int threshold,
+            Guid productId,
             bool isFixedPrice,
             [CanBeNull] string mediaResources,
             Guid? productDetailId) : base(id)
@@ -68,6 +70,7 @@ namespace EasyAbp.EShop.Products.Products
             ProductDetailId = productDetailId;
             IsFixedPrice = isFixedPrice;
             Threshold = threshold;
+            ProductId = productId;
 
             ExtraProperties = new ExtraPropertyDictionary();
             this.SetDefaultsForExtraProperties();
