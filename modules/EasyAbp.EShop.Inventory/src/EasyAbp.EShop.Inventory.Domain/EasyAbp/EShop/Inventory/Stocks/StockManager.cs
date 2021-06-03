@@ -28,12 +28,16 @@ namespace EasyAbp.EShop.Inventory.Stocks
             IObjectMapper objectMapper,
             IDistributedEventBus distributedEventBus,
             IUnitOfWorkManager unitOfWorkManager,
-            IStockRepository stockRepository)
+            IStockRepository stockRepository,
+            IInstockRepository instockRepository,
+            IOutstockRepository outstockRepository)
         {
             _objectMapper = objectMapper;
             _distributedEventBus = distributedEventBus;
             _unitOfWorkManager = unitOfWorkManager;
             _stockRepository = stockRepository;
+            _instockRepository = instockRepository;
+            _outstockRepository = outstockRepository;
         }
 
 
