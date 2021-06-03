@@ -51,6 +51,8 @@ namespace EasyAbp.EShop.Inventory.Stocks
         {
             await _instockRepository.InsertAsync(instock, true);
 
+            await CheckStockExist(instock.ProductId, instock.ProductSkuId, instock.WarehouseId, instock.StoreId);
+
             //TODO: Localize
             await AdjustStock(instock.ProductSkuId, instock.WarehouseId, instock.Units, instock.Description);
 
@@ -60,6 +62,8 @@ namespace EasyAbp.EShop.Inventory.Stocks
         public async Task<Outstock> CreateAsync(Outstock outstock)
         {
             await _outstockRepository.InsertAsync(outstock, true);
+
+            await CheckStockExist(outstock.ProductId, outstock.ProductSkuId, outstock.WarehouseId, outstock.StoreId);
 
             //TODO: Localize
             await AdjustStock(outstock.ProductSkuId, outstock.WarehouseId, -outstock.Units, outstock.Description);
@@ -147,9 +151,14 @@ namespace EasyAbp.EShop.Inventory.Stocks
             return await _stockRepository.UpdateAsync(stock);
         }
 
-        protected async Task CheckStockExist(Guid productSkuId, Guid warehouseId)
+        protected async Task CheckStockExist(Guid productId, Guid productSkuId, Guid warehouseId, Guid storeId)
         {
+            var stock = await _stockRepository.FindAsync(s => s.ProductId == productId && s.ProductSkuId == productSkuId && s.WarehouseId == warehouseId && s.StoreId == storeId);
 
+            if (stock == null)
+            {
+                await CreateAsync(new Stock(GuidGenerator.Create(), 0, productSkuId, productId, 0 , 0, true, "系统自动生成库存", warehouseId, storeId, CurrentTenant.Id));
+            }
         }
 
     }
