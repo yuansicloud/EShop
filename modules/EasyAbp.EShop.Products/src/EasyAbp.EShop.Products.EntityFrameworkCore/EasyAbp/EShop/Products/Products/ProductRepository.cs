@@ -49,7 +49,8 @@ namespace EasyAbp.EShop.Products.Products
         public override async Task<IQueryable<Product>> WithDetailsAsync()
         {
             return (await base.WithDetailsAsync())
-                .Include(x => x.ProductAttributes).ThenInclude(x => x.ProductAttributeOptions)
+                .Include(x => x.ProductAttributes)
+                .ThenInclude(x => x.ProductAttributeOptions)
                 .Include(x => x.ProductSkus);
         }
 

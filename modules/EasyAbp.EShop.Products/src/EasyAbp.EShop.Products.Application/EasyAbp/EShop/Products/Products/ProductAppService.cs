@@ -1,6 +1,8 @@
 using EasyAbp.EShop.Inventory.Aggregates;
 using EasyAbp.EShop.Products.Options;
 using EasyAbp.EShop.Products.Permissions;
+using EasyAbp.EShop.Products.ProductCategories;
+using EasyAbp.EShop.Products.ProductCategories.Dtos;
 using EasyAbp.EShop.Products.Products.CacheItems;
 using EasyAbp.EShop.Products.Products.Dtos;
 using EasyAbp.EShop.Stores.Authorization;
@@ -33,7 +35,7 @@ namespace EasyAbp.EShop.Products.Products
         private readonly IAttributeOptionIdsSerializer _attributeOptionIdsSerializer;
         private readonly IProductRepository _repository;
         //private readonly IAggregateAppService _stockAggregateAppService;
-
+        private readonly IProductCategoryRepository _productCategoryRepository;
         public ProductAppService(
             IProductManager productManager,
             IOptions<EShopProductsOptions> options,
@@ -41,6 +43,7 @@ namespace EasyAbp.EShop.Products.Products
             IProductInventoryProvider productInventoryProvider,
             IProductViewCacheKeyProvider productViewCacheKeyProvider,
             IAttributeOptionIdsSerializer attributeOptionIdsSerializer,
+            IProductCategoryRepository productCategoryRepository,
             //IAggregateAppService stockAggregateAppService,
             IProductRepository repository) : base(repository)
         {
@@ -52,6 +55,7 @@ namespace EasyAbp.EShop.Products.Products
             _attributeOptionIdsSerializer = attributeOptionIdsSerializer;
             _repository = repository;
             //_stockAggregateAppService = stockAggregateAppService;
+            _productCategoryRepository = productCategoryRepository;
         }
 
         protected override async Task<IQueryable<Product>> CreateFilteredQueryAsync(GetProductListInput input)
@@ -324,6 +328,22 @@ namespace EasyAbp.EShop.Products.Products
             return productDto;
         }
 
+        protected virtual async Task<ProductDto> LoadDtoProductCategoriesAsync(Product product, ProductDto productDto)
+        {
+            var categories = await _productCategoryRepository.GetListByProductIdAsync(product.Id);
+
+            productDto.ProductCategories = new List<ProductCategoryDto>();
+
+            foreach (var category in categories)
+            {
+                var productCategoryDto = ObjectMapper.Map<ProductCategory, ProductCategoryDto>(category);
+
+                productDto.ProductCategories.Add(productCategoryDto);
+            }
+
+            return productDto;
+        }
+
         //protected virtual async Task<ProductDto> LoadDtoStockDataAsync(ProductDto productDto, DateTime? termStartTime, DateTime? termEndTime)
         //{
         //    var productStockDetail = await _stockAggregateAppService.GetProductStockDetail(productDto.Id, termStartTime, termEndTime);
@@ -348,7 +368,7 @@ namespace EasyAbp.EShop.Products.Products
             await LoadDtoInventoryDataAsync(product, productDto);
             await LoadDtoPriceDataAsync(product, productDto);
             await LoadDtoAttributeOptionDisplayNamesAsync(productDto);
-
+            await LoadDtoProductCategoriesAsync(product, productDto);
 
             return productDto;
         }
