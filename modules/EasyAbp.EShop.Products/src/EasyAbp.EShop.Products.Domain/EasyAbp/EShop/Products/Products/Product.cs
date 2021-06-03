@@ -87,5 +87,15 @@ namespace EasyAbp.EShop.Products.Products
         {
             UniqueName = UniqueName?.Trim();
         }
+
+        public void TogglePublished(bool isPublished)
+        {
+            IsPublished = isPublished;
+        }
+
+        public void ToggleHidden(bool isHidden)
+        {
+            IsHidden = isHidden;
+        }
     }
 }

@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Caching;
 using Volo.Abp.Domain.Entities;
@@ -584,6 +585,88 @@ namespace EasyAbp.EShop.Products.Products
                     Description = x.Value.Description
                 }
             ).ToList()));
+        }
+
+        public virtual async Task<ProductDto> ChangeProductSkuThreshold(Guid productId, ChangeProductSkuThresholdDto input)
+        {
+            var product = await GetEntityByIdAsync(productId);
+
+            await CheckMultiStorePolicyAsync(product.StoreId, UpdatePolicyName);
+
+            CheckProductIsNotStatic(product);
+
+            var sku = product.ProductSkus.SingleOrDefault(s => s.Id == input.ProductSkuId);
+
+            if (sku is null)
+            {
+                throw new UserFriendlyException("SKU²»´æÔÚ");
+            }
+
+            sku.SetThreshold(input.Threshold);
+
+            await _repository.UpdateAsync(product, autoSave: true);
+
+            var dto = await MapToGetOutputDtoAsync(product);
+
+            await LoadDtoExtraDataAsync(product, dto);
+            await LoadDtosProductGroupDisplayNameAsync(new[] { dto });
+
+            UnitOfWorkManager.Current.OnCompleted(async () =>
+            {
+                await ClearProductViewCacheAsync(product.StoreId);
+            });
+
+            return dto;
+        }
+
+        public virtual async Task<ProductDto> ChangeProductPublished(Guid productId, ChangeProductPublishedDto input)
+        {
+            var product = await GetEntityByIdAsync(productId);
+
+            await CheckMultiStorePolicyAsync(product.StoreId, UpdatePolicyName);
+
+            CheckProductIsNotStatic(product);
+
+            product.TogglePublished(input.IsPublished);
+
+            await _repository.UpdateAsync(product, autoSave: true);
+
+            var dto = await MapToGetOutputDtoAsync(product);
+
+            await LoadDtoExtraDataAsync(product, dto);
+            await LoadDtosProductGroupDisplayNameAsync(new[] { dto });
+
+            UnitOfWorkManager.Current.OnCompleted(async () =>
+            {
+                await ClearProductViewCacheAsync(product.StoreId);
+            });
+
+            return dto;
+        }
+
+        public virtual async Task<ProductDto> ChangeProductHidden(Guid productId, ChangeProductHiddenDto input)
+        {
+            var product = await GetEntityByIdAsync(productId);
+
+            await CheckMultiStorePolicyAsync(product.StoreId, UpdatePolicyName);
+
+            CheckProductIsNotStatic(product);
+
+            product.ToggleHidden(input.IsHidden);
+
+            await _repository.UpdateAsync(product, autoSave: true);
+
+            var dto = await MapToGetOutputDtoAsync(product);
+
+            await LoadDtoExtraDataAsync(product, dto);
+            await LoadDtosProductGroupDisplayNameAsync(new[] { dto });
+
+            UnitOfWorkManager.Current.OnCompleted(async () =>
+            {
+                await ClearProductViewCacheAsync(product.StoreId);
+            });
+
+            return dto;
         }
     }
 }

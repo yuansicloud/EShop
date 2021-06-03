@@ -82,5 +82,10 @@ namespace EasyAbp.EShop.Products.Products
         {
             SerializedAttributeOptionIds = serializedAttributeOptionIds;
         }
+
+        public void SetThreshold(int threshold)
+        {
+            Threshold = threshold;
+        }
     }
 }

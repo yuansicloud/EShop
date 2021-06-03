@@ -165,5 +165,26 @@
         {
             return _service.UpdateSkuListAsync(productId, input);
         }
+
+        [HttpPut]
+        [Route("{productId}/sku/change-threshold")]
+        public Task<ProductDto> ChangeProductSkuThreshold(Guid productId, ChangeProductSkuThresholdDto input)
+        {
+            return _service.ChangeProductSkuThreshold(productId, input);
+        }
+
+        [HttpPut]
+        [Route("{productId}/change-published")]
+        public Task<ProductDto> ChangeProductPublished(Guid productId, ChangeProductPublishedDto input)
+        {
+            return _service.ChangeProductPublished(productId, input);
+        }
+
+        [HttpPut]
+        [Route("{productId}/change-hidden")]
+        public Task<ProductDto> ChangeProductHidden(Guid productId, ChangeProductHiddenDto input)
+        {
+            return _service.ChangeProductHidden(productId, input);
+        }
     }
 }

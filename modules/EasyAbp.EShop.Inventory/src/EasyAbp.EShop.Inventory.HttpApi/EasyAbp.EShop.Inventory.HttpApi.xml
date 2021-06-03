@@ -64,6 +64,13 @@
             <param name="input">The input<see cref="T:Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto"/>.</param>
             <returns>The <see cref="!:Task&lt;PagedResultDto&lt;InstockDto&gt;&gt;"/>.</returns>
         </member>
+        <member name="M:EasyAbp.EShop.Inventory.Instocks.InstockController.MultiCreateAsync(System.Collections.Generic.List{EasyAbp.EShop.Inventory.Instocks.Dtos.InstockCreateDto})">
+            <summary>
+            多个创建
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="M:EasyAbp.EShop.Inventory.Instocks.InstockController.UpdateAsync(System.Guid,EasyAbp.EShop.Inventory.Instocks.Dtos.InstockUpdateDto)">
             <summary>
             编辑
@@ -115,6 +122,13 @@
             </summary>
             <param name="input">The input<see cref="T:Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto"/>.</param>
             <returns>The <see cref="!:Task&lt;PagedResultDto&lt;OutstockDto&gt;&gt;"/>.</returns>
+        </member>
+        <member name="M:EasyAbp.EShop.Inventory.Outstocks.OutstockController.MultiCreateAsync(System.Collections.Generic.List{EasyAbp.EShop.Inventory.Outstocks.Dtos.OutstockCreateDto})">
+            <summary>
+            多个创建
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
         </member>
         <member name="M:EasyAbp.EShop.Inventory.Outstocks.OutstockController.UpdateAsync(System.Guid,EasyAbp.EShop.Inventory.Outstocks.Dtos.OutstockUpdateDto)">
             <summary>
@@ -317,11 +331,11 @@
             <param name="id">The id<see cref="T:System.Guid"/>.</param>
             <returns>The <see cref="T:System.Threading.Tasks.Task`1"/>.</returns>
         </member>
-        <member name="M:EasyAbp.EShop.Inventory.Warehouses.WarehouseController.GetListAsync(Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto)">
+        <member name="M:EasyAbp.EShop.Inventory.Warehouses.WarehouseController.GetListAsync(EasyAbp.EShop.Inventory.Warehouses.Dtos.GetWarehouseListInput)">
             <summary>
             列表
             </summary>
-            <param name="input">The input<see cref="T:Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto"/>.</param>
+            <param name="input">The input<see cref="T:EasyAbp.EShop.Inventory.Warehouses.Dtos.GetWarehouseListInput"/>.</param>
             <returns>The <see cref="!:Task&lt;PagedResultDto&lt;WarehouseDto&gt;&gt;"/>.</returns>
         </member>
         <member name="M:EasyAbp.EShop.Inventory.Warehouses.WarehouseController.UpdateAsync(System.Guid,EasyAbp.EShop.Inventory.Warehouses.Dtos.WarehouseUpdateDto)">

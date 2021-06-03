@@ -26,5 +26,11 @@ namespace EasyAbp.EShop.Products.Products
         Task<ProductDto> UpdateSkuListAsync(Guid productId, List<CreateProductSkuDto> input);
 
         Task<ListResultDto<ProductGroupDto>> GetProductGroupListAsync();
+
+        Task<ProductDto> ChangeProductSkuThreshold(Guid productId, ChangeProductSkuThresholdDto input);
+
+        Task<ProductDto> ChangeProductPublished(Guid productId, ChangeProductPublishedDto input);
+
+        Task<ProductDto> ChangeProductHidden(Guid productId, ChangeProductHiddenDto input);
     }
 }
