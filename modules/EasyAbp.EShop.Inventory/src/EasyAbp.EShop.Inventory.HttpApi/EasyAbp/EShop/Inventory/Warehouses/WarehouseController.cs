@@ -66,10 +66,10 @@
         /// <summary>
         /// 列表
         /// </summary>
-        /// <param name="input">The input<see cref="PagedAndSortedResultRequestDto"/>.</param>
+        /// <param name="input">The input<see cref="GetWarehouseListInput"/>.</param>
         /// <returns>The <see cref="Task{PagedResultDto{WarehouseDto}}"/>.</returns>
         [HttpGet]
-        public Task<PagedResultDto<WarehouseDto>> GetListAsync(PagedAndSortedResultRequestDto input)
+        public Task<PagedResultDto<WarehouseDto>> GetListAsync(GetWarehouseListInput input)
         {
             return _service.GetListAsync(input);
         }
