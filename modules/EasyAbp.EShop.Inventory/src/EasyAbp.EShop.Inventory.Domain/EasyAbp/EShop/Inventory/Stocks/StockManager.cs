@@ -39,7 +39,7 @@ namespace EasyAbp.EShop.Inventory.Stocks
 
         public async Task<Stock> CreateAsync(Stock stock)
         {
-            await _stockRepository.InsertAsync(stock);
+            await _stockRepository.InsertAsync(stock, true);
 
             //TODO: Localize
             await AdjustStock(stock.ProductSkuId, stock.WarehouseId, 0, "初始化库存");
