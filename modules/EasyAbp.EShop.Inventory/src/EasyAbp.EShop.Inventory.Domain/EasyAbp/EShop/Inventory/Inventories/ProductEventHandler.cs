@@ -9,6 +9,7 @@ using Volo.Abp.Domain.Entities.Events.Distributed;
 using Volo.Abp.EventBus.Distributed;
 using Volo.Abp.Guids;
 using Volo.Abp.MultiTenancy;
+using Volo.Abp.Uow;
 
 namespace EasyAbp.EShop.Inventory.EasyAbp.EShop.Inventory.Inventories
 {
@@ -36,6 +37,7 @@ namespace EasyAbp.EShop.Inventory.EasyAbp.EShop.Inventory.Inventories
             _logger = logger;
         }
 
+        [UnitOfWork]
         public virtual async Task HandleEventAsync(EntityUpdatedEto<ProductEto> eventData)
         {
             _logger.LogInformation("收到商品变动事件", eventData);
@@ -57,6 +59,7 @@ namespace EasyAbp.EShop.Inventory.EasyAbp.EShop.Inventory.Inventories
             }
         }
 
+        [UnitOfWork]
         public virtual async Task HandleEventAsync(EntityCreatedEto<ProductEto> eventData)
         {
             _logger.LogInformation("收到商品变动事件", eventData);
