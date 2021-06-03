@@ -72,7 +72,7 @@ namespace EasyAbp.EShop.Inventory.Outstocks
 
         protected virtual async Task<OutstockCreateDto> MapOutstockNumber(OutstockCreateDto dto, string instockNumber = null)
         {
-            if (dto.OutstockNumber.Trim().IsNullOrEmpty())
+            if (dto.OutstockNumber.IsNullOrEmpty())
             {
                 dto.OutstockNumber = instockNumber ?? await GenerateOutstockNumber();
             }

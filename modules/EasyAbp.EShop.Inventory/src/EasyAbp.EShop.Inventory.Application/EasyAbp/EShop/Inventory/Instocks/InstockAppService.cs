@@ -78,7 +78,7 @@ namespace EasyAbp.EShop.Inventory.Instocks
 
         protected virtual async Task<InstockCreateDto> MapInstockNumber(InstockCreateDto dto, string instockNumber = null)
         {
-            if (dto.InstockNumber.Trim().IsNullOrEmpty())
+            if (dto.InstockNumber.IsNullOrEmpty())
             {
                 dto.InstockNumber = instockNumber ?? await GenerateInstockNumber();
             }
