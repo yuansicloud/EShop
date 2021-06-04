@@ -165,5 +165,9 @@ namespace EasyAbp.EShop.Inventory.Stocks
             }
         }
 
+        public Task<List<Stock>> GetStockListAsync(Guid productId, Guid productSkuId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
