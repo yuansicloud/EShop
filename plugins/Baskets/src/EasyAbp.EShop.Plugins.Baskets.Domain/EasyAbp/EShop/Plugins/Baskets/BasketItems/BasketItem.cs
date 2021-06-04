@@ -12,7 +12,7 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
         [NotNull]
         public virtual string BasketName { get; protected set; }
         
-        public virtual Guid UserId { get; protected set; }
+        public virtual Guid IdentifierId { get; protected set; }
         
         public virtual Guid StoreId { get; protected set; }
         
@@ -62,14 +62,14 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
             Guid id,
             Guid? tenantId,
             [NotNull] string basketName,
-            Guid userId,
+            Guid identifierId,
             Guid storeId,
             Guid productId,
             Guid productSkuId) : base(id)
         {
             TenantId = tenantId;
             BasketName = basketName;
-            UserId = userId;
+            IdentifierId = identifierId;
             StoreId = storeId;
             ProductId = productId;
             ProductSkuId = productSkuId;

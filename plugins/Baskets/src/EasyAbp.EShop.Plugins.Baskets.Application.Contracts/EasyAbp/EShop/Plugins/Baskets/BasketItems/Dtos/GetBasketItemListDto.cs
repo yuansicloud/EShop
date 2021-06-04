@@ -13,6 +13,6 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems.Dtos
         /// <summary>
         /// Specify the basket item owner user ID. Use current user ID if this property is null.
         /// </summary>
-        public Guid? UserId { get; set; }
+        public Guid? IdentifierId { get; set; }
     }
 }

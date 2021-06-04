@@ -50,7 +50,7 @@ namespace EasyAbp.EShop.Plugins.Baskets.EntityFrameworkCore
 
                 /* Configure more properties here */
 
-                b.HasIndex(x => x.UserId);
+                b.HasIndex(x => x.IdentifierId);
                 b.Property(x => x.UnitPrice).HasColumnType("decimal(20,8)");
                 b.Property(x => x.TotalPrice).HasColumnType("decimal(20,8)");
                 b.Property(x => x.TotalDiscount).HasColumnType("decimal(20,8)");

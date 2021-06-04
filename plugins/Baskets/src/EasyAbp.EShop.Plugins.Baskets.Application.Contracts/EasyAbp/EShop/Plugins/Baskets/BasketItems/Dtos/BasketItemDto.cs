@@ -8,7 +8,7 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems.Dtos
     {
         public string BasketName { get; set; }
 
-        public Guid UserId { get; set; }
+        public Guid IdentifierId { get; set; }
         
         public Guid StoreId { get; set; }
 
