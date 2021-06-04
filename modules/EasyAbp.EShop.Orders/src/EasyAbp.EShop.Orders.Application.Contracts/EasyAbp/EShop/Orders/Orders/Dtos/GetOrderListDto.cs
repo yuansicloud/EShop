@@ -11,6 +11,12 @@ namespace EasyAbp.EShop.Orders.Orders.Dtos
         
         public Guid? CustomerUserId { get; set; }
 
+        public Guid? StaffUserId { get; set; }
+
+        public Guid? OccupantId { get; set; }
+
+        public Guid? GraveId { get; set; }
+
         [Range(1, 100)]
         public override int MaxResultCount { get; set; } = DefaultMaxResultCount;
     }

@@ -9,7 +9,13 @@ namespace EasyAbp.EShop.Orders.Orders
         string OrderNumber { get; }
         
         Guid CustomerUserId { get; }
-        
+
+        Guid? StaffUserId { get; }
+
+        Guid? OccupantId { get; }
+
+        Guid? GraveId { get; }
+
         OrderStatus OrderStatus { get; }
 
         string Currency { get; }

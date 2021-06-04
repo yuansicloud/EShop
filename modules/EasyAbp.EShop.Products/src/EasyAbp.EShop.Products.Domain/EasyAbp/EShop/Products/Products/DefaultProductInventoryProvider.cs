@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EasyAbp.EShop.Inventory.Stocks;
 using EasyAbp.EShop.Products.ProductInventories;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.EventBus.Distributed;
@@ -15,7 +16,7 @@ namespace EasyAbp.EShop.Products.Products
         private readonly IUnitOfWorkManager _unitOfWorkManager;
         private readonly IDistributedEventBus _distributedEventBus;
         private readonly IProductInventoryRepository _productInventoryRepository;
-
+        //private readonly IStockManager _stockManager;
         public DefaultProductInventoryProvider(
             IUnitOfWorkManager unitOfWorkManager,
             IDistributedEventBus distributedEventBus,
@@ -28,7 +29,17 @@ namespace EasyAbp.EShop.Products.Products
         
         public virtual async Task<InventoryDataModel> GetInventoryDataAsync(Product product, ProductSku productSku)
         {
-            return await _productInventoryRepository.GetInventoryDataAsync(productSku.Id);
+            //var stocks = await _stockManager.GetStockListAsync(product.Id, productSku.Id);
+
+            //return new InventoryDataModel
+            //{
+            //    Inventory = stocks.Sum(s => s.Quantity - s.LockedQuantity)
+            //};
+
+            return new InventoryDataModel { 
+                Inventory = 100,
+                Sold = 100
+            };
         }
 
         public virtual async Task<Dictionary<Guid, InventoryDataModel>> GetInventoryDataDictionaryAsync(Product product)

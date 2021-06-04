@@ -54,6 +54,21 @@ namespace EasyAbp.EShop.Orders.Orders
                 query = query.Where(x => x.CustomerUserId == input.CustomerUserId.Value);
             }
 
+            if (input.StaffUserId.HasValue)
+            {
+                query = query.Where(x => x.StaffUserId == input.StaffUserId.Value);
+            }
+
+            if (input.GraveId.HasValue)
+            {
+                query = query.Where(x => x.GraveId == input.GraveId.Value);
+            }
+
+            if (input.OccupantId .HasValue)
+            {
+                query = query.Where(x => x.OccupantId == input.OccupantId.Value);
+            }
+
             return query;
         }
 

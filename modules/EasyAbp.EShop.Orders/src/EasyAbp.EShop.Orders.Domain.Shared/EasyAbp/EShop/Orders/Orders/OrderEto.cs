@@ -53,5 +53,11 @@ namespace EasyAbp.EShop.Orders.Orders
         public List<OrderLineEto> OrderLines { get; set; }
         
         public ExtraPropertyDictionary ExtraProperties { get; set; }
+
+        public Guid? StaffUserId { get; set; }
+
+        public Guid? OccupantId { get; set; }
+
+        public Guid? GraveId { get; set; }
     }
 }

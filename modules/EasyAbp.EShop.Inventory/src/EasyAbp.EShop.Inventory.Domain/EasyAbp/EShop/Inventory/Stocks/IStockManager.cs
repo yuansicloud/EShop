@@ -15,6 +15,8 @@ namespace EasyAbp.EShop.Inventory.Stocks
 
         Task<Stock> UpdateAsync(Stock stock);
 
+        Task<List<Stock>> GetStockListAsync(Guid productId, Guid productSkuId);
+
         Task DeleteAsync(Stock stock);
 
         Task DeleteInventoryAsync(Guid id);

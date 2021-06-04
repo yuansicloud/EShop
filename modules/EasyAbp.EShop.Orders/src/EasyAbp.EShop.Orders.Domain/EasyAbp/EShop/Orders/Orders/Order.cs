@@ -62,6 +62,12 @@ namespace EasyAbp.EShop.Orders.Orders
         
         public virtual List<OrderExtraFee> OrderExtraFees { get; protected set; }
 
+        public virtual Guid? StaffUserId { get; protected set; }
+
+        public virtual Guid? OccupantId { get; protected set; }
+
+        public virtual Guid? GraveId { get; protected set; }
+
         protected Order()
         {
         }
@@ -76,7 +82,10 @@ namespace EasyAbp.EShop.Orders.Orders
             decimal totalDiscount,
             decimal totalPrice,
             decimal actualTotalPrice,
-            [CanBeNull] string customerRemark
+            [CanBeNull] string customerRemark,
+            Guid? staffUserId = null,
+            Guid? occupantId = null,
+            Guid? graveId = null
         ) : base(id)
         {
             TenantId = tenantId;
@@ -90,7 +99,11 @@ namespace EasyAbp.EShop.Orders.Orders
             CustomerRemark = customerRemark;
 
             RefundAmount = 0;
-            
+
+            StaffUserId = staffUserId;
+            OccupantId = occupantId;
+            GraveId = graveId;
+
             OrderStatus = OrderStatus.Pending;
             OrderLines = new List<OrderLine>();
             OrderExtraFees = new List<OrderExtraFee>();

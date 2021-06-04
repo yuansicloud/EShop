@@ -1,18 +1,17 @@
+using EasyAbp.EShop.Plugins.Baskets.BasketItems.Dtos;
+using EasyAbp.EShop.Plugins.Baskets.Permissions;
+using EasyAbp.EShop.Plugins.Baskets.ProductUpdates;
+using EasyAbp.EShop.Products.Products;
+using EasyAbp.EShop.Products.Products.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EasyAbp.EShop.Plugins.Baskets.Permissions;
-using EasyAbp.EShop.Plugins.Baskets.BasketItems.Dtos;
-using EasyAbp.EShop.Plugins.Baskets.ProductUpdates;
-using EasyAbp.EShop.Products.ProductInventories;
-using EasyAbp.EShop.Products.Products;
-using EasyAbp.EShop.Products.Products.Dtos;
-using Microsoft.AspNetCore.Authorization;
+using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Authorization;
-using Volo.Abp.Domain.Entities;
 using Volo.Abp.Users;
 
 namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
@@ -48,14 +47,14 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
             await CheckGetPolicyAsync();
 
             var item = await GetEntityByIdAsync(id);
-            
+
             if (item.UserId != CurrentUser.GetId() && !await IsCurrentUserManagerAsync())
             {
                 throw new AbpAuthorizationException();
             }
 
             var productUpdate = await _productUpdateRepository.FindAsync(x => x.ProductSkuId == item.ProductSkuId);
-            
+
             if (productUpdate != null)
             {
                 var itemUpdateTime = item.LastModificationTime ?? item.CreationTime;
@@ -64,9 +63,9 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
                 if (itemUpdateTime < productUpdateTime)
                 {
                     var productDto = await _productAppService.GetAsync(item.ProductId);
-                    
+
                     await UpdateProductDataAsync(item.Quantity, item, productDto);
-                    
+
                     await _repository.UpdateAsync(item, true);
                 }
             }
@@ -77,7 +76,7 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
         public override async Task<PagedResultDto<BasketItemDto>> GetListAsync(GetBasketItemListDto input)
         {
             await CheckGetListPolicyAsync();
-            
+
             if (input.UserId != CurrentUser.GetId())
             {
                 await AuthorizationService.CheckAsync(BasketsPermissions.BasketItem.Manage);
@@ -128,11 +127,11 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
 
             return new PagedResultDto<BasketItemDto>(
                 totalCount,
-                await MapToGetListOutputDtosAsync(items)
+                await MapToGetListOutputDtosAsync(items.OrderBy(x => !x.IsStatic).ToList())
             );
         }
-        
-        protected virtual async Task UpdateProductDataAsync(int quantity, BasketItem item, ProductDto productDto)
+
+        protected virtual async Task UpdateProductDataAsync(int quantity, BasketItem item, ProductDto productDto, decimal? unitPrice = null, decimal totalDiscount = 0)
         {
             item.SetIsInvalid(false);
 
@@ -141,15 +140,20 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
             if (productSkuDto == null)
             {
                 item.SetIsInvalid(true);
-                
+
                 return;
+            }
+
+            if (productSkuDto.IsFixedPrice && unitPrice.HasValue && unitPrice.Value != productSkuDto.DiscountedPrice)
+            {
+                throw new UserFriendlyException("非可调价商品！");
             }
 
             if (productDto.InventoryStrategy != InventoryStrategy.NoNeed && quantity > productSkuDto.Inventory)
             {
                 item.SetIsInvalid(true);
             }
-            
+
             item.UpdateProductData(quantity, new ProductDataModel
             {
                 MediaResources = productSkuDto.MediaResources ?? productDto.MediaResources,
@@ -160,7 +164,7 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
                 Currency = productSkuDto.Currency,
                 UnitPrice = productSkuDto.DiscountedPrice,
                 TotalPrice = productSkuDto.DiscountedPrice * item.Quantity,
-                TotalDiscount = (productSkuDto.Price - productSkuDto.DiscountedPrice) * item.Quantity,
+                TotalDiscount = totalDiscount, //(productSkuDto.Price - productSkuDto.DiscountedPrice) * item.Quantity,
                 Inventory = productSkuDto.Inventory
             });
 
@@ -173,7 +177,7 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
         protected override async Task<IQueryable<BasketItem>> CreateFilteredQueryAsync(GetBasketItemListDto input)
         {
             var userId = input.UserId ?? CurrentUser.GetId();
-            
+
             return ReadOnlyRepository.Where(item => item.UserId == userId && item.BasketName == input.BasketName);
         }
 
@@ -196,12 +200,12 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
             if (item != null)
             {
                 await UpdateProductDataAsync(input.Quantity + item.Quantity, item, productDto);
-            
+
                 await Repository.UpdateAsync(item, autoSave: true);
 
                 return await MapToGetOutputDtoAsync(item);
             }
-            
+
             var productSkuDto = productDto.FindSkuById(input.ProductSkuId);
 
             if (productSkuDto == null)
@@ -213,7 +217,7 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
                 productDto.StoreId, input.ProductId, input.ProductSkuId);
 
             await UpdateProductDataAsync(input.Quantity, item, productDto);
-            
+
             await Repository.InsertAsync(item, autoSave: true);
 
             return await MapToGetOutputDtoAsync(item);
@@ -224,7 +228,7 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
             await CheckUpdatePolicyAsync();
 
             var item = await GetEntityByIdAsync(id);
-            
+
             if (item.UserId != CurrentUser.GetId() && !await IsCurrentUserManagerAsync())
             {
                 throw new AbpAuthorizationException();
@@ -232,8 +236,8 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
 
             var productDto = await _productAppService.GetAsync(item.ProductId);
 
-            await UpdateProductDataAsync(input.Quantity, item, productDto);
-            
+            await UpdateProductDataAsync(input.Quantity, item, productDto, input.UnitPrice, input.TotalDiscount);
+
             await Repository.UpdateAsync(item, autoSave: true);
 
             return await MapToGetOutputDtoAsync(item);
@@ -249,20 +253,20 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
             {
                 throw new AbpAuthorizationException();
             }
-            
+
             await _repository.DeleteAsync(item, true);
         }
 
         public virtual async Task DeleteInBulkAsync(IEnumerable<Guid> ids)
         {
             await CheckDeletePolicyAsync();
-            
+
             var isCurrentUserManager = await IsCurrentUserManagerAsync();
-            
+
             foreach (var id in ids)
             {
                 var item = await GetEntityByIdAsync(id);
-                
+
                 if (item.UserId != CurrentUser.GetId() && !isCurrentUserManager)
                 {
                     throw new AbpAuthorizationException();

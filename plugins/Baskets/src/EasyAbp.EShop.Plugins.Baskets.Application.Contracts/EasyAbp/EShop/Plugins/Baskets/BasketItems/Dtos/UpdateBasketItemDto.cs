@@ -10,6 +10,10 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems.Dtos
     {
         public int Quantity { get; set; }
         
+        public decimal? UnitPrice { get; set; }
+
+        public decimal TotalDiscount { get; set; }
+
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             base.Validate(validationContext);
