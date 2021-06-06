@@ -39,5 +39,9 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems.Dtos
         public int Inventory { get; set; }
         
         public bool IsInvalid { get; set; }
+
+        public virtual bool IsStatic { get; protected set; }
+
+        public virtual bool IsFixedPrice { get; protected set; }
     }
 }
