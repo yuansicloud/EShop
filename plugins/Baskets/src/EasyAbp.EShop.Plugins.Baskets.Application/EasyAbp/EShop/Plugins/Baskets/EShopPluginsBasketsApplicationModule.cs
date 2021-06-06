@@ -3,11 +3,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.AutoMapper;
 using Volo.Abp.Modularity;
 using Volo.Abp.Application;
+using EasyAbp.EShop.Orders;
 
 namespace EasyAbp.EShop.Plugins.Baskets
 {
     [DependsOn(
         typeof(EShopPluginsBasketsDomainModule),
+        typeof(EShopOrdersApplicationContractsModule),
         typeof(EShopPluginsBasketsApplicationContractsModule),
         typeof(EShopProductsApplicationContractsModule),
         typeof(AbpDddApplicationModule),

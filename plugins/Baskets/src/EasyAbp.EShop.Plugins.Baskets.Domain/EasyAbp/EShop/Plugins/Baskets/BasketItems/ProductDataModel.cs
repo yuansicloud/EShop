@@ -21,5 +21,7 @@
         public decimal TotalDiscount { get; set; }
         
         public int Inventory { get; set; }
+
+        public bool IsFixedPrice { get; set; }
     }
 }

@@ -15,5 +15,9 @@ namespace EasyAbp.EShop.Orders.Orders.Dtos
         
         [DisplayName("OrderLineQuantity")]
         public int Quantity { get; set; }
+
+        public decimal? UnitPrice { get; set; }
+
+        public decimal? TotalDiscount { get; set; }
     }
 }

@@ -16,5 +16,7 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
             UpdateBasketItemDto>
     {
         Task DeleteInBulkAsync(IEnumerable<Guid> ids);
+
+        Task CreateOrderFromBasket(CreateOrderFromBasketInput input);
     }
 }

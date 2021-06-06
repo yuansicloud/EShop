@@ -1,3 +1,5 @@
+using EasyAbp.EShop.Orders.Orders;
+using EasyAbp.EShop.Orders.Orders.Dtos;
 using EasyAbp.EShop.Plugins.Baskets.BasketItems.Dtos;
 using EasyAbp.EShop.Plugins.Baskets.Permissions;
 using EasyAbp.EShop.Plugins.Baskets.ProductUpdates;
@@ -29,17 +31,19 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
         private readonly IProductUpdateRepository _productUpdateRepository;
         private readonly IProductAppService _productAppService;
         private readonly IProductSkuDescriptionProvider _productSkuDescriptionProvider;
-
+        private readonly IOrderAppService _orderAppService;
         public BasketItemAppService(
             IBasketItemRepository repository,
             IProductUpdateRepository productUpdateRepository,
             IProductAppService productAppService,
+            IOrderAppService orderAppService,
             IProductSkuDescriptionProvider productSkuDescriptionProvider) : base(repository)
         {
             _repository = repository;
             _productUpdateRepository = productUpdateRepository;
             _productAppService = productAppService;
             _productSkuDescriptionProvider = productSkuDescriptionProvider;
+            _orderAppService = orderAppService;
         }
 
         public override async Task<BasketItemDto> GetAsync(Guid id)
@@ -165,13 +169,15 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
                 UnitPrice = unitPrice ?? productSkuDto.DiscountedPrice,
                 TotalPrice = (unitPrice ?? productSkuDto.DiscountedPrice) * quantity,
                 TotalDiscount = totalDiscount, //(productSkuDto.Price - productSkuDto.DiscountedPrice) * item.Quantity,
-                Inventory = productSkuDto.Inventory
+                Inventory = productSkuDto.Inventory,
+                IsFixedPrice = productSkuDto.IsFixedPrice
             });
 
             if (!productDto.IsPublished)
             {
                 item.SetIsInvalid(true);
             }
+
         }
 
         protected override async Task<IQueryable<BasketItem>> CreateFilteredQueryAsync(GetBasketItemListDto input)
@@ -274,6 +280,42 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
 
                 await _repository.DeleteAsync(item);
             }
+        }
+
+        public virtual async Task CreateOrderFromBasket(CreateOrderFromBasketInput input)
+        {
+            var basketItems = await GetListAsync(new GetBasketItemListDto { 
+                BasketName = input.BasketName,
+                IdentifierId = input.IdentifierId ?? CurrentUser.GetId(),
+                MaxResultCount = 999
+            });
+
+            if (basketItems.Items.Where(i => i.IsInvalid).Count() > 0)
+            {
+                throw new UserFriendlyException("购物车存在失效商品, 请先删除!");
+            }
+
+            var orderLines = basketItems.Items.Select(i => new CreateOrderLineDto { 
+                ProductId = i.ProductId,
+                ProductSkuId = i.ProductSkuId,
+                Quantity = i.Quantity,
+                TotalDiscount = i.TotalDiscount,
+                UnitPrice = i.IsFixedPrice ? null : i.UnitPrice
+            });
+
+            await _orderAppService.CreateAsync(new CreateOrderDto
+            {
+                CustomerRemark = input.CustomerRemark,
+                StaffRemark = input.StaffRemark,
+                CustomerUserId = input.CustomerUserId ?? CurrentUser.GetId(),
+                GraveId = input.GraveId,
+                OccupantId = input.OccupantId,
+                StaffUserId = input.StaffUserId,
+                StoreId = input.StoreId,
+                OrderLines = orderLines.ToList()
+            });
+
+            await DeleteInBulkAsync(basketItems.Items.Select(i => i.Id));
         }
 
         protected virtual async Task<bool> IsCurrentUserManagerAsync()
