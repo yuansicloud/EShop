@@ -185,9 +185,9 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
         {
             await CheckCreatePolicyAsync();
 
-            var userId = input.IdentifierId ?? CurrentUser.GetId();
+            var identifierId = input.IdentifierId ?? CurrentUser.GetId();
 
-            if (userId != CurrentUser.GetId() && !await IsCurrentUserManagerAsync())
+            if (identifierId != CurrentUser.GetId() && !await IsCurrentUserManagerAsync())
             {
                 throw new AbpAuthorizationException();
             }
@@ -195,7 +195,7 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
             var productDto = await _productAppService.GetAsync(input.ProductId);
 
             var item = await _repository.FindAsync(x =>
-                x.IdentifierId == userId && x.BasketName == input.BasketName && x.ProductSkuId == input.ProductSkuId);
+                x.IdentifierId == identifierId && x.BasketName == input.BasketName && x.ProductSkuId == input.ProductSkuId);
 
             if (item != null)
             {
@@ -213,7 +213,7 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
                 throw new ProductSkuNotFoundException(input.ProductId, input.ProductSkuId);
             }
 
-            item = new BasketItem(GuidGenerator.Create(), CurrentTenant.Id, input.BasketName, CurrentUser.GetId(),
+            item = new BasketItem(GuidGenerator.Create(), CurrentTenant.Id, input.BasketName, identifierId,
                 productDto.StoreId, input.ProductId, input.ProductSkuId);
 
             await UpdateProductDataAsync(input.Quantity, item, productDto);
