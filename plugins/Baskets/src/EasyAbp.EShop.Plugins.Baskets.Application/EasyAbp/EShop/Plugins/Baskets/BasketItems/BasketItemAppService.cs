@@ -162,8 +162,8 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
                 SkuName = productSkuDto.Name,
                 SkuDescription = await _productSkuDescriptionProvider.GenerateAsync(productDto, productSkuDto),
                 Currency = productSkuDto.Currency,
-                UnitPrice = productSkuDto.DiscountedPrice,
-                TotalPrice = productSkuDto.DiscountedPrice * item.Quantity,
+                UnitPrice = unitPrice ?? productSkuDto.DiscountedPrice,
+                TotalPrice = (unitPrice ?? productSkuDto.DiscountedPrice) * quantity,
                 TotalDiscount = totalDiscount, //(productSkuDto.Price - productSkuDto.DiscountedPrice) * item.Quantity,
                 Inventory = productSkuDto.Inventory
             });
