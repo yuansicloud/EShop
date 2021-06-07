@@ -89,6 +89,7 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
             TotalPrice = productData.TotalPrice;
             TotalDiscount = productData.TotalDiscount;
             Inventory = productData.Inventory;
+            IsFixedPrice = productData.IsFixedPrice;
         }
 
         public void SetIsInvalid(bool isForSale)

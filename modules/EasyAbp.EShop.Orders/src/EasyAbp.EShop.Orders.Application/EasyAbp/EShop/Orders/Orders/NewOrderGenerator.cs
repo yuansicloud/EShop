@@ -107,7 +107,7 @@ namespace EasyAbp.EShop.Orders.Orders
                 throw new OrderLineInvalidQuantityException(product.Id, productSku.Id, inputOrderLine.Quantity);
             }
             
-            var totalPrice = productSku.Price * inputOrderLine.Quantity;
+            var totalPrice = (inputOrderLine.UnitPrice ?? productSku.Price) * inputOrderLine.Quantity;
 
             var orderLine = new OrderLine(
                 id: _guidGenerator.Create(),
@@ -123,10 +123,10 @@ namespace EasyAbp.EShop.Orders.Orders
                 skuDescription: await _productSkuDescriptionProvider.GenerateAsync(product, productSku),
                 mediaResources: product.MediaResources,
                 currency: productSku.Currency,
-                unitPrice: productSku.Price,
+                unitPrice: inputOrderLine.UnitPrice ?? productSku.Price,
                 totalPrice: totalPrice,
-                totalDiscount: 0,
-                actualTotalPrice: totalPrice,
+                totalDiscount: inputOrderLine.TotalDiscount ?? 0,
+                actualTotalPrice: totalPrice - inputOrderLine.TotalDiscount ?? 0,
                 quantity: inputOrderLine.Quantity
             );
             

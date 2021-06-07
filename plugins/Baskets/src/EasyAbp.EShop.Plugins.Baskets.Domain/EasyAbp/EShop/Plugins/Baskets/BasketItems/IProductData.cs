@@ -21,5 +21,7 @@
         decimal TotalDiscount { get; }
         
         int Inventory { get; }
+
+        bool IsFixedPrice { get; }
     }
 }

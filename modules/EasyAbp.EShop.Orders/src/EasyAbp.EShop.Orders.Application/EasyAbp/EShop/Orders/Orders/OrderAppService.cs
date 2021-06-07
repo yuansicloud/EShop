@@ -116,7 +116,7 @@ namespace EasyAbp.EShop.Orders.Orders
                 new OrderOperationAuthorizationRequirement(OrderOperation.Creation)
             );
 
-            var order = await _newOrderGenerator.GenerateAsync(CurrentUser.GetId(), input, productDict);
+            var order = await _newOrderGenerator.GenerateAsync(input.CustomerUserId ?? CurrentUser.GetId(), input, productDict);
 
             await DiscountOrderAsync(order, productDict);
 

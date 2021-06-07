@@ -52,11 +52,18 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
             return _service.DeleteAsync(id);
         }
 
-        [HttpDelete]
+        [HttpPost]
         [Route("in-bulk")]
         public Task DeleteInBulkAsync(IEnumerable<Guid> ids)
         {
             return _service.DeleteInBulkAsync(ids);
+        }
+
+        [HttpPost]
+        [Route("create-order")]
+        public Task CreateOrderFromBasket(CreateOrderFromBasketInput input)
+        {
+            return _service.CreateOrderFromBasket(input);
         }
     }
 }

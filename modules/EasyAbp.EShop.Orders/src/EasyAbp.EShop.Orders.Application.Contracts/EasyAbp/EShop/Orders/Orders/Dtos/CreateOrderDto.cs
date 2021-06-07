@@ -19,6 +19,14 @@ namespace EasyAbp.EShop.Orders.Orders.Dtos
 
         public string StaffRemark { get; set; }
 
+        public Guid? CustomerUserId { get; set; }
+
+        public Guid? StaffUserId { get; set; }
+
+        public Guid? GraveId { get; set; }
+
+        public Guid? OccupantId { get; set; }
+
         [DisplayName("OrderLine")]
         public List<CreateOrderLineDto> OrderLines { get; set; }
 
