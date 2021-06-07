@@ -6,6 +6,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.AutoMapper;
 using Volo.Abp.Modularity;
 using Volo.Abp.Application;
+using Volo.Abp.Json.SystemTextJson;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 
 namespace EasyAbp.EShop.Orders
 {
@@ -32,6 +35,11 @@ namespace EasyAbp.EShop.Orders
             Configure<AbpAutoMapperOptions>(options =>
             {
                 options.AddMaps<EShopOrdersApplicationModule>(validate: true);
+            });
+
+            Configure<AbpSystemTextJsonSerializerOptions>(options =>
+            {
+                options.JsonSerializerOptions.Encoder = JavaScriptEncoder.Create(UnicodeRanges.All);
             });
         }
     }

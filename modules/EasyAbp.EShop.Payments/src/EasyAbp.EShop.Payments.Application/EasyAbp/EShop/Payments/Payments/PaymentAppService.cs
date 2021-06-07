@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Data;
@@ -86,6 +87,11 @@ namespace EasyAbp.EShop.Payments.Payments
                 orders.Add(await _orderAppService.GetAsync(orderId));
             }
 
+            if (orders.Select(s => s.CustomerUserId).Distinct().Count() > 1)
+            {
+                throw new UserFriendlyException("不能同时支付多个客户的订单");
+            }
+
             await AuthorizationService.CheckAsync(
                 new PaymentCreationResource
                 {
@@ -97,7 +103,7 @@ namespace EasyAbp.EShop.Payments.Payments
 
             var createPaymentEto = new CreatePaymentEto(
                 CurrentTenant.Id,
-                CurrentUser.GetId(),
+                orders.FirstOrDefault()?.CustomerUserId ?? CurrentUser.GetId(),
                 input.PaymentMethod,
                 orders.First().Currency,
                 orders.Select(order => new CreatePaymentItemEto
