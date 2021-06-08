@@ -28,6 +28,10 @@ namespace EasyAbp.EShop.Orders.Orders
 
                 order.SetPaymentId(null);
 
+                order.SetOrderStatus(OrderStatus.Pending);
+
+                order.SetPaidTime(null);
+
                 await _orderRepository.UpdateAsync(order, true);
             }
         }

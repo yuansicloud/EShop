@@ -71,7 +71,7 @@ namespace EasyAbp.EShop.Orders.Orders
                 }
                 
                 order.SetPaidTime(_clock.Now);
-                order.SetOrderStatus(OrderStatus.Processing);
+                order.SetOrderStatus(OrderStatus.Completed);
 
                 await _orderRepository.UpdateAsync(order, true);
 

@@ -5,6 +5,7 @@ using Volo.Abp.AutoMapper;
 using Volo.Abp.Modularity;
 using Volo.Abp.Application;
 using EasyAbp.EShop.Inventory;
+using Volo.Abp.Application.Dtos;
 
 namespace EasyAbp.EShop.Products
 {
@@ -22,6 +23,9 @@ namespace EasyAbp.EShop.Products
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
+
+            LimitedResultRequestDto.MaxMaxResultCount = int.MaxValue;
+
             Configure<AbpAutoMapperOptions>(options =>
             {
                 options.Configurators.Add(abpAutoMapperConfigurationContext =>

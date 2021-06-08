@@ -51,6 +51,8 @@ namespace EasyAbp.EShop.Orders.Orders
 
                 order.SetPaymentId(eventData.Entity.Id);
 
+                order.SetOrderStatus(OrderStatus.Processing);
+
                 await _orderRepository.UpdateAsync(order, true);
             }
         }
