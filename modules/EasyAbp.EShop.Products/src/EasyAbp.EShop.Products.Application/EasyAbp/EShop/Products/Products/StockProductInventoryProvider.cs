@@ -28,10 +28,18 @@ namespace EasyAbp.EShop.Products.Products
         //private readonly IStockManager _stockManager;
         public StockProductInventoryProvider(
             IUnitOfWorkManager unitOfWorkManager,
-            IDistributedEventBus distributedEventBus)
+            IDistributedEventBus distributedEventBus,
+            IStockAppService stockAppService,
+            IInstockAppService instockAppService,
+            IOutstockAppService outstockAppService,
+            IWarehouseAppService warehouseAppService)
         {
             _unitOfWorkManager = unitOfWorkManager;
             _distributedEventBus = distributedEventBus;
+            _stockAppService = stockAppService;
+            _instockAppService = instockAppService;
+            _outstockAppService = outstockAppService;
+            _warehouseAppService = warehouseAppService;
         }
 
         public virtual async Task<InventoryDataModel> GetInventoryDataAsync(Product product, ProductSku productSku)
