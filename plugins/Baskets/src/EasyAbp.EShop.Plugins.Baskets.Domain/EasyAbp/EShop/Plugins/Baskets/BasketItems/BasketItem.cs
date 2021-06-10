@@ -65,7 +65,8 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
             Guid identifierId,
             Guid storeId,
             Guid productId,
-            Guid productSkuId) : base(id)
+            Guid productSkuId,
+            bool isStatic) : base(id)
         {
             TenantId = tenantId;
             BasketName = basketName;
@@ -73,6 +74,8 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
             StoreId = storeId;
             ProductId = productId;
             ProductSkuId = productSkuId;
+            IsStatic = isStatic;
+            IsFixedPrice = IsFixedPrice;
         }
 
         public void UpdateProductData(int quantity, IProductData productData)
@@ -95,6 +98,11 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
         public void SetIsInvalid(bool isForSale)
         {
             IsInvalid = isForSale;
+        }
+
+        public void SetIsFixedPrice(bool isFixedPrice)
+        {
+            IsFixedPrice = isFixedPrice;
         }
     }
 }

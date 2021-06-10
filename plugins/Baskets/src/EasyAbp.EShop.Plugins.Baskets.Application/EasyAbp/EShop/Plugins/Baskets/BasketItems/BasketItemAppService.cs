@@ -224,7 +224,7 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
             }
 
             item = new BasketItem(GuidGenerator.Create(), CurrentTenant.Id, input.BasketName, identifierId,
-                productDto.StoreId, input.ProductId, input.ProductSkuId);
+                productDto.StoreId, input.ProductId, input.ProductSkuId, false);
 
             await UpdateProductDataAsync(input.Quantity, item, productDto);
 
