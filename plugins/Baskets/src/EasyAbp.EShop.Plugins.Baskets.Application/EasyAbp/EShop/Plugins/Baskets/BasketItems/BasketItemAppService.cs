@@ -14,6 +14,7 @@ using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Authorization;
+using Volo.Abp.EventBus.Distributed;
 using Volo.Abp.Users;
 
 namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
@@ -32,11 +33,13 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
         private readonly IProductAppService _productAppService;
         private readonly IProductSkuDescriptionProvider _productSkuDescriptionProvider;
         private readonly IOrderAppService _orderAppService;
+        private readonly IDistributedEventBus _distributedEventBus;
         public BasketItemAppService(
             IBasketItemRepository repository,
             IProductUpdateRepository productUpdateRepository,
             IProductAppService productAppService,
             IOrderAppService orderAppService,
+            IDistributedEventBus distributedEventBus,
             IProductSkuDescriptionProvider productSkuDescriptionProvider) : base(repository)
         {
             _repository = repository;
@@ -44,6 +47,7 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
             _productAppService = productAppService;
             _productSkuDescriptionProvider = productSkuDescriptionProvider;
             _orderAppService = orderAppService;
+            _distributedEventBus = distributedEventBus;
         }
 
         public override async Task<BasketItemDto> GetAsync(Guid id)
@@ -303,7 +307,7 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
                 UnitPrice = i.IsFixedPrice ? null : i.UnitPrice
             });
 
-            await _orderAppService.CreateAsync(new CreateOrderDto
+            var order = await _orderAppService.CreateAsync(new CreateOrderDto
             {
                 CustomerRemark = input.CustomerRemark,
                 StaffRemark = input.StaffRemark,
@@ -314,6 +318,8 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
                 StoreId = input.StoreId,
                 OrderLines = orderLines.ToList()
             });
+
+            await _distributedEventBus.PublishAsync(new OrderFromBasketCreatedEto(order.Id, CurrentTenant.Id));
 
             await DeleteInBulkAsync(basketItems.Items.Select(i => i.Id));
         }
