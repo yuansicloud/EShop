@@ -10,10 +10,16 @@ namespace EasyAbp.EShop.Plugins.Baskets
 
         public Guid OrderId { get; set; }
 
-        public OrderFromBasketCreatedEto(Guid orderId, Guid? tenantId)
+        public string BasketName { get; set; }
+
+        public Guid IdentifierId { get; set; }
+
+        public OrderFromBasketCreatedEto(Guid orderId, string basketName, Guid identifierId, Guid? tenantId)
         {
             TenantId = tenantId;
             OrderId = orderId;
+            BasketName = basketName;
+            IdentifierId = identifierId;
         }
     }
 }

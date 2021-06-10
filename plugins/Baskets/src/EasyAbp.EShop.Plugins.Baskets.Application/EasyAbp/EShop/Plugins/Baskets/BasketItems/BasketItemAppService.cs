@@ -319,7 +319,7 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
                 OrderLines = orderLines.ToList()
             });
 
-            await _distributedEventBus.PublishAsync(new OrderFromBasketCreatedEto(order.Id, CurrentTenant.Id));
+            await _distributedEventBus.PublishAsync(new OrderFromBasketCreatedEto(order.Id, input.BasketName, input.IdentifierId ?? CurrentUser.GetId(),  CurrentTenant.Id));
 
             await DeleteInBulkAsync(basketItems.Items.Select(i => i.Id));
         }
