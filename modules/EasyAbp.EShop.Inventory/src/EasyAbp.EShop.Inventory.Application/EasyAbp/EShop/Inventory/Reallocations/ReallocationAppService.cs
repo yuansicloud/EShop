@@ -12,8 +12,8 @@ namespace EasyAbp.EShop.Inventory.Reallocations
     public class ReallocationAppService : MultiStoreCrudAppService<Reallocation, ReallocationDto, Guid, GetReallocationListInput, ReallocationCreateDto, ReallocationUpdateDto>,
         IReallocationAppService
     {
-        protected override string GetPolicyName { get; set; } = InventoryPermissions.Stock.Default;
-        protected override string GetListPolicyName { get; set; } = InventoryPermissions.Stock.Default;
+        protected override string GetPolicyName { get; set; } = null;
+        protected override string GetListPolicyName { get; set; } = null;
         protected override string CreatePolicyName { get; set; } = InventoryPermissions.Stock.Create;
         protected override string UpdatePolicyName { get; set; } = InventoryPermissions.Stock.Update;
         protected override string DeletePolicyName { get; set; } = InventoryPermissions.Stock.Delete;

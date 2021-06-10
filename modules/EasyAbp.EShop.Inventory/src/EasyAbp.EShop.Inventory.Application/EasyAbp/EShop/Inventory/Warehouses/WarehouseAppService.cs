@@ -12,8 +12,8 @@ namespace EasyAbp.EShop.Inventory.Warehouses
     public class WarehouseAppService : MultiStoreCrudAppService<Warehouse, WarehouseDto, Guid, GetWarehouseListInput, WarehouseCreateDto, WarehouseUpdateDto>,
         IWarehouseAppService
     {
-        protected override string GetPolicyName { get; set; } = InventoryPermissions.Warehouse.Default;
-        protected override string GetListPolicyName { get; set; } = InventoryPermissions.Warehouse.Default;
+        protected override string GetPolicyName { get; set; } = null;
+        protected override string GetListPolicyName { get; set; } = null;
         protected override string CreatePolicyName { get; set; } = InventoryPermissions.Warehouse.Create;
         protected override string UpdatePolicyName { get; set; } = InventoryPermissions.Warehouse.Update;
         protected override string DeletePolicyName { get; set; } = InventoryPermissions.Warehouse.Delete;
