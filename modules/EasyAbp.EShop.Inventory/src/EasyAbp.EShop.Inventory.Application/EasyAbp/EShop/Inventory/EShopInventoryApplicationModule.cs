@@ -3,12 +3,14 @@ using Volo.Abp.AutoMapper;
 using Volo.Abp.Modularity;
 using Volo.Abp.Application;
 using Volo.Abp.Application.Dtos;
+using EasyAbp.EShop.Stores;
 
 namespace EasyAbp.EShop.Inventory
 {
     [DependsOn(
         typeof(EShopInventoryDomainModule),
         typeof(EShopInventoryApplicationContractsModule),
+        typeof(EShopStoresApplicationSharedModule),
         typeof(AbpDddApplicationModule),
         typeof(AbpAutoMapperModule)
         )]
