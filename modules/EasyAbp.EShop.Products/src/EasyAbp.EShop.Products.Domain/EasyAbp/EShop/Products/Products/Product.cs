@@ -97,5 +97,10 @@ namespace EasyAbp.EShop.Products.Products
         {
             IsHidden = isHidden;
         }
+
+        public void ToggleStatic(bool isStatic)
+        {
+            IsStatic = isStatic;
+        }
     }
 }

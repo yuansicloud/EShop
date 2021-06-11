@@ -668,5 +668,30 @@ namespace EasyAbp.EShop.Products.Products
 
             return dto;
         }
+
+        public async Task<ProductDto> MakeProductStatic(Guid productId)
+        {
+            var product = await GetEntityByIdAsync(productId);
+
+            await CheckMultiStorePolicyAsync(product.StoreId, UpdatePolicyName);
+
+            CheckProductIsNotStatic(product);
+
+            product.ToggleStatic(true);
+
+            await _repository.UpdateAsync(product, autoSave: true);
+
+            var dto = await MapToGetOutputDtoAsync(product);
+
+            await LoadDtoExtraDataAsync(product, dto);
+            await LoadDtosProductGroupDisplayNameAsync(new[] { dto });
+
+            UnitOfWorkManager.Current.OnCompleted(async () =>
+            {
+                await ClearProductViewCacheAsync(product.StoreId);
+            });
+
+            return dto;
+        }
     }
 }

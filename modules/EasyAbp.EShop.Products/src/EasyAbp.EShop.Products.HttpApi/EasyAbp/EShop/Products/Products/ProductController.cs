@@ -186,5 +186,12 @@
         {
             return _service.ChangeProductHidden(productId, input);
         }
+
+        [HttpPut]
+        [Route("{productId}/make-static")]
+        public Task<ProductDto> MakeProductStatic(Guid productId)
+        {
+            return _service.MakeProductStatic(productId);
+        }
     }
 }
