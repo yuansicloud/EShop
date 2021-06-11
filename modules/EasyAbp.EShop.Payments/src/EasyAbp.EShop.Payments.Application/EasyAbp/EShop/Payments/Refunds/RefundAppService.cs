@@ -16,6 +16,7 @@ using Volo.Abp.Data;
 using Volo.Abp.EventBus.Distributed;
 using Volo.Abp.Json;
 using Volo.Abp.Users;
+using Volo.Abp;
 
 namespace EasyAbp.EShop.Payments.Refunds
 {
@@ -93,6 +94,11 @@ namespace EasyAbp.EShop.Payments.Refunds
                 CustomerRemark = input.CustomerRemark,
                 StaffRemark = input.StaffRemark
             };
+
+            if (await _repository.FindAsync(r => r.PaymentId == input.PaymentId) != null)
+            {
+                throw new UserFriendlyException("该付款单存在正在进行中的退款单");
+            }
 
             foreach (var refundItem in input.RefundItems)
             {
