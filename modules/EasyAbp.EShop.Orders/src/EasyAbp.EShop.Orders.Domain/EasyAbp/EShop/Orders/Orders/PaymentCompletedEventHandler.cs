@@ -60,7 +60,7 @@ namespace EasyAbp.EShop.Orders.Orders
                 var order = await _orderRepository.GetAsync(orderId);
 
                 if (order.PaymentId != payment.Id || order.PaidTime.HasValue ||
-                    order.OrderStatus != OrderStatus.Pending)
+                    order.OrderStatus != OrderStatus.Processing)
                 {
                     throw new OrderIsInWrongStageException(order.Id);
                 }
