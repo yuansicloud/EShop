@@ -67,7 +67,9 @@ namespace EasyAbp.EShop.Products.Products
 
             return query
                 .Where(x => x.StoreId == input.StoreId)
-                .WhereIf(!input.ShowHidden, x => !x.IsHidden);
+                .WhereIf(!input.ShowHidden, x => !x.IsHidden)
+                .WhereIf(input.IsPublished.HasValue, x => x.IsPublished == input.IsPublished.Value)
+                .WhereIf(!input.Filter.IsNullOrEmpty(), x => x.DisplayName.Contains(input.Filter));
         }
 
         protected override Product MapToEntity(CreateUpdateProductDto createInput)
