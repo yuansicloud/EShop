@@ -35,17 +35,17 @@ namespace EasyAbp.EShop.Stores.Authorization
         public static async Task CheckMultiStorePolicyAsync(this IAuthorizationService authorizationService,
             Guid? storeId, string policyName, string crossStorePolicyName)
         {
+            if (policyName.IsNullOrEmpty() || crossStorePolicyName.IsNullOrEmpty())
+            {
+                return;
+            }
+
             if (storeId.HasValue && await authorizationService.IsCurrentUserGrantedAsync(storeId.Value, policyName))
             {
                 return;
             }
 
             await authorizationService.CheckAsync(crossStorePolicyName);
-
-            if (policyName.IsNullOrEmpty())
-            {
-                return;
-            }
 
             await authorizationService.CheckAsync(policyName);
         }
