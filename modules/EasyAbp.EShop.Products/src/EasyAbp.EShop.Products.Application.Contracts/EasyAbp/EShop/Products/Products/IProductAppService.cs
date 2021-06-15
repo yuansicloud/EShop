@@ -34,5 +34,7 @@ namespace EasyAbp.EShop.Products.Products
         Task<ProductDto> ChangeProductHidden(Guid productId, ChangeProductHiddenDto input);
 
         Task<ProductDto> MakeProductStatic(Guid productId);
+
+        Task<ProductDto> FindAsync(Guid id);
     }
 }

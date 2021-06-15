@@ -231,6 +231,30 @@ namespace EasyAbp.EShop.Products.Products
             return dto;
         }
 
+        public async Task<ProductDto> FindAsync(Guid id)
+        {
+            await CheckGetPolicyAsync();
+
+            var product = await _repository.FindAsync(id);
+
+            if (product is null)
+            {
+                return null;
+            }
+
+            if (!product.IsPublished)
+            {
+                await CheckMultiStorePolicyAsync(product.StoreId, ProductsPermissions.Products.Manage);
+            }
+
+            var dto = await MapToGetOutputDtoAsync(product);
+
+            await LoadDtoExtraDataAsync(product, dto);
+            await LoadDtosProductGroupDisplayNameAsync(new[] { dto });
+
+            return dto;
+        }
+
         protected virtual Task LoadDtosProductGroupDisplayNameAsync(IEnumerable<ProductDto> dtos)
         {
             var dict = _options.Groups.GetConfigurationsDictionary();

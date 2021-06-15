@@ -193,5 +193,12 @@
         {
             return _service.MakeProductStatic(productId);
         }
+
+        [HttpGet]
+        [Route("find-by-id/{id}")]
+        public Task<ProductDto> FindAsync(Guid id)
+        {
+            return _service.FindAsync(id);
+        }
     }
 }
