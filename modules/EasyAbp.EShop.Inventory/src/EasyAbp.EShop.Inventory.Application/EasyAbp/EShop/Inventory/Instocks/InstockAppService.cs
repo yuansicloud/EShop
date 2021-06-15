@@ -44,9 +44,12 @@ namespace EasyAbp.EShop.Inventory.Instocks
         {
             await MapInstockNumber(input);
 
+            var entity = await MapToEntityAsync(input);
+
+            TryToSetTenantId(entity);
+
             return await MapToGetOutputDtoAsync(
-                await _stockManager.CreateAsync(
-                    await MapToEntityAsync(input)));
+                await _stockManager.CreateAsync(entity));
 
         }
 
