@@ -41,6 +41,12 @@ namespace EasyAbp.EShop.Stores.Authorization
             }
 
             await authorizationService.CheckAsync(crossStorePolicyName);
+
+            if (policyName.IsNullOrEmpty())
+            {
+                return;
+            }
+
             await authorizationService.CheckAsync(policyName);
         }
     }
