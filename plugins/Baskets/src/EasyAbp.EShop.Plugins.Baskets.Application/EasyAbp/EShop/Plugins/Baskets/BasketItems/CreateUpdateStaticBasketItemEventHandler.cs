@@ -39,8 +39,19 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
                             && x.ProductSkuId == eventData.ProductSkuId
                             && x.IsStatic);
 
+            if (eventData.Quantity == 0)
+            {
+                if (item != null)
+                {
+                    await _repository.DeleteAsync(item, autoSave: true);
+                }
+
+                return;
+            }
+
             if (item != null)
             {
+
                 await UpdateProductDataAsync(eventData.Quantity, item, productDto, eventData.UnitPrice);
 
                 await _repository.UpdateAsync(item, autoSave: true);
