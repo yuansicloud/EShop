@@ -40,8 +40,10 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems.Dtos
         
         public bool IsInvalid { get; set; }
 
-        public virtual bool IsStatic { get; protected set; }
+        public bool IsStatic { get; set; }
 
-        public virtual bool IsFixedPrice { get; protected set; }
+        public bool IsFixedPrice { get; set; }
+
+        public string Unit { get; set; } 
     }
 }

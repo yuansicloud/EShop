@@ -51,7 +51,8 @@ namespace EasyAbp.EShop.Products.Products
             return (await base.WithDetailsAsync())
                 .Include(x => x.ProductAttributes)
                 .ThenInclude(x => x.ProductAttributeOptions)
-                .Include(x => x.ProductSkus);
+                .Include(x => x.ProductSkus)
+                .ThenInclude(x => x.Unit);
         }
 
         public async Task<IQueryable<Product>> GetQueryableAsync(Guid categoryId, bool showRecursive)

@@ -10,26 +10,26 @@ namespace EasyAbp.EShop.Products.Products
     {
         [NotNull]
         public virtual string SerializedAttributeOptionIds { get; protected set; }
-        
+
         [CanBeNull]
         public virtual string Name { get; protected set; }
-        
+
         [NotNull]
         public virtual string Currency { get; protected set; }
-        
+
         public virtual decimal? OriginalPrice { get; protected set; }
-        
+
         public virtual decimal Price { get; protected set; }
 
         public virtual int OrderMinQuantity { get; protected set; }
-        
+
         public virtual int OrderMaxQuantity { get; protected set; }
-        
+
         [CanBeNull]
         public virtual string MediaResources { get; protected set; }
 
         public virtual Guid? ProductDetailId { get; protected set; }
-        
+
         public virtual ExtraPropertyDictionary ExtraProperties { get; protected set; }
 
         public virtual bool IsFixedPrice { get; protected set; }
@@ -37,6 +37,10 @@ namespace EasyAbp.EShop.Products.Products
         public virtual int Threshold { get; protected set; }
 
         public virtual Guid ProductId { get; protected set; }
+
+        public virtual Guid? UnitId { get; protected set; }
+
+        public virtual ProductUnit Unit { get; protected set; }
 
         protected ProductSku()
         {
@@ -57,6 +61,7 @@ namespace EasyAbp.EShop.Products.Products
             Guid productId,
             bool isFixedPrice,
             [CanBeNull] string mediaResources,
+            Guid? unitId,
             Guid? productDetailId) : base(id)
         {
             SerializedAttributeOptionIds = serializedAttributeOptionIds;
@@ -71,6 +76,7 @@ namespace EasyAbp.EShop.Products.Products
             IsFixedPrice = isFixedPrice;
             Threshold = threshold;
             ProductId = productId;
+            UnitId = unitId;
 
             ExtraProperties = new ExtraPropertyDictionary();
             this.SetDefaultsForExtraProperties();

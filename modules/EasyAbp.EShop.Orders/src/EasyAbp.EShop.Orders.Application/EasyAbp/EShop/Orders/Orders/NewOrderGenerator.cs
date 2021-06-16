@@ -127,7 +127,8 @@ namespace EasyAbp.EShop.Orders.Orders
                 totalPrice: totalPrice,
                 totalDiscount: inputOrderLine.TotalDiscount ?? 0,
                 actualTotalPrice: totalPrice - inputOrderLine.TotalDiscount ?? 0,
-                quantity: inputOrderLine.Quantity
+                quantity: inputOrderLine.Quantity,
+                unit: productSku.Unit?.DisplayName
             );
             
             inputOrderLine.MapExtraPropertiesTo(orderLine, MappingPropertyDefinitionChecks.Destination);

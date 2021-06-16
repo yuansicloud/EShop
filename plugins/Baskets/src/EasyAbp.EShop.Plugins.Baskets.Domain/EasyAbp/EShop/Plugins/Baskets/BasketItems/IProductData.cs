@@ -23,5 +23,7 @@
         int Inventory { get; }
 
         bool IsFixedPrice { get; }
+
+        string Unit { get; }
     }
 }

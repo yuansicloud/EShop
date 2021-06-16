@@ -53,7 +53,9 @@ namespace EasyAbp.EShop.Orders.Orders
         public virtual int RefundedQuantity { get; protected set; }
         
         public virtual decimal RefundAmount { get; protected set; }
-        
+
+        public virtual string Unit { get; protected set; }
+
         public virtual ExtraPropertyDictionary ExtraProperties { get; protected set; }
 
         protected OrderLine()
@@ -80,7 +82,8 @@ namespace EasyAbp.EShop.Orders.Orders
             decimal totalPrice,
             decimal totalDiscount,
             decimal actualTotalPrice,
-            int quantity) : base(id)
+            int quantity,
+            string unit) : base(id)
         {
             ProductId = productId;
             ProductSkuId = productSkuId;
@@ -99,6 +102,7 @@ namespace EasyAbp.EShop.Orders.Orders
             TotalDiscount = totalDiscount;
             ActualTotalPrice = actualTotalPrice;
             Quantity = quantity;
+            Unit = unit;
 
             RefundedQuantity = 0;
             RefundAmount = 0;

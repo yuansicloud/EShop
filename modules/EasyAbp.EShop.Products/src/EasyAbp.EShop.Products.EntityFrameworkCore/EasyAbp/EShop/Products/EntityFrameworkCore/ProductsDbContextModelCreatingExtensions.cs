@@ -86,6 +86,8 @@ namespace EasyAbp.EShop.Products.EntityFrameworkCore
                 b.Property(x => x.OriginalPrice).HasColumnType("decimal(20,8)");
 
                 b.HasOne<Product>().WithMany(p => p.ProductSkus).HasForeignKey(x => x.ProductId);
+
+                b.HasOne(x => x.Unit).WithMany().HasForeignKey(x => x.UnitId);
             });
 
             builder.Entity<Category>(b =>
@@ -145,6 +147,16 @@ namespace EasyAbp.EShop.Products.EntityFrameworkCore
                 
                 b.Property(x => x.MinimumPrice).HasColumnType("decimal(20,8)");
                 b.Property(x => x.MaximumPrice).HasColumnType("decimal(20,8)");
+            });
+
+
+            builder.Entity<ProductUnit>(b =>
+            {
+                b.ToTable(options.TablePrefix + "ProductUnits", options.Schema);
+                b.ConfigureByConvention(); 
+                
+
+                /* Configure more properties here */
             });
         }
     }

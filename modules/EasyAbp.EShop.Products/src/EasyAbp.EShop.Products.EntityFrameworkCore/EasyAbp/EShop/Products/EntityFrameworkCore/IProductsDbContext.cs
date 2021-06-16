@@ -28,5 +28,6 @@ namespace EasyAbp.EShop.Products.EntityFrameworkCore
         DbSet<ProductDetailHistory> ProductDetailHistories { get; set; }
         DbSet<ProductInventory> ProductInventories { get; set; }
         DbSet<ProductView> ProductViews { get; set; }
+        DbSet<ProductUnit> ProductUnits { get; set; }
     }
 }

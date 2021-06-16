@@ -46,6 +46,8 @@ namespace EasyAbp.EShop.Orders.Orders
         
         public decimal RefundAmount { get; set; }
         
+        public string Unit { get; set; }
+
         public ExtraPropertyDictionary ExtraProperties { get; set; }
     }
 }

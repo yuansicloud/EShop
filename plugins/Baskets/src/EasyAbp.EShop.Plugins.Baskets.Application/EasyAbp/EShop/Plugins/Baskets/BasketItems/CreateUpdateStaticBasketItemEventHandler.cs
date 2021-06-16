@@ -94,7 +94,8 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
                 TotalPrice = (unitPrice ?? productSkuDto.DiscountedPrice) * quantity,
                 TotalDiscount = totalDiscount, //(productSkuDto.Price - productSkuDto.DiscountedPrice) * item.Quantity,
                 Inventory = productSkuDto.Inventory,
-                IsFixedPrice = productSkuDto.IsFixedPrice
+                IsFixedPrice = productSkuDto.IsFixedPrice,
+                Unit = productSkuDto.Unit?.DisplayName
             });
 
             if (!productDto.IsPublished)

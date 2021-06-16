@@ -54,6 +54,8 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
 
         public virtual bool IsFixedPrice { get; protected set; }
 
+        public virtual string Unit { get; protected set; }
+
         protected BasketItem()
         {
         }
@@ -93,6 +95,7 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
             TotalDiscount = productData.TotalDiscount;
             Inventory = productData.Inventory;
             IsFixedPrice = productData.IsFixedPrice;
+            Unit = productData.Unit;
         }
 
         public void SetIsInvalid(bool isForSale)

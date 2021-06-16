@@ -23,5 +23,7 @@
         public int Inventory { get; set; }
 
         public bool IsFixedPrice { get; set; }
+
+        public string Unit { get; set; }
     }
 }

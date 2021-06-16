@@ -94,5 +94,9 @@
         /// SPU ID
         /// </summary>
         public Guid ProductId { get; set; }
+
+        public Guid? UnitId { get; set; }
+
+        public ProductUnitDto Unit { get; set; }
     }
 }
