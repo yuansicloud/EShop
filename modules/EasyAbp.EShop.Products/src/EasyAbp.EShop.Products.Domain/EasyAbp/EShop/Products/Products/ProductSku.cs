@@ -36,7 +36,7 @@ namespace EasyAbp.EShop.Products.Products
 
         public virtual int Threshold { get; protected set; }
 
-        public virtual Guid ProductId { get; protected set; }
+        public virtual Guid? ProductId { get; protected set; }
 
         public virtual Guid? UnitId { get; protected set; }
 
@@ -58,7 +58,7 @@ namespace EasyAbp.EShop.Products.Products
             int orderMinQuantity,
             int orderMaxQuantity,
             int threshold,
-            Guid productId,
+            Guid? productId,
             bool isFixedPrice,
             [CanBeNull] string mediaResources,
             Guid? unitId,
