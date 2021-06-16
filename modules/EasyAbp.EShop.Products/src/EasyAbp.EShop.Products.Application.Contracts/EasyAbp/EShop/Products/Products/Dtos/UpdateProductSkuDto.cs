@@ -46,5 +46,7 @@ namespace EasyAbp.EShop.Products.Products.Dtos
         /// </summary>
         public int Threshold { get; set; }
 
+        public Guid? UnitId { get; set; }
+
     }
 }
