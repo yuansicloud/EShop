@@ -98,5 +98,13 @@
         public Guid? UnitId { get; set; }
 
         public ProductUnitDto Unit { get; set; }
+
+        public string UnitDisplayName
+        {
+            get
+            {
+                return Unit?.DisplayName;
+            }
+        }
     }
 }
