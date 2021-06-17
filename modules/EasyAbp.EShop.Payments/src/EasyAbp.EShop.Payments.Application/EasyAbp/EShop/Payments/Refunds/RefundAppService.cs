@@ -138,6 +138,11 @@ namespace EasyAbp.EShop.Payments.Refunds
                 });
             }
 
+            if (createRefundInput.RefundItems.Sum(x => x.RefundAmount) <= 0)
+            {
+                throw new UserFriendlyException("退款金额不能小于0");
+            }
+
             await _distributedEventBus.PublishAsync(new RefundPaymentEto(CurrentTenant.Id, createRefundInput));
         }
     }

@@ -42,7 +42,7 @@ namespace EasyAbp.EShop.Orders.Orders
 
         protected override async Task<IQueryable<Order>> CreateFilteredQueryAsync(GetOrderListDto input)
         {
-            var query = (await _repository.WithDetailsAsync())
+            return (await _repository.WithDetailsAsync())
                 .WhereIf(input.StoreId.HasValue, x => x.StoreId == input.StoreId.Value)
                 .WhereIf(input.CustomerUserId.HasValue, x => x.CustomerUserId == input.CustomerUserId.Value)
                 .WhereIf(input.StaffUserId.HasValue, x => x.StaffUserId == input.StaffUserId.Value)
@@ -54,8 +54,6 @@ namespace EasyAbp.EShop.Orders.Orders
                 .WhereIf(input.MaxCreationDate.HasValue, x => x.CreationTime <= input.MaxCreationDate.Value)
                 .WhereIf(input.OrderStatus.HasValue, x => x.OrderStatus == input.OrderStatus.Value)
                 .WhereIf(!input.Filter.IsNullOrEmpty(), x => x.OrderNumber.Contains(input.Filter));
-
-            return query;
         }
 
         [Authorize]
