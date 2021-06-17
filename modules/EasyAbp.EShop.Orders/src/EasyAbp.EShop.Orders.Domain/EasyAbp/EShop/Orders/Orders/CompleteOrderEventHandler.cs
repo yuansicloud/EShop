@@ -25,11 +25,15 @@ namespace EasyAbp.EShop.Orders.Orders
         [UnitOfWork(true)]
         public virtual async Task HandleEventAsync(CompleteOrderEto eventData)
         {
-            using var currentTenant = _currentTenant.Change(eventData.TenantId);
+            try
+            {
+                using var currentTenant = _currentTenant.Change(eventData.TenantId);
 
-            var order = await _orderRepository.GetAsync(eventData.OrderId);
+                var order = await _orderRepository.GetAsync(eventData.OrderId);
 
-            await _orderManager.CompleteAsync(order);
+                await _orderManager.CompleteAsync(order);
+            }
+            catch { }
         }
     }
 }

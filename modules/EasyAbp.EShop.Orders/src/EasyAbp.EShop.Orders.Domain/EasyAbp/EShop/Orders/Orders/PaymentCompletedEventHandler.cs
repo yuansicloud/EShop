@@ -42,45 +42,49 @@ namespace EasyAbp.EShop.Orders.Orders
         
         public virtual async Task HandleEventAsync(EShopPaymentCompletedEto eventData)
         {
-            var payment = eventData.Payment;
-            
-            if (!payment.CompletionTime.HasValue || payment.CanceledTime.HasValue)
+            try
             {
-                return;
-            }
+                var payment = eventData.Payment;
 
-            using var uow = _unitOfWorkManager.Begin(isTransactional: true);
-            
-            using var currentTenant = _currentTenant.Change(payment.TenantId);
-
-            foreach (var item in payment.PaymentItems.Where(item => item.ItemType == PaymentsConsts.PaymentItemType))
-            {
-                var orderId = Guid.Parse(item.ItemKey);
-                
-                var order = await _orderRepository.GetAsync(orderId);
-
-                if (order.PaymentId != payment.Id || order.PaidTime.HasValue ||
-                    order.OrderStatus != OrderStatus.Processing)
+                if (!payment.CompletionTime.HasValue || payment.CanceledTime.HasValue)
                 {
-                    throw new OrderIsInWrongStageException(order.Id);
+                    return;
                 }
 
-                if (!await _orderPaymentChecker.IsValidPaymentAsync(order, payment, item))
+                using var uow = _unitOfWorkManager.Begin(isTransactional: true);
+
+                using var currentTenant = _currentTenant.Change(payment.TenantId);
+
+                foreach (var item in payment.PaymentItems.Where(item => item.ItemType == PaymentsConsts.PaymentItemType))
                 {
-                    throw new InvalidPaymentException(payment.Id, orderId);
+                    var orderId = Guid.Parse(item.ItemKey);
+
+                    var order = await _orderRepository.GetAsync(orderId);
+
+                    if (order.PaymentId != payment.Id || order.PaidTime.HasValue ||
+                        order.OrderStatus != OrderStatus.Processing)
+                    {
+                        throw new OrderIsInWrongStageException(order.Id);
+                    }
+
+                    if (!await _orderPaymentChecker.IsValidPaymentAsync(order, payment, item))
+                    {
+                        throw new InvalidPaymentException(payment.Id, orderId);
+                    }
+
+                    order.SetPaidTime(_clock.Now);
+                    order.SetOrderStatus(OrderStatus.Completed);
+
+                    await _orderRepository.UpdateAsync(order, true);
+
+                    uow.OnCompleted(async () =>
+                        await _distributedEventBus.PublishAsync(new OrderPaidEto(_objectMapper.Map<Order, OrderEto>(order),
+                            payment.Id, item.Id)));
                 }
-                
-                order.SetPaidTime(_clock.Now);
-                order.SetOrderStatus(OrderStatus.Completed);
 
-                await _orderRepository.UpdateAsync(order, true);
-
-                uow.OnCompleted(async () =>
-                    await _distributedEventBus.PublishAsync(new OrderPaidEto(_objectMapper.Map<Order, OrderEto>(order),
-                        payment.Id, item.Id)));
+                await uow.CompleteAsync();
             }
-            
-            await uow.CompleteAsync();
+            catch { }
         }
     }
 }

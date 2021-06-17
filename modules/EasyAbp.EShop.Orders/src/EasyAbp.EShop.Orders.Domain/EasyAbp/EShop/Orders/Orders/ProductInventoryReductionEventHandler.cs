@@ -26,50 +26,58 @@ namespace EasyAbp.EShop.Orders.Orders
         [UnitOfWork(true)]
         public virtual async Task HandleEventAsync(ProductInventoryReductionAfterOrderPlacedResultEto eventData)
         {
-            using (_currentTenant.Change(eventData.TenantId))
+            try
             {
-                var order = await _orderRepository.GetAsync(eventData.OrderId);
-
-                if (order.ReducedInventoryAfterPlacingTime.HasValue)
+                using (_currentTenant.Change(eventData.TenantId))
                 {
-                    throw new OrderIsInWrongStageException(order.Id);
-                }
+                    var order = await _orderRepository.GetAsync(eventData.OrderId);
 
-                if (!eventData.IsSuccess)
-                {
-                    // Todo: Cancel order.
-                    return;
-                }
-            
-                order.SetReducedInventoryAfterPlacingTime(_clock.Now);
+                    if (order.ReducedInventoryAfterPlacingTime.HasValue)
+                    {
+                        throw new OrderIsInWrongStageException(order.Id);
+                    }
 
-                await _orderRepository.UpdateAsync(order, true);
+                    if (!eventData.IsSuccess)
+                    {
+                        // Todo: Cancel order.
+                        return;
+                    }
+
+                    order.SetReducedInventoryAfterPlacingTime(_clock.Now);
+
+                    await _orderRepository.UpdateAsync(order, true);
+                }
             }
+            catch { }
         }
 
         [UnitOfWork(true)]
         public virtual async Task HandleEventAsync(ProductInventoryReductionAfterOrderPaidResultEto eventData)
         {
-            using (_currentTenant.Change(eventData.TenantId))
+            try
             {
-                var order = await _orderRepository.GetAsync(eventData.OrderId);
-
-                if (order.ReducedInventoryAfterPaymentTime.HasValue)
+                using (_currentTenant.Change(eventData.TenantId))
                 {
-                    throw new OrderIsInWrongStageException(order.Id);
-                }
+                    var order = await _orderRepository.GetAsync(eventData.OrderId);
 
-                if (!eventData.IsSuccess)
-                {
-                    // Todo: Refund.
-                    // Todo: Cancel order.
-                    return;
-                }
-            
-                order.SetReducedInventoryAfterPaymentTime(_clock.Now);
+                    if (order.ReducedInventoryAfterPaymentTime.HasValue)
+                    {
+                        throw new OrderIsInWrongStageException(order.Id);
+                    }
 
-                await _orderRepository.UpdateAsync(order, true);
+                    if (!eventData.IsSuccess)
+                    {
+                        // Todo: Refund.
+                        // Todo: Cancel order.
+                        return;
+                    }
+
+                    order.SetReducedInventoryAfterPaymentTime(_clock.Now);
+
+                    await _orderRepository.UpdateAsync(order, true);
+                }
             }
+            catch { }
         }
     }
 }

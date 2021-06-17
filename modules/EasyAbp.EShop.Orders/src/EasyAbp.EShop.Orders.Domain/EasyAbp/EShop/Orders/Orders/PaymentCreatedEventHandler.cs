@@ -29,32 +29,36 @@ namespace EasyAbp.EShop.Orders.Orders
         [UnitOfWork(true)]
         public virtual async Task HandleEventAsync(EntityCreatedEto<EShopPaymentEto> eventData)
         {
-            using var currentTenant = _currentTenant.Change(eventData.Entity.TenantId);
-
-            foreach (var item in eventData.Entity.PaymentItems.Where(item => item.ItemType == PaymentsConsts.PaymentItemType))
+            try
             {
-                var orderId = Guid.Parse(item.ItemKey);
-                
-                var order = await _orderRepository.GetAsync(orderId);
+                using var currentTenant = _currentTenant.Change(eventData.Entity.TenantId);
 
-                if (order.PaymentId.HasValue || order.OrderStatus != OrderStatus.Pending)
+                foreach (var item in eventData.Entity.PaymentItems.Where(item => item.ItemType == PaymentsConsts.PaymentItemType))
                 {
-                    // Todo: should cancel the payment?
-                    throw new OrderIsInWrongStageException(order.Id);
+                    var orderId = Guid.Parse(item.ItemKey);
+
+                    var order = await _orderRepository.GetAsync(orderId);
+
+                    if (order.PaymentId.HasValue || order.OrderStatus != OrderStatus.Pending)
+                    {
+                        // Todo: should cancel the payment?
+                        throw new OrderIsInWrongStageException(order.Id);
+                    }
+
+                    if (!await _orderPaymentChecker.IsValidPaymentAsync(order, eventData.Entity, item))
+                    {
+                        // Todo: should cancel the payment?
+                        throw new InvalidPaymentException(eventData.Entity.Id, orderId);
+                    }
+
+                    order.SetPaymentId(eventData.Entity.Id);
+
+                    order.SetOrderStatus(OrderStatus.Processing);
+
+                    await _orderRepository.UpdateAsync(order, true);
                 }
-                
-                if (!await _orderPaymentChecker.IsValidPaymentAsync(order, eventData.Entity, item))
-                {
-                    // Todo: should cancel the payment?
-                    throw new InvalidPaymentException(eventData.Entity.Id, orderId);
-                }
-
-                order.SetPaymentId(eventData.Entity.Id);
-
-                order.SetOrderStatus(OrderStatus.Processing);
-
-                await _orderRepository.UpdateAsync(order, true);
             }
+            catch { }
         }
     }
 }

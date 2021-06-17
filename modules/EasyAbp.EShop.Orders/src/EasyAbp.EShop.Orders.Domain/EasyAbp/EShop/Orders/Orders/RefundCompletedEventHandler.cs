@@ -33,27 +33,31 @@ namespace EasyAbp.EShop.Orders.Orders
         
         public virtual async Task HandleEventAsync(EShopRefundCompletedEto eventData)
         {
-            using var uow = _unitOfWorkManager.Begin(isTransactional: true);
-            
-            using var changeTenant = _currentTenant.Change(eventData.Refund.TenantId);
-
-            foreach (var refundItem in eventData.Refund.RefundItems)
+            try
             {
-                var order = await _orderRepository.GetAsync(refundItem.OrderId);
+                using var uow = _unitOfWorkManager.Begin(isTransactional: true);
 
-                foreach (var eto in refundItem.RefundItemOrderLines)
+                using var changeTenant = _currentTenant.Change(eventData.Refund.TenantId);
+
+                foreach (var refundItem in eventData.Refund.RefundItems)
                 {
-                    order.Refund(eto.OrderLineId, eto.RefundedQuantity, eto.RefundAmount);
+                    var order = await _orderRepository.GetAsync(refundItem.OrderId);
+
+                    foreach (var eto in refundItem.RefundItemOrderLines)
+                    {
+                        order.Refund(eto.OrderLineId, eto.RefundedQuantity, eto.RefundAmount);
+                    }
+
+                    await _orderRepository.UpdateAsync(order, true);
+
+                    uow.OnCompleted(async () => await _distributedEventBus.PublishAsync(
+                        new OrderRefundedEto(_objectMapper.Map<Order, OrderEto>(order), eventData.Refund))
+                    );
+
+                    await uow.CompleteAsync();
                 }
-
-                await _orderRepository.UpdateAsync(order, true);
-
-                uow.OnCompleted(async () => await _distributedEventBus.PublishAsync(
-                    new OrderRefundedEto(_objectMapper.Map<Order, OrderEto>(order), eventData.Refund))
-                );
-
-                await uow.CompleteAsync();
             }
+            catch { }
         }
     }
 }

@@ -21,19 +21,23 @@ namespace EasyAbp.EShop.Orders.Orders
         [UnitOfWork(true)]
         public virtual async Task HandleEventAsync(EShopPaymentCanceledEto eventData)
         {
-            foreach (var paymentItem in eventData.Payment.PaymentItems.Where(item =>
-                item.ItemType == PaymentsConsts.PaymentItemType))
+            try
             {
-                var order = await _orderRepository.GetAsync(Guid.Parse(paymentItem.ItemKey));
+                foreach (var paymentItem in eventData.Payment.PaymentItems.Where(item =>
+                    item.ItemType == PaymentsConsts.PaymentItemType))
+                {
+                    var order = await _orderRepository.GetAsync(Guid.Parse(paymentItem.ItemKey));
 
-                order.SetPaymentId(null);
+                    order.SetPaymentId(null);
 
-                order.SetOrderStatus(OrderStatus.Pending);
+                    order.SetOrderStatus(OrderStatus.Pending);
 
-                order.SetPaidTime(null);
+                    order.SetPaidTime(null);
 
-                await _orderRepository.UpdateAsync(order, true);
+                    await _orderRepository.UpdateAsync(order, true);
+                }
             }
+            catch { }
         }
     }
 }
