@@ -7,6 +7,8 @@ namespace EasyAbp.EShop.Orders.Orders.Dtos
     [Serializable]
     public class GetOrderListDto : PagedAndSortedResultRequestDto
     {
+        public string Filter { get; set; }
+
         public Guid? StoreId { get; set; }
         
         public Guid? CustomerUserId { get; set; }
@@ -17,7 +19,17 @@ namespace EasyAbp.EShop.Orders.Orders.Dtos
 
         public Guid? GraveId { get; set; }
 
-        [Range(1, 100)]
+        public int? MaxActualTotalPrice { get; set; }
+
+        public int? MinActualTotalPrice { get; set; }
+
+        public DateTime? MaxCreationDate { get; set; }
+
+        public DateTime? MinCreationDate { get; set; }
+
+        public OrderStatus? OrderStatus { get; set; }
+
+        [Range(1, 10000)]
         public override int MaxResultCount { get; set; } = DefaultMaxResultCount;
     }
 }

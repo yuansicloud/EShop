@@ -42,32 +42,18 @@ namespace EasyAbp.EShop.Orders.Orders
 
         protected override async Task<IQueryable<Order>> CreateFilteredQueryAsync(GetOrderListDto input)
         {
-            var query = await _repository.WithDetailsAsync();
-
-            if (input.StoreId.HasValue)
-            {
-                query = query.Where(x => x.StoreId == input.StoreId.Value);
-            }
-
-            if (input.CustomerUserId.HasValue)
-            {
-                query = query.Where(x => x.CustomerUserId == input.CustomerUserId.Value);
-            }
-
-            if (input.StaffUserId.HasValue)
-            {
-                query = query.Where(x => x.StaffUserId == input.StaffUserId.Value);
-            }
-
-            if (input.GraveId.HasValue)
-            {
-                query = query.Where(x => x.GraveId == input.GraveId.Value);
-            }
-
-            if (input.OccupantId .HasValue)
-            {
-                query = query.Where(x => x.OccupantId == input.OccupantId.Value);
-            }
+            var query = (await _repository.WithDetailsAsync())
+                .WhereIf(input.StoreId.HasValue, x => x.StoreId == input.StoreId.Value)
+                .WhereIf(input.CustomerUserId.HasValue, x => x.CustomerUserId == input.CustomerUserId.Value)
+                .WhereIf(input.StaffUserId.HasValue, x => x.StaffUserId == input.StaffUserId.Value)
+                .WhereIf(input.GraveId.HasValue, x => x.GraveId == input.GraveId.Value)
+                .WhereIf(input.OccupantId.HasValue, x => x.OccupantId == input.OccupantId.Value)
+                .WhereIf(input.MinActualTotalPrice.HasValue, x => x.ActualTotalPrice >= input.MinActualTotalPrice.Value)
+                .WhereIf(input.MaxActualTotalPrice.HasValue, x => x.ActualTotalPrice <= input.MaxActualTotalPrice.Value)
+                .WhereIf(input.MinCreationDate.HasValue, x => x.CreationTime >= input.MinCreationDate.Value)
+                .WhereIf(input.MaxCreationDate.HasValue, x => x.CreationTime <= input.MaxCreationDate.Value)
+                .WhereIf(input.OrderStatus.HasValue, x => x.OrderStatus == input.OrderStatus.Value)
+                .WhereIf(!input.Filter.IsNullOrEmpty(), x => x.OrderNumber.Contains(input.Filter));
 
             return query;
         }
