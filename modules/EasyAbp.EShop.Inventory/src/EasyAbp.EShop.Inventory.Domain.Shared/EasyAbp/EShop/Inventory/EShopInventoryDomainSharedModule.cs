@@ -25,12 +25,12 @@ namespace EasyAbp.EShop.Inventory
                 options.Resources
                     .Add<InventoryResource>("en")
                     .AddBaseTypes(typeof(AbpValidationResource))
-                    .AddVirtualJson("/Localization/Inventory");
+                    .AddVirtualJson("EasyAbp/EShop/Inventory/Localization/Inventory");
             });
 
             Configure<AbpExceptionLocalizationOptions>(options =>
             {
-                options.MapCodeNamespace("Inventory", typeof(InventoryResource));
+                options.MapCodeNamespace("EasyAbp.EShop.Inventory", typeof(InventoryResource));
             });
         }
     }

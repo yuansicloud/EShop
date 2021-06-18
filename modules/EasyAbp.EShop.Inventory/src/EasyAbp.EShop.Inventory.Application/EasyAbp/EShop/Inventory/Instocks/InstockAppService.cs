@@ -76,7 +76,7 @@ namespace EasyAbp.EShop.Inventory.Instocks
                 .WhereIf(input.CreationStartTime.HasValue, s => s.CreationTime.Date >= input.CreationStartTime.Value.Date)
                 .WhereIf(input.CreationEndTime.HasValue, s => s.CreationTime.Date >= input.CreationEndTime.Value.Date)
                 .WhereIf(input.InstockStartTime.HasValue, s => s.InstockTime.Date >= input.InstockStartTime.Value.Date)
-                .WhereIf(input.InstockEndTime.HasValue, s => s.InstockTime.Date >= input.InstockEndTime.Value.Date);
+                .WhereIf(input.InstockEndTime.HasValue, s => s.InstockTime.Date <= input.InstockEndTime.Value.Date);
         }
 
         protected virtual async Task<InstockCreateDto> MapInstockNumber(InstockCreateDto dto, string instockNumber = null)
