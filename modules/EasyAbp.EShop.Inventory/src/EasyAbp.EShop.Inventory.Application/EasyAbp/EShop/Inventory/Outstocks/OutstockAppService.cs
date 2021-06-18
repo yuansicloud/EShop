@@ -70,7 +70,8 @@ namespace EasyAbp.EShop.Inventory.Outstocks
                 .WhereIf(input.CreationStartTime.HasValue, s => s.CreationTime.Date >= input.CreationStartTime.Value.Date)
                 .WhereIf(input.CreationEndTime.HasValue, s => s.CreationTime.Date >= input.CreationEndTime.Value.Date)
                 .WhereIf(input.OutstockStartTime.HasValue, s => s.OutstockTime.Date >= input.OutstockStartTime.Value.Date)
-                .WhereIf(input.OutstockEndTime.HasValue, s => s.OutstockTime.Date >= input.OutstockEndTime.Value.Date);
+                .WhereIf(input.OutstockEndTime.HasValue, s => s.OutstockTime.Date >= input.OutstockEndTime.Value.Date)
+                .WhereIf(!input.OperatorName.IsNullOrEmpty(), s => s.OperatorName.Contains(input.OperatorName));
         }
 
         protected virtual async Task<OutstockCreateDto> MapOutstockNumber(OutstockCreateDto dto, string instockNumber = null)

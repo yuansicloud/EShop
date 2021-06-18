@@ -72,7 +72,7 @@ namespace EasyAbp.EShop.Inventory.Instocks
                 .WhereIf(input.ProductSkuId.HasValue, s => s.ProductSkuId == input.ProductSkuId.Value)
                 .WhereIf(input.WarehouseId.HasValue, s => s.WarehouseId == input.WarehouseId.Value)
                 .WhereIf(input.StoreId.HasValue, s => s.StoreId == input.StoreId.Value)
-                //.WhereIf(input.SupplierId.HasValue, s => s.SupplierId == input.SupplierId.Value)
+                .WhereIf(!input.OperatorName.IsNullOrEmpty(), s => s.OperatorName .Contains(input.OperatorName))
                 .WhereIf(input.CreationStartTime.HasValue, s => s.CreationTime.Date >= input.CreationStartTime.Value.Date)
                 .WhereIf(input.CreationEndTime.HasValue, s => s.CreationTime.Date >= input.CreationEndTime.Value.Date)
                 .WhereIf(input.InstockStartTime.HasValue, s => s.InstockTime.Date >= input.InstockStartTime.Value.Date)

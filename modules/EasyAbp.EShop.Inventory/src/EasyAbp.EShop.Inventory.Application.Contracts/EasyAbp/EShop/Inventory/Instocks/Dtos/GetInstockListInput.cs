@@ -54,5 +54,10 @@ namespace EasyAbp.EShop.Inventory.Instocks.Dtos
         /// 入库时间结束
         /// </summary>
         public DateTime? InstockEndTime { get; set; }
+
+        /// <summary>
+        /// 入库人
+        /// </summary>
+        public string OperatorName { get; set; }
     }
 }

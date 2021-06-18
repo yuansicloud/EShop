@@ -49,5 +49,10 @@ namespace EasyAbp.EShop.Inventory.Outstocks.Dtos
         /// 出库时间结束
         /// </summary>
         public DateTime? OutstockEndTime { get; set; }
+
+        /// <summary>
+        /// 出库人
+        /// </summary>
+        public string OperatorName { get; set; }
     }
 }
