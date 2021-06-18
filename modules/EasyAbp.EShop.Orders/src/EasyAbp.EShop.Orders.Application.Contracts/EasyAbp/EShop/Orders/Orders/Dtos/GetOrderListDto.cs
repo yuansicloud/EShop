@@ -31,5 +31,7 @@ namespace EasyAbp.EShop.Orders.Orders.Dtos
 
         [Range(1, 10000)]
         public override int MaxResultCount { get; set; } = DefaultMaxResultCount;
+
+        public Guid[] Ids { get; set; }
     }
 }

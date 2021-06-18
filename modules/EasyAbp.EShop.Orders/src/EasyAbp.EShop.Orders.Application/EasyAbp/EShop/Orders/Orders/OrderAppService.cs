@@ -53,7 +53,8 @@ namespace EasyAbp.EShop.Orders.Orders
                 .WhereIf(input.MinCreationDate.HasValue, x => x.CreationTime >= input.MinCreationDate.Value)
                 .WhereIf(input.MaxCreationDate.HasValue, x => x.CreationTime <= input.MaxCreationDate.Value)
                 .WhereIf(input.OrderStatus.HasValue, x => x.OrderStatus == input.OrderStatus.Value)
-                .WhereIf(!input.Filter.IsNullOrEmpty(), x => x.OrderNumber.Contains(input.Filter));
+                .WhereIf(!input.Filter.IsNullOrEmpty(), x => x.OrderNumber.Contains(input.Filter))
+                .WhereIf(!input.Ids.IsNullOrEmpty(), x => input.Ids.Contains(x.Id));
         }
 
         [Authorize]
