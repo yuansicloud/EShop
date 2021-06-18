@@ -7,6 +7,9 @@
     "Permission:Payments": "支付",
     "PaymentItemStoreId": "店铺 ID",
     "Permission:Refunds": "退款",
-    "RefundItemStoreId": "店铺 ID"
+    "RefundItemStoreId": "店铺 ID",
+    "Permission:Manage": "管理",
+    "Permission:CrossStore": "跨店铺",
+    "Permission:Create": "创建"
   }
 }

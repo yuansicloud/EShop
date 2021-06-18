@@ -27,6 +27,11 @@
     "CreateBasketItem": "新建",
     "EditBasketItem": "编辑",
     "BasketItemDeletionConfirmationMessage": "确认删除购物车项 {0}?",
-    "SuccessfullyDeleted": "删除成功"
+    "SuccessfullyDeleted": "删除成功",
+    "Permission:Baskets": "购物车管理",
+    "Permission:Manage": "管理",
+    "Permission:Create": "创建",
+    "Permission:Update": "编辑",
+    "Permission:Delete": "删除"
   }
 }

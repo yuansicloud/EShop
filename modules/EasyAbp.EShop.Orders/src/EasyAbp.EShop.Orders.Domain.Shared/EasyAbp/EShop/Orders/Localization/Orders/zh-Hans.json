@@ -40,6 +40,14 @@
     "OrderLineTotalPrice": "总价",
     "OrderLineTotalDiscount": "总折扣",
     "OrderLineActualTotalPrice": "折后总价",
-    "OrderLineQuantity": "数量"
+    "OrderLineQuantity": "数量",
+    "Permission:Orders": "订单管理",
+    "Permission:Order": "订单",
+    "Permission:Manage": "管理",
+    "Permission:CrossStore": "跨店铺",
+    "Permission:Create": "创建",
+    "Permission:Complete": "完成订单",
+    "Permission:RequestCancellation": "取消请求",
+    "Permission:Cancel": "取消订单"
   }
 }

@@ -58,7 +58,7 @@
     "SuccessfullyDeleted": "删除成功",
     "Menu:Category": "商品类目",
     "Category": "商品类目",
-    "Subcategory" : "子类目",
+    "Subcategory": "子类目",
     "CategoryParentId": "父类目 ID",
     "CategoryUniqueName": "类目编号",
     "CategoryDisplayName": "类目名称",
@@ -74,6 +74,15 @@
     "IncreaseInventory": "加库存",
     "DecreaseInventory": "减库存",
     "ProductInventoryInventory": "库存数",
-    "ChangeProductInventory": "调整库存数"
+    "ChangeProductInventory": "调整库存数",
+    "Permission:Products": "商品管理",
+    "Permission:Category": "商品分类",
+    "Permission:CrossStore": "跨店铺",
+    "Permission:Manage": "管理",
+    "Permission:Create": "创建",
+    "Permission:Update": "编辑",
+    "Permission:Delete": "删除",
+    "Permission:ShowHidden": "显示隐藏",
+    "Permission:Product": "商品"
   }
 }

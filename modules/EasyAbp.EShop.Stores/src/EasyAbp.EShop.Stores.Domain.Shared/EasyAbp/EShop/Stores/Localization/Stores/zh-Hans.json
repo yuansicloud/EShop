@@ -31,6 +31,10 @@
     "TransactionAmount": "金额",
     "CreateTransaction": "新建",
     "EditTransaction": "编辑",
-    "TransactionDeletionConfirmationMessage": "确认删除交易记录 {0}?"
+    "TransactionDeletionConfirmationMessage": "确认删除交易记录 {0}?",
+    "Permission:Stores": "店铺管理",
+    "Permission:Store": "店铺",
+    "Permission:CrossStore": "跨店铺",
+    "Permission:Manage": "管理"
   }
 }
