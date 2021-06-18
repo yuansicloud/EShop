@@ -428,6 +428,7 @@ namespace EasyAbp.EShop.Products.Products
                 var attributeOptions = productDto.ProductAttributes
                     .SelectMany(a => a.ProductAttributeOptions);
 
+                //TODO: Order
                 productSku.AttributeOptionDisplayNames = productSku.AttributeOptionIds
                     .Select(i => attributeOptions.SingleOrDefault(o => o.Id == i)?.DisplayName)
                     .ToList(); 

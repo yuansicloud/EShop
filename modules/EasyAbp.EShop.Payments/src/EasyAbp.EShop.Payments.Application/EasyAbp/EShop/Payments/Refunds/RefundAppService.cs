@@ -1,4 +1,4 @@
-using EasyAbp.EShop.Payments.Authorization;
+ï»¿using EasyAbp.EShop.Payments.Authorization;
 using EasyAbp.EShop.Payments.Payments;
 using EasyAbp.EShop.Payments.Refunds.Dtos;
 using EasyAbp.EShop.Stores.Permissions;
@@ -97,7 +97,7 @@ namespace EasyAbp.EShop.Payments.Refunds
 
             if (await _repository.FindAsync(r => r.PaymentId == input.PaymentId) != null)
             {
-                throw new UserFriendlyException("¸Ã¸¶¿îµ¥´æÔÚÕýÔÚ½øÐÐÖÐµÄÍË¿îµ¥");
+                throw new UserFriendlyException("è¯¥ä»˜æ¬¾å•å­˜åœ¨æ­£åœ¨è¿›è¡Œä¸­çš„é€€æ¬¾å•");
             }
 
             foreach (var refundItem in input.RefundItems)
@@ -140,7 +140,7 @@ namespace EasyAbp.EShop.Payments.Refunds
 
             if (createRefundInput.RefundItems.Sum(x => x.RefundAmount) <= 0)
             {
-                throw new UserFriendlyException("ÍË¿î½ð¶î²»ÄÜÐ¡ÓÚ0");
+                throw new UserFriendlyException("é€€æ¬¾é‡‘é¢ä¸èƒ½å°äºŽ0");
             }
 
             await _distributedEventBus.PublishAsync(new RefundPaymentEto(CurrentTenant.Id, createRefundInput));
