@@ -53,7 +53,7 @@ namespace EasyAbp.EShop.Payments.Payments
 
         protected override async Task<IQueryable<Payment>> CreateFilteredQueryAsync(GetPaymentListDto input)
         {
-            var query = await base.CreateFilteredQueryAsync(input);
+            var query = await _repository.WithDetailsAsync();
 
             if (input.UserId.HasValue)
             {
