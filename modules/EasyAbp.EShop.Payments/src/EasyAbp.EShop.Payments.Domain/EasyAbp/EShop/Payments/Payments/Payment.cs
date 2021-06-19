@@ -54,5 +54,23 @@ namespace EasyAbp.EShop.Payments.Payments
         {
             PaymentItems = paymentItems;
         }
+
+        public bool IsCompleted
+        {
+            get { return CompletionTime.HasValue; }
+        }
+
+        public bool IsCancelled
+        {
+            get { return CanceledTime.HasValue; }
+        }
+
+        public int PaymentItemsCount
+        {
+            get
+            {
+                return PaymentItems.IsNullOrEmpty() ? 0 : PaymentItems.Count;
+            }
+        }
     }
 }
