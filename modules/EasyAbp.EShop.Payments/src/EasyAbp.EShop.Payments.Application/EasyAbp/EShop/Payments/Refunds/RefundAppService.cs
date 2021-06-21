@@ -64,9 +64,19 @@ namespace EasyAbp.EShop.Payments.Refunds
 
         protected override async Task<IQueryable<Refund>> CreateFilteredQueryAsync(GetRefundListDto input)
         {
-            return input.UserId.HasValue
+            var query = input.UserId.HasValue
                 ? await _repository.GetQueryableByUserIdAsync(input.UserId.Value)
-                : _repository;
+                : await _repository.WithDetailsAsync();
+
+            return query.WhereIf(!input.Filter.IsNullOrEmpty(), x => x.DisplayReason.Contains(input.Filter) || x.CustomerRemark.Contains(input.Filter) || x.StaffRemark.Contains(input.Filter))
+                        .WhereIf(!input.RefundPaymentMethod.IsNullOrEmpty(), x => x.RefundPaymentMethod == input.RefundPaymentMethod)
+                        .WhereIf(!input.ExternalTradingCode.IsNullOrEmpty(), x => x.ExternalTradingCode.Contains(input.ExternalTradingCode))
+                        .WhereIf(input.IsCompleted.HasValue, x => x.CompletedTime.HasValue)
+                        .WhereIf(input.IsCancelled.HasValue, x => x.CanceledTime.HasValue)
+                        .WhereIf(input.MinCompletedTime.HasValue, x => x.CompletedTime.HasValue && x.CompletedTime >= input.MinCompletedTime.Value)
+                        .WhereIf(input.MaxCompletedTime.HasValue, x => x.CompletedTime.HasValue && x.CompletedTime <= input.MaxCompletedTime.Value)
+                        .WhereIf(input.MinCancelledTime.HasValue, x => x.CanceledTime.HasValue && x.CanceledTime >= input.MinCancelledTime.Value)
+                        .WhereIf(input.MaxCancelledTime.HasValue, x => x.CanceledTime.HasValue && x.CanceledTime <= input.MaxCancelledTime.Value);
         }
 
         // Todo: should a store owner user see orders of other stores in the same payment/refund?

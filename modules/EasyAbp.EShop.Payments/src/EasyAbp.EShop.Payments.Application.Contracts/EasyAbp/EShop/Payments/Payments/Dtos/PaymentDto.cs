@@ -37,5 +37,23 @@ namespace EasyAbp.EShop.Payments.Payments.Dtos
         #endregion
         
         public List<PaymentItemDto> PaymentItems { get; set; }
+
+        public bool IsCompleted
+        {
+            get { return CompletionTime.HasValue; }
+        }
+
+        public bool IsCancelled
+        {
+            get { return CanceledTime.HasValue; }
+        }
+
+        public int PaymentItemsCount
+        {
+            get
+            {
+                return PaymentItems.IsNullOrEmpty() ? 0 : PaymentItems.Count;
+            }
+        }
     }
 }

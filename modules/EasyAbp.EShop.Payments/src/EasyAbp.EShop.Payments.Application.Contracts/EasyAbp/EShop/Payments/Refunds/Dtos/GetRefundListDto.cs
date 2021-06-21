@@ -8,5 +8,23 @@ namespace EasyAbp.EShop.Payments.Refunds.Dtos
     {
         public Guid? UserId { get; set; }
 
+        public bool? IsCompleted { get; set; }
+
+        public bool? IsCancelled { get; set; }
+
+        public DateTime? MinCompletedTime { get; set; }
+
+        public DateTime? MaxCompletedTime { get; set; }
+
+        public DateTime? MinCancelledTime { get; set; }
+
+        public DateTime? MaxCancelledTime { get; set; }
+
+        public string RefundPaymentMethod { get; set; }
+
+        public string ExternalTradingCode { get; set; }
+
+        public string Filter { get; set; }
+
     }
 }

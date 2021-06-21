@@ -67,7 +67,10 @@ namespace EasyAbp.EShop.Orders.Orders
                 totalDiscount: totalDiscount,
                 totalPrice: totalPrice,
                 actualTotalPrice: totalPrice - totalDiscount,
-                customerRemark: input.CustomerRemark);
+                customerRemark: input.CustomerRemark,
+                staffUserId: input.StaffUserId,
+                occupantId: input.OccupantId,
+                graveId:input.GraveId);
 
             input.MapExtraPropertiesTo(order, MappingPropertyDefinitionChecks.Destination);
 
