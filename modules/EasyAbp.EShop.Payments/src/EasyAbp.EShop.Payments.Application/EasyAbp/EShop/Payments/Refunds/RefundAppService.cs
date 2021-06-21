@@ -65,7 +65,7 @@ namespace EasyAbp.EShop.Payments.Refunds
 
         public async Task<RefundDto> FindByPaymentIdAsync(Guid paymentId)
         {
-            var refund = await _repository.SingleOrDefaultAsync(x => x.PaymentId == paymentId);
+            var refund = (await _repository.WithDetailsAsync()).SingleOrDefault(x => x.PaymentId == paymentId);
 
             var payment = await _paymentRepository.GetAsync(refund.PaymentId);
 
