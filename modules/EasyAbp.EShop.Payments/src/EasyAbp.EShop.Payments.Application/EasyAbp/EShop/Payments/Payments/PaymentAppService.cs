@@ -68,7 +68,11 @@ namespace EasyAbp.EShop.Payments.Payments
                         .WhereIf(input.MinCompletedTime.HasValue, x => x.CompletionTime.HasValue && x.CompletionTime >= input.MinCompletedTime.Value)
                         .WhereIf(input.MaxCompletedTime.HasValue, x => x.CompletionTime.HasValue && x.CompletionTime <= input.MaxCompletedTime.Value)
                         .WhereIf(input.MinCancelledTime.HasValue, x => x.CanceledTime.HasValue && x.CanceledTime >= input.MinCancelledTime.Value)
-                        .WhereIf(input.MaxCancelledTime.HasValue, x => x.CanceledTime.HasValue && x.CanceledTime <= input.MaxCancelledTime.Value);
+                        .WhereIf(input.MaxCancelledTime.HasValue, x => x.CanceledTime.HasValue && x.CanceledTime <= input.MaxCancelledTime.Value)
+                        .WhereIf(input.MinCreationTime.HasValue, x => x.CreationTime >= input.MinCreationTime.Value)
+                        .WhereIf(input.MaxCreationTime.HasValue, x =>  x.CreationTime <= input.MaxCreationTime.Value)
+                        .WhereIf(input.MinPaymentAmount.HasValue, x => x.ActualPaymentAmount >= input.MinPaymentAmount.Value)
+                        .WhereIf(input.MaxPaymentAmount.HasValue, x => x.ActualPaymentAmount <= input.MaxPaymentAmount.Value);
         }
 
         // Todo: should a store owner user see orders of other stores in the same payment/refund?

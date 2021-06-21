@@ -25,5 +25,13 @@ namespace EasyAbp.EShop.Payments.Payments.Dtos
         public string PayeeAccount { get; set; }
 
         public string ExternalTradingCode { get; set; }
+
+        public decimal? MinPaymentAmount { get; set; }
+
+        public decimal? MaxPaymentAmount { get; set; }
+
+        public DateTime? MinCreationTime { get; set; }
+
+        public DateTime? MaxCreationTime { get; set; }
     }
 }

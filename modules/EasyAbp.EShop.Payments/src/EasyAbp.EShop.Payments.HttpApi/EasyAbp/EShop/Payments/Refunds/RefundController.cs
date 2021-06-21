@@ -36,5 +36,12 @@ namespace EasyAbp.EShop.Payments.Refunds
         {
             return _service.CreateAsync(input);
         }
+
+        [HttpGet]
+        [Route("find-by-paymentId/{paymentId}")]
+        public Task<RefundDto> FindByPaymentIdAsync(Guid paymentId)
+        {
+            return _service.FindByPaymentIdAsync(paymentId);
+        }
     }
 }

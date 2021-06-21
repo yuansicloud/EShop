@@ -1,6 +1,6 @@
+using EasyAbp.PaymentService.Payments;
 using System;
 using System.Collections.Generic;
-using EasyAbp.PaymentService.Payments;
 using Volo.Abp.Application.Dtos;
 
 namespace EasyAbp.EShop.Payments.Payments.Dtos
@@ -11,9 +11,9 @@ namespace EasyAbp.EShop.Payments.Payments.Dtos
         #region Base properties
 
         public Guid UserId { get; set; }
-        
+
         public string PaymentMethod { get; set; }
-        
+
         public string PayeeAccount { get; set; }
 
         public string ExternalTradingCode { get; set; }
@@ -27,15 +27,15 @@ namespace EasyAbp.EShop.Payments.Payments.Dtos
         public decimal ActualPaymentAmount { get; set; }
 
         public decimal RefundAmount { get; set; }
-        
+
         public decimal PendingRefundAmount { get; set; }
 
         public DateTime? CompletionTime { get; set; }
-        
+
         public DateTime? CanceledTime { get; set; }
-        
-        #endregion
-        
+
+        #endregion Base properties
+
         public List<PaymentItemDto> PaymentItems { get; set; }
 
         public bool IsCompleted
@@ -46,6 +46,15 @@ namespace EasyAbp.EShop.Payments.Payments.Dtos
         public bool IsCancelled
         {
             get { return CanceledTime.HasValue; }
+        }
+
+        public bool IsRefunded
+        {
+            get
+            {
+                return RefundAmount > 0
+                    || PendingRefundAmount > 0;
+            }
         }
 
         public int PaymentItemsCount

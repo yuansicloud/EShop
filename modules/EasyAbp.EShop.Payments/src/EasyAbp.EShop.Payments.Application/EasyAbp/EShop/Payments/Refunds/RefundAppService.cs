@@ -17,6 +17,7 @@ using Volo.Abp.EventBus.Distributed;
 using Volo.Abp.Json;
 using Volo.Abp.Users;
 using Volo.Abp;
+using Volo.Abp.Domain.Repositories;
 
 namespace EasyAbp.EShop.Payments.Refunds
 {
@@ -62,6 +63,20 @@ namespace EasyAbp.EShop.Payments.Refunds
             return refund;
         }
 
+        public async Task<RefundDto> FindByPaymentIdAsync(Guid paymentId)
+        {
+            var refund = await _repository.SingleOrDefaultAsync(x => x.PaymentId == paymentId);
+
+            var payment = await _paymentRepository.GetAsync(refund.PaymentId);
+
+            if (payment.UserId != CurrentUser.GetId())
+            {
+                await CheckPolicyAsync(GetPolicyName);
+            }
+
+            return await MapToGetOutputDtoAsync(refund);
+        }
+
         protected override async Task<IQueryable<Refund>> CreateFilteredQueryAsync(GetRefundListDto input)
         {
             var query = input.UserId.HasValue
@@ -76,7 +91,11 @@ namespace EasyAbp.EShop.Payments.Refunds
                         .WhereIf(input.MinCompletedTime.HasValue, x => x.CompletedTime.HasValue && x.CompletedTime >= input.MinCompletedTime.Value)
                         .WhereIf(input.MaxCompletedTime.HasValue, x => x.CompletedTime.HasValue && x.CompletedTime <= input.MaxCompletedTime.Value)
                         .WhereIf(input.MinCancelledTime.HasValue, x => x.CanceledTime.HasValue && x.CanceledTime >= input.MinCancelledTime.Value)
-                        .WhereIf(input.MaxCancelledTime.HasValue, x => x.CanceledTime.HasValue && x.CanceledTime <= input.MaxCancelledTime.Value);
+                        .WhereIf(input.MaxCancelledTime.HasValue, x => x.CanceledTime.HasValue && x.CanceledTime <= input.MaxCancelledTime.Value)
+                        .WhereIf(input.MinCreationTime.HasValue, x => x.CreationTime >= input.MinCreationTime.Value)
+                        .WhereIf(input.MaxCreationTime.HasValue, x => x.CreationTime <= input.MaxCreationTime.Value)
+                        .WhereIf(input.MinRefundAmount.HasValue, x => x.RefundAmount >= input.MinRefundAmount.Value)
+                        .WhereIf(input.MaxRefundAmount.HasValue, x => x.RefundAmount <= input.MaxRefundAmount.Value);
         }
 
         // Todo: should a store owner user see orders of other stores in the same payment/refund?

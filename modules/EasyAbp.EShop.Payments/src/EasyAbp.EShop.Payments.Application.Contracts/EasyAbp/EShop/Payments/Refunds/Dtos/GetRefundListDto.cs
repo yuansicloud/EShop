@@ -20,6 +20,14 @@ namespace EasyAbp.EShop.Payments.Refunds.Dtos
 
         public DateTime? MaxCancelledTime { get; set; }
 
+        public DateTime? MinCreationTime { get; set; }
+
+        public DateTime? MaxCreationTime { get; set; }
+
+        public decimal? MinRefundAmount { get; set; }
+
+        public decimal? MaxRefundAmount { get; set; }
+
         public string RefundPaymentMethod { get; set; }
 
         public string ExternalTradingCode { get; set; }

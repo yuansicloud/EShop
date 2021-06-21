@@ -12,5 +12,7 @@ namespace EasyAbp.EShop.Payments.Refunds
             GetRefundListDto>
     {
         Task CreateAsync(CreateEShopRefundInput input);
+
+        Task<RefundDto> FindByPaymentIdAsync(Guid paymentId);
     }
 }
