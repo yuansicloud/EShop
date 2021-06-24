@@ -50,6 +50,8 @@ namespace EasyAbp.EShop.Orders.Orders
         
         public DateTime? ReducedInventoryAfterPaymentTime { get; set; }
 
+        public DateTime? ReducedInventoryAfterConsumingTime { get; set; }
+
         public List<OrderLineEto> OrderLines { get; set; }
         
         public ExtraPropertyDictionary ExtraProperties { get; set; }

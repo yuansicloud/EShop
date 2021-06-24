@@ -50,5 +50,8 @@ namespace EasyAbp.EShop.Orders.Orders
         DateTime? ReducedInventoryAfterPlacingTime { get; }
         
         DateTime? ReducedInventoryAfterPaymentTime { get; }
+
+        DateTime? ReducedInventoryAfterConsumingTime { get; }
+
     }
 }
