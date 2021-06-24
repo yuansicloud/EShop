@@ -50,14 +50,16 @@ namespace EasyAbp.EShop.Orders.Orders
         public virtual DateTime? CompletionTime { get; protected set; }
         
         public virtual DateTime? CanceledTime { get; protected set; }
-        
+
         [CanBeNull]
         public virtual string CancellationReason { get; protected set; }
 
         public virtual DateTime? ReducedInventoryAfterPlacingTime { get; protected set; }
         
         public virtual DateTime? ReducedInventoryAfterPaymentTime { get; protected set; }
-        
+
+        public virtual DateTime? ReducedInventoryAfterConsumingTime { get; protected set; }
+
         public virtual List<OrderLine> OrderLines { get; protected set; }
         
         public virtual List<OrderExtraFee> OrderExtraFees { get; protected set; }
@@ -128,7 +130,12 @@ namespace EasyAbp.EShop.Orders.Orders
         {
             ReducedInventoryAfterPaymentTime = time;
         }
-        
+
+        public void SetReducedInventoryAfterConsumingTime(DateTime? time)
+        {
+            ReducedInventoryAfterConsumingTime = time;
+        }
+
         public void SetPaymentId(Guid? paymentId)
         {
             PaymentId = paymentId;

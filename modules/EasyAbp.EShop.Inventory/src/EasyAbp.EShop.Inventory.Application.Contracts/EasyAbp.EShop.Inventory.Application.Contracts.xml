@@ -54,6 +54,11 @@
             入库时间结束
             </summary>
         </member>
+        <member name="P:EasyAbp.EShop.Inventory.Instocks.Dtos.GetInstockListInput.OperatorName">
+            <summary>
+            入库人
+            </summary>
+        </member>
         <member name="T:EasyAbp.EShop.Inventory.Instocks.Dtos.InstockDto">
             <summary>
             入库数据模型
@@ -147,6 +152,11 @@
         <member name="P:EasyAbp.EShop.Inventory.Outstocks.Dtos.GetOutstockListInput.OutstockEndTime">
             <summary>
             出库时间结束
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Inventory.Outstocks.Dtos.GetOutstockListInput.OperatorName">
+            <summary>
+            出库人
             </summary>
         </member>
         <member name="T:EasyAbp.EShop.Inventory.Outstocks.Dtos.OutstockDto">

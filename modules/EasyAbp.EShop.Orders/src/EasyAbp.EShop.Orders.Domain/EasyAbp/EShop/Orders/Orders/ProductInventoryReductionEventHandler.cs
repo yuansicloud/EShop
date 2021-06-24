@@ -79,5 +79,32 @@ namespace EasyAbp.EShop.Orders.Orders
             }
             catch { }
         }
+
+        public async Task HandleEventAsync(ProductInventoryReductionAfterOrderConsumedResultEto eventData)
+        {
+            try
+            {
+                using (_currentTenant.Change(eventData.TenantId))
+                {
+                    var order = await _orderRepository.GetAsync(eventData.OrderId);
+
+                    if (order.ReducedInventoryAfterConsumingTime.HasValue)
+                    {
+                        throw new OrderIsInWrongStageException(order.Id);
+                    }
+
+                    if (!eventData.IsSuccess)
+                    {
+                        // Todo: Cancel order.
+                        return;
+                    }
+
+                    order.SetReducedInventoryAfterPlacingTime(_clock.Now);
+
+                    await _orderRepository.UpdateAsync(order, true);
+                }
+            }
+            catch { }
+        }
     }
 }

@@ -45,6 +45,8 @@ namespace EasyAbp.EShop.Orders.Orders.Dtos
         
         public DateTime? ReducedInventoryAfterPaymentTime { get; set; }
 
+        public DateTime? ReducedInventoryAfterConsumingTime { get; set; }
+
         public List<OrderLineDto> OrderLines { get; set; }
 
         public Guid? StaffUserId { get; set; }

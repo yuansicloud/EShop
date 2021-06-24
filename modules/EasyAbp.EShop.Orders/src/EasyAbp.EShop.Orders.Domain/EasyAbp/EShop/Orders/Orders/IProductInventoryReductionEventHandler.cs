@@ -5,6 +5,7 @@ namespace EasyAbp.EShop.Orders.Orders
 {
     public interface IProductInventoryReductionEventHandler :
         IDistributedEventHandler<ProductInventoryReductionAfterOrderPlacedResultEto>,
+        IDistributedEventHandler<ProductInventoryReductionAfterOrderConsumedResultEto>,
         IDistributedEventHandler<ProductInventoryReductionAfterOrderPaidResultEto>
     {
         
