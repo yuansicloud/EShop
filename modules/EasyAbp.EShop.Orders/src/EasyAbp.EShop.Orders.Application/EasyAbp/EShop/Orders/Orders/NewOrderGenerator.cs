@@ -68,6 +68,7 @@ namespace EasyAbp.EShop.Orders.Orders
                 totalPrice: totalPrice,
                 actualTotalPrice: totalPrice - totalDiscount,
                 customerRemark: input.CustomerRemark,
+                staffRemark: input.StaffRemark,
                 staffUserId: input.StaffUserId,
                 occupantId: input.OccupantId,
                 graveId:input.GraveId);

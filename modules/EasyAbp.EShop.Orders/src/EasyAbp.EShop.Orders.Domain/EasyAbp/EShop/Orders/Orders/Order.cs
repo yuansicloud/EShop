@@ -85,6 +85,7 @@ namespace EasyAbp.EShop.Orders.Orders
             decimal totalPrice,
             decimal actualTotalPrice,
             [CanBeNull] string customerRemark,
+            [CanBeNull] string staffRemark,
             Guid? staffUserId = null,
             Guid? occupantId = null,
             Guid? graveId = null
@@ -99,6 +100,7 @@ namespace EasyAbp.EShop.Orders.Orders
             TotalPrice = totalPrice;
             ActualTotalPrice = actualTotalPrice;
             CustomerRemark = customerRemark;
+            StaffRemark = staffRemark;
 
             RefundAmount = 0;
 
