@@ -288,18 +288,16 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
 
         public virtual async Task CreateOrderFromBasket(CreateOrderFromBasketInput input)
         {
-            var basketItems = await GetListAsync(new GetBasketItemListDto { 
-                BasketName = input.BasketName,
-                IdentifierId = input.IdentifierId ?? CurrentUser.GetId(),
-                MaxResultCount = 999
-            });
+            var basketItems = _repository.Where(x => x.BasketName == input.BasketName && x.IdentifierId == (input.IdentifierId ?? CurrentUser.GetId()));
 
-            if (basketItems.Items.Where(i => i.IsInvalid).Count() > 0)
+
+
+            if (basketItems.Where(i => i.IsInvalid).Count() > 0)
             {
                 throw new UserFriendlyException("购物车存在失效商品, 请先删除!");
             }
 
-            var orderLines = basketItems.Items.Select(i => new CreateOrderLineDto { 
+            var orderLines = basketItems.Select(i => new CreateOrderLineDto { 
                 ProductId = i.ProductId,
                 ProductSkuId = i.ProductSkuId,
                 Quantity = i.Quantity,
@@ -319,9 +317,11 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
                 OrderLines = orderLines.ToList()
             });
 
+            await DeleteInBulkAsync(basketItems.Select(i => i.Id));
+
             await _distributedEventBus.PublishAsync(new OrderFromBasketCreatedEto(order.Id, input.BasketName, input.IdentifierId ?? CurrentUser.GetId(),  CurrentTenant.Id));
 
-            await DeleteInBulkAsync(basketItems.Items.Select(i => i.Id));
+
         }
 
         protected virtual async Task<bool> IsCurrentUserManagerAsync()

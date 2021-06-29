@@ -53,7 +53,7 @@ namespace EasyAbp.EShop.Products.Products
                     continue;
                 }
 
-                if (product.InventoryStrategy != InventoryStrategy.ReduceAfterPayment)
+                if (product.InventoryStrategy != InventoryStrategy.ReduceAfterPayment && product.InventoryStrategy != InventoryStrategy.ReduceAfterPlacing)
                 {
                     continue;
                 }
@@ -70,7 +70,7 @@ namespace EasyAbp.EShop.Products.Products
                     Product = product,
                     ProductSku = productSku,
                     StoreId = eventData.Order.StoreId,
-                    Quantity = orderLine.Quantity
+                    Quantity = orderLine.RefundedQuantity
                 });
             }
 
