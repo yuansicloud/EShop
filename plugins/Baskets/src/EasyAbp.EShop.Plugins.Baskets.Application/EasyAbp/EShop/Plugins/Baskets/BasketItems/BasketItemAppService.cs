@@ -288,7 +288,9 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
 
         public virtual async Task CreateOrderFromBasket(CreateOrderFromBasketInput input)
         {
-            var basketItems = _repository.Where(x => x.BasketName == input.BasketName && x.IdentifierId == (input.IdentifierId ?? CurrentUser.GetId()));
+            var basketItems = _repository
+                .Where(x => x.BasketName == input.BasketName && x.IdentifierId == (input.IdentifierId ?? CurrentUser.GetId()))
+                .ToList();
 
             if (basketItems.Where(i => i.IsInvalid).Count() > 0)
             {
