@@ -50,9 +50,9 @@ namespace EasyAbp.EShop.Products.Products
         {
             await CheckGetListPolicyAsync();
 
-            if (await _cache.GetAsync(await GetCacheKeyAsync(input.StoreId), true) == null)
+            if (await _cache.GetAsync(await GetCacheKeyAsync(input.StoreId.Value), true) == null)
             {
-                await BuildStoreProductViewsAsync(input.StoreId);
+                await BuildStoreProductViewsAsync(input.StoreId.Value);
             }
             
             var query = await CreateFilteredQueryAsync(input);
