@@ -5,12 +5,11 @@ using Volo.Abp.Application.Dtos;
 namespace EasyAbp.EShop.Products.Products.Dtos
 {
     [Serializable]
-    public class GetProductListInput : PagedAndSortedResultRequestDto
+    public class GetProductViewListInput : PagedAndSortedResultRequestDto
     {
         /// <summary>
         /// 店铺ID
         /// </summary>
-        //[Required]
         public Guid? StoreId { get; set; }
 
         /// <summary>
@@ -22,11 +21,6 @@ namespace EasyAbp.EShop.Products.Products.Dtos
         /// 是否包括子类别的商品
         /// </summary>
         public bool ShowRecursive { get; set; }
-
-        ///// <summary>
-        ///// 是否显示真实详细库存
-        ///// </summary>
-        //public bool ShowStock { get; set; } = false;
 
         /// <summary>
         /// 是否显示隐藏商品（需要权限）
@@ -43,24 +37,5 @@ namespace EasyAbp.EShop.Products.Products.Dtos
         /// </summary>
         public string Filter { get; set; }
 
-        /// <summary>
-        /// 最小价格
-        /// </summary>
-        public decimal? MinimumPrice { get; set; }
-
-        /// <summary>
-        /// 最大价格
-        /// </summary>
-        public decimal? MaximumPrice { get; set; }
-
-        ///// <summary>
-        ///// 库存记录开始时间
-        ///// </summary>
-        //public DateTime? TermStartTime { get; set; }
-
-        ///// <summary>
-        ///// 库存记录结束时间
-        ///// </summary>
-        //public DateTime? TermEndTime { get; set; }
     }
 }

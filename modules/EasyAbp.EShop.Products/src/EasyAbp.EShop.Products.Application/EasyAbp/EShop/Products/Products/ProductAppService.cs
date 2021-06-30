@@ -66,10 +66,12 @@ namespace EasyAbp.EShop.Products.Products
                 : (await _repository.WithDetailsAsync());
 
             return query
-                .Where(x => x.StoreId == input.StoreId)
+                .WhereIf(input.StoreId.HasValue, x => x.StoreId == input.StoreId)
                 .WhereIf(!input.ShowHidden, x => !x.IsHidden)
                 .WhereIf(input.IsPublished.HasValue, x => x.IsPublished == input.IsPublished.Value)
-                .WhereIf(!input.Filter.IsNullOrEmpty(), x => x.DisplayName.Contains(input.Filter));
+                .WhereIf(!input.Filter.IsNullOrEmpty(), x => x.DisplayName.Contains(input.Filter))
+                .WhereIf(!input.MinimumPrice.HasValue, x => x.ProductSkus.Min(x => x.Price) >= input.MinimumPrice.Value)
+                .WhereIf(!input.MaximumPrice.HasValue, x => x.ProductSkus.Max(x => x.Price) <= input.MaximumPrice.Value);
         }
 
         protected override Product MapToEntity(CreateUpdateProductDto createInput)
@@ -292,21 +294,34 @@ namespace EasyAbp.EShop.Products.Products
         {
             await CheckGetListPolicyAsync();
 
-            var isCurrentUserStoreAdmin =
-                await AuthorizationService.IsMultiStoreGrantedAsync(input.StoreId,
-                    ProductsPermissions.Products.Default, ProductsPermissions.Products.CrossStore);
-
-            if (input.ShowHidden && !isCurrentUserStoreAdmin)
-            {
-                throw new NotAllowedToGetProductListWithShowHiddenException();
-            }
-
             // Todo: Products cache.
             var query = await CreateFilteredQueryAsync(input);
 
-            if (!isCurrentUserStoreAdmin)
+            if (input.StoreId.HasValue)
             {
-                query = query.Where(x => x.IsPublished);
+
+                var isCurrentUserStoreAdmin =
+                    await AuthorizationService.IsMultiStoreGrantedAsync(input.StoreId,
+                        ProductsPermissions.Products.Default, ProductsPermissions.Products.CrossStore);
+
+                if (input.ShowHidden && !isCurrentUserStoreAdmin)
+                {
+                    throw new NotAllowedToGetProductListWithShowHiddenException();
+                }
+
+                if (!isCurrentUserStoreAdmin)
+                {
+                    query = query.Where(x => x.IsPublished);
+                }
+
+            }
+            else
+            {
+                if ((input.IsPublished.HasValue && input.IsPublished.Value) || input.ShowHidden)
+                {
+                    await CheckPolicyAsync(ProductsPermissions.Products.CrossStore);
+                }
+
             }
 
             var totalCount = await AsyncExecuter.CountAsync(query);
