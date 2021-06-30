@@ -290,37 +290,42 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
         {
             var basketItems = _repository.Where(x => x.BasketName == input.BasketName && x.IdentifierId == (input.IdentifierId ?? CurrentUser.GetId()));
 
-
-
             if (basketItems.Where(i => i.IsInvalid).Count() > 0)
             {
                 throw new UserFriendlyException("购物车存在失效商品, 请先删除!");
             }
 
-            var orderLines = basketItems.Select(i => new CreateOrderLineDto { 
-                ProductId = i.ProductId,
-                ProductSkuId = i.ProductSkuId,
-                Quantity = i.Quantity,
-                TotalDiscount = i.TotalDiscount,
-                UnitPrice = i.IsFixedPrice ? null : i.UnitPrice
-            });
+            var orderGroups = basketItems.GroupBy(x => x.StoreId);
 
-            var order = await _orderAppService.CreateAsync(new CreateOrderDto
+            foreach (var orderGroup in orderGroups)
             {
-                CustomerRemark = input.CustomerRemark,
-                StaffRemark = input.StaffRemark,
-                CustomerUserId = input.CustomerUserId ?? CurrentUser.GetId(),
-                GraveId = input.GraveId,
-                OccupantId = input.OccupantId,
-                StaffUserId = input.StaffUserId,
-                StoreId = input.StoreId,
-                OrderLines = orderLines.ToList()
-            });
+                var orderLines = orderGroup.Select(i => new CreateOrderLineDto
+                {
+                    ProductId = i.ProductId,
+                    ProductSkuId = i.ProductSkuId,
+                    Quantity = i.Quantity,
+                    TotalDiscount = i.TotalDiscount,
+                    UnitPrice = i.IsFixedPrice ? null : i.UnitPrice
+                });
 
-            await DeleteInBulkAsync(basketItems.Select(i => i.Id));
+                var order = await _orderAppService.CreateAsync(new CreateOrderDto
+                {
+                    CustomerRemark = input.CustomerRemark,
+                    StaffRemark = input.StaffRemark,
+                    CustomerUserId = input.CustomerUserId ?? CurrentUser.GetId(),
+                    GraveId = input.GraveId,
+                    OccupantId = input.OccupantId,
+                    StaffUserId = input.StaffUserId,
+                    StoreId = orderGroup.Key,
+                    OrderLines = orderLines.ToList()
 
-            await _distributedEventBus.PublishAsync(new OrderFromBasketCreatedEto(order.Id, input.BasketName, input.IdentifierId ?? CurrentUser.GetId(),  CurrentTenant.Id));
+                });
 
+                await _repository.DeleteManyAsync(orderGroup, true);
+
+                await _distributedEventBus.PublishAsync(new OrderFromBasketCreatedEto(order.Id, input.BasketName, input.IdentifierId ?? CurrentUser.GetId(), CurrentTenant.Id));
+
+            }
 
         }
 

@@ -9,17 +9,15 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems.Dtos
 {
     public class CreateOrderFromBasketInput
     {
-
-        [Required]
-        public string BasketName { get; set; }
+        public string BasketName { get; set; } = BasketsConsts.DefaultBasketName;
 
         /// <summary>
         /// Specify the basket item owner user ID. Use current user ID if this property is null.
         /// </summary>
         public Guid? IdentifierId { get; set; }
 
-        [DisplayName("OrderStoreId")]
-        public Guid StoreId { get; set; }
+        //[DisplayName("OrderStoreId")]
+        //public Guid StoreId { get; set; }
 
         [DisplayName("OrderCustomerRemark")]
         public string CustomerRemark { get; set; }
