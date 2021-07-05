@@ -191,6 +191,18 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
             return ReadOnlyRepository.Where(item => item.IdentifierId == userId && item.BasketName == input.BasketName);
         }
 
+        public async Task<List<BasketItemDto>> CreateInBulkAsync(List<CreateBasketItemDto> input)
+        {
+            List<BasketItemDto> basketItems = new();
+
+            foreach(var item in input)
+            {
+                basketItems.Add(await CreateAsync(item));
+            }
+
+            return basketItems;
+        }
+
         public override async Task<BasketItemDto> CreateAsync(CreateBasketItemDto input)
         {
             await CheckCreatePolicyAsync();

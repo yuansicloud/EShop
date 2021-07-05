@@ -87,7 +87,7 @@ namespace EasyAbp.EShop.Products.EntityFrameworkCore
 
                 b.HasOne<Product>().WithMany(p => p.ProductSkus).HasForeignKey(x => x.ProductId);
 
-                b.HasOne(x => x.Unit).WithMany().HasForeignKey(x => x.UnitId);
+                b.HasOne(x => x.Unit).WithMany().HasForeignKey(x => x.UnitId).OnDelete(DeleteBehavior.SetNull);
             });
 
             builder.Entity<Category>(b =>
