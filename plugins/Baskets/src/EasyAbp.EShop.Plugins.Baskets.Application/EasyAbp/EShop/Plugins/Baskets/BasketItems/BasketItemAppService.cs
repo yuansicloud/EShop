@@ -335,10 +335,9 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
 
                 });
 
-                await _repository.DeleteManyAsync(orderGroup, true);
-
                 await _distributedEventBus.PublishAsync(new OrderFromBasketCreatedEto(order.Id, input.BasketName, input.IdentifierId ?? CurrentUser.GetId(), CurrentTenant.Id));
 
+                await _repository.DeleteManyAsync(basketItems);
             }
 
         }
