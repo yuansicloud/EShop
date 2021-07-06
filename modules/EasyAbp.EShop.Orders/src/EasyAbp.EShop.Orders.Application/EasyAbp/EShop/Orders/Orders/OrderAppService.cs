@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using EasyAbp.EShop.Orders.Authorization;
 using EasyAbp.EShop.Orders.Orders.Dtos;
 using EasyAbp.EShop.Products.Products;
@@ -9,6 +5,10 @@ using EasyAbp.EShop.Products.Products.Dtos;
 using EasyAbp.EShop.Stores.Stores;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Users;
@@ -85,6 +85,37 @@ namespace EasyAbp.EShop.Orders.Orders
             return null;
         }
 
+
+        public async Task<List<OrderDto>> CreateInBulk(List<CreateOrderDto> input)
+        {
+            List<Order> orders = new();
+
+            foreach (var createOrderDto in input)
+            {
+                var productDict = await GetProductDictionaryAsync(createOrderDto.OrderLines.Select(dto => dto.ProductId).ToList(),
+                    createOrderDto.StoreId);
+
+                await AuthorizationService.CheckAsync(
+                    new OrderCreationResource
+                    {
+                        Input = createOrderDto,
+                        ProductDictionary = productDict
+                    },
+                    new OrderOperationAuthorizationRequirement(OrderOperation.Creation)
+                );
+
+                var order = await _newOrderGenerator.GenerateAsync(createOrderDto.CustomerUserId ?? CurrentUser.GetId(), createOrderDto, productDict);
+
+                await DiscountOrderAsync(order, productDict);
+
+                orders.Add(order);
+            }
+
+            await Repository.InsertManyAsync(orders, autoSave: true);
+
+            return await MapToGetListOutputDtosAsync(orders);
+        }
+
         public override async Task<OrderDto> CreateAsync(CreateOrderDto input)
         {
             // Todo: Check if the store is open.
@@ -109,7 +140,7 @@ namespace EasyAbp.EShop.Orders.Orders
 
             return await MapToGetOutputDtoAsync(order);
         }
-        
+
         protected virtual async Task DiscountOrderAsync(Order order, Dictionary<Guid, ProductDto> productDict)
         {
             foreach (var provider in ServiceProvider.GetServices<IOrderDiscountProvider>())
@@ -171,11 +202,11 @@ namespace EasyAbp.EShop.Orders.Orders
 
             return await MapToGetOutputDtoAsync(order);
         }
-        
+
         public virtual async Task<OrderDto> CancelAsync(Guid id, CancelOrderInput input)
         {
             var order = await GetEntityByIdAsync(id);
-            
+
             await AuthorizationService.CheckAsync(
                 order,
                 new OrderOperationAuthorizationRequirement(OrderOperation.Cancellation)

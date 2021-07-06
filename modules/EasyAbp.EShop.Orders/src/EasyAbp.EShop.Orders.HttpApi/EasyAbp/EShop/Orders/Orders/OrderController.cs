@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using EasyAbp.EShop.Orders.Orders.Dtos;
 using Microsoft.AspNetCore.Mvc;
@@ -73,6 +74,13 @@ namespace EasyAbp.EShop.Orders.Orders
         {
             return _service.CancelAsync(id, input);
 
+        }
+
+        [HttpPost]
+        [Route("in-bulk")]
+        public Task<List<OrderDto>> CreateInBulk(List<CreateOrderDto> input)
+        {
+            return _service.CreateInBulk(input);
         }
     }
 }

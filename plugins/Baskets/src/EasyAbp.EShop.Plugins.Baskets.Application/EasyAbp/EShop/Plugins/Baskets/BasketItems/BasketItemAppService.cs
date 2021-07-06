@@ -311,6 +311,8 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
 
             var orderGroups = basketItems.GroupBy(x => x.StoreId);
 
+            List<CreateOrderDto> createOrderDtos = new();
+
             foreach (var orderGroup in orderGroups)
             {
                 var orderLines = orderGroup.Select(i => new CreateOrderLineDto
@@ -322,7 +324,7 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
                     UnitPrice = i.IsFixedPrice ? null : i.UnitPrice
                 });
 
-                var order = await _orderAppService.CreateAsync(new CreateOrderDto
+                createOrderDtos.Add(new CreateOrderDto
                 {
                     CustomerRemark = input.CustomerRemark,
                     StaffRemark = input.StaffRemark,
@@ -335,11 +337,16 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
 
                 });
 
-                await _distributedEventBus.PublishAsync(new OrderFromBasketCreatedEto(order.Id, input.BasketName, input.IdentifierId ?? CurrentUser.GetId(), CurrentTenant.Id));
-
-                await _repository.DeleteManyAsync(basketItems);
             }
 
+            var orders = await _orderAppService.CreateInBulk(createOrderDtos);
+
+            foreach (var order in orders)
+            {
+                await _distributedEventBus.PublishAsync(new OrderFromBasketCreatedEto(order.Id, input.BasketName, input.IdentifierId ?? CurrentUser.GetId(), CurrentTenant.Id));
+            }
+
+            await _repository.DeleteManyAsync(basketItems);
         }
 
         protected virtual async Task<bool> IsCurrentUserManagerAsync()
