@@ -7,7 +7,7 @@ namespace EasyAbp.EShop.Orders.Orders
     {
         public virtual Task CheckAsync(Order order)
         {
-            if (!order.PaidTime.HasValue || !order.ReducedInventoryAfterPaymentTime.HasValue)
+            if (!order.PaidTime.HasValue)
             {
                 throw new OrderIsInWrongStageException(order.Id);
             }
