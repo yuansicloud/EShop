@@ -21,12 +21,10 @@ namespace EasyAbp.EShop.Orders.Orders
         private readonly IOrderPaymentChecker _orderPaymentChecker;
         private readonly IDistributedEventBus _distributedEventBus;
         private readonly IOrderRepository _orderRepository;
-        private readonly IOrderManager _orderManager;
         public PaymentCompletedEventHandler(
             IClock clock,
             ICurrentTenant currentTenant,
             IObjectMapper objectMapper,
-            IOrderManager orderManager,
             IUnitOfWorkManager unitOfWorkManager,
             IOrderPaymentChecker orderPaymentChecker,
             IDistributedEventBus distributedEventBus,
@@ -39,7 +37,6 @@ namespace EasyAbp.EShop.Orders.Orders
             _orderPaymentChecker = orderPaymentChecker;
             _distributedEventBus = distributedEventBus;
             _orderRepository = orderRepository;
-            _orderManager = orderManager;
         }
         
         [UnitOfWork]
@@ -76,12 +73,14 @@ namespace EasyAbp.EShop.Orders.Orders
                     }
 
                     order.SetPaidTime(_clock.Now);
-                    //order.SetOrderStatus(OrderStatus.Completed);
-                    //order.SetCompletionTime(_clock.Now);
+                    order.SetOrderStatus(OrderStatus.Completed);
+                    order.SetCompletionTime(_clock.Now);
 
                     await _orderRepository.UpdateAsync(order, true);
 
-                    await _orderManager.CompleteAsync(order);
+                    uow.OnCompleted(async () =>
+                        await _distributedEventBus.PublishAsync(
+                            new OrderCompletedEto(_objectMapper.Map<Order, OrderEto>(order))));
 
                     uow.OnCompleted(async () =>
                         await _distributedEventBus.PublishAsync(new OrderPaidEto(_objectMapper.Map<Order, OrderEto>(order),
