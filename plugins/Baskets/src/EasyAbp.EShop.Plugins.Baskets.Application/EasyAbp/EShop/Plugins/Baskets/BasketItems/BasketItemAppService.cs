@@ -70,7 +70,15 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
 
                 if (itemUpdateTime < productUpdateTime)
                 {
-                    var productDto = await _productAppService.GetAsync(item.ProductId);
+                    var productDto = await _productAppService.FindAsync(item.ProductId);
+
+
+                    if (productDto is null)
+                    {
+                        await _repository.DeleteAsync(item);
+
+                        return null;
+                    }
 
                     await UpdateProductDataAsync(item.Quantity, item, productDto);
 
@@ -125,7 +133,13 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
                 if (!productDtoDict.ContainsKey(item.ProductId))
                 {
                     // Todo: deleted product cause errors
-                    productDtoDict[item.ProductId] = await _productAppService.GetAsync(item.ProductId);
+                    productDtoDict[item.ProductId] = await _productAppService.FindAsync(item.ProductId);
+
+                    if (productDtoDict[item.ProductId] is null)
+                    {
+                        await _repository.DeleteAsync(item);
+                        continue;
+                    }
                 }
 
                 await UpdateProductDataAsync(item.Quantity, item, productDtoDict[item.ProductId]);
