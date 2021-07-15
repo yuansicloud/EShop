@@ -31,7 +31,7 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
 
         public async Task HandleEventAsync(CreateUpdateStaticBasketItemEto eventData)
         {
-            var productDto = await _productAppService.GetAsync(eventData.ProductId);
+            var productDto = await _productAppService.FindAsync(eventData.ProductId);
 
             var item = await _repository.FindAsync(x =>
                             x.IdentifierId == eventData.IdentifierId 
@@ -39,7 +39,7 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
                             && x.ProductSkuId == eventData.ProductSkuId
                             && x.IsStatic);
 
-            if (eventData.Quantity == 0)
+            if (eventData.Quantity == 0 || productDto is null)
             {
                 if (item != null)
                 {
