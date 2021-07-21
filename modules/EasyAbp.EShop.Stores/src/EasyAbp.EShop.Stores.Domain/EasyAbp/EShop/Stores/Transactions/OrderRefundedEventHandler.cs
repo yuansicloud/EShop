@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
 using EasyAbp.EShop.Orders.Orders;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.EventBus.Distributed;
@@ -35,7 +37,15 @@ namespace EasyAbp.EShop.Stores.Transactions
             {
                 return;
             }
-            
+
+            var duplicateTransaction = _transactionRepository.FirstOrDefault(x => x.OrderId == order.Id && x.ActionName == StoresConsts.TransactionOrderRefundedActionName);
+
+            // Prevent Duplicate Creation. TODO: Fix Logic to prevent store domain to exist in multiple project
+            if (duplicateTransaction is not null)
+            {
+                return;
+            }
+
             using var changeTenant = _currentTenant.Change(order.TenantId);
 
             var transaction = new Transaction(_guidGenerator.Create(), order.TenantId, order.StoreId, order.Id,
