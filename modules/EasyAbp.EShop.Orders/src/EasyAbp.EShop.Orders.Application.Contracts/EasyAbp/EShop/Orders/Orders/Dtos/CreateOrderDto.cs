@@ -25,7 +25,15 @@ namespace EasyAbp.EShop.Orders.Orders.Dtos
 
         public Guid? GraveId { get; set; }
 
+        public Guid? RegionId { get; set; }
+
         public Guid? OccupantId { get; set; }
+
+        public string ResourceType { get; set; }
+
+        public Guid? ResourceId { get; set; }
+
+        public string OrderType { get; set; }
 
         [DisplayName("OrderLine")]
         public List<CreateOrderLineDto> OrderLines { get; set; }

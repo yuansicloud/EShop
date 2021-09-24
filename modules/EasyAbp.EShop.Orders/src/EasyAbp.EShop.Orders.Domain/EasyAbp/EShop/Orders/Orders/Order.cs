@@ -1,9 +1,7 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
-using EasyAbp.EShop.Stores.Stores;
 using System.Linq;
-using JetBrains.Annotations;
-using Volo.Abp.Data;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 
@@ -12,56 +10,56 @@ namespace EasyAbp.EShop.Orders.Orders
     public class Order : FullAuditedAggregateRoot<Guid>, IOrder, IMultiTenant
     {
         public const string ExtraFeeListPropertyName = "ExtraFeeList";
-        
+
         public virtual Guid? TenantId { get; protected set; }
-        
+
         public virtual Guid StoreId { get; protected set; }
-        
+
         [NotNull]
         public virtual string OrderNumber { get; protected set; }
-        
+
         public virtual Guid CustomerUserId { get; protected set; }
-        
+
         public virtual OrderStatus OrderStatus { get; protected set; }
 
         [NotNull]
         public virtual string Currency { get; protected set; }
-        
+
         public virtual decimal ProductTotalPrice { get; protected set; }
-        
+
         public virtual decimal TotalDiscount { get; protected set; }
-        
+
         public virtual decimal TotalPrice { get; protected set; }
-        
+
         public virtual decimal ActualTotalPrice { get; protected set; }
 
         public virtual decimal RefundAmount { get; protected set; }
-        
+
         [CanBeNull]
         public virtual string CustomerRemark { get; protected set; }
-        
+
         [CanBeNull]
         public virtual string StaffRemark { get; protected set; }
-        
+
         public virtual Guid? PaymentId { get; protected set; }
-        
+
         public virtual DateTime? PaidTime { get; protected set; }
-        
+
         public virtual DateTime? CompletionTime { get; protected set; }
-        
+
         public virtual DateTime? CanceledTime { get; protected set; }
 
         [CanBeNull]
         public virtual string CancellationReason { get; protected set; }
 
         public virtual DateTime? ReducedInventoryAfterPlacingTime { get; protected set; }
-        
+
         public virtual DateTime? ReducedInventoryAfterPaymentTime { get; protected set; }
 
         public virtual DateTime? ReducedInventoryAfterConsumingTime { get; protected set; }
 
         public virtual List<OrderLine> OrderLines { get; protected set; }
-        
+
         public virtual List<OrderExtraFee> OrderExtraFees { get; protected set; }
 
         public virtual Guid? StaffUserId { get; protected set; }
@@ -69,6 +67,14 @@ namespace EasyAbp.EShop.Orders.Orders
         public virtual Guid? OccupantId { get; protected set; }
 
         public virtual Guid? GraveId { get; protected set; }
+
+        public virtual string ResourceType { get; protected set; }
+
+        public virtual Guid? ResourceId { get; protected set; }
+
+        public virtual string OrderType { get; protected set; }
+
+        public Guid? RegionId { get; protected set; }
 
         protected Order()
         {
@@ -88,7 +94,11 @@ namespace EasyAbp.EShop.Orders.Orders
             [CanBeNull] string staffRemark,
             Guid? staffUserId = null,
             Guid? occupantId = null,
-            Guid? graveId = null
+            Guid? graveId = null,
+            Guid? regionId = null,
+            string resourceType = null,
+            Guid? resourceId = null,
+            string orderType = null
         ) : base(id)
         {
             TenantId = tenantId;
@@ -107,10 +117,17 @@ namespace EasyAbp.EShop.Orders.Orders
             StaffUserId = staffUserId;
             OccupantId = occupantId;
             GraveId = graveId;
+            RegionId = regionId;
 
             OrderStatus = OrderStatus.Pending;
             OrderLines = new List<OrderLine>();
             OrderExtraFees = new List<OrderExtraFee>();
+
+            ResourceType = resourceType;
+
+            ResourceId = resourceId;
+
+            OrderType = orderType;
         }
 
         public void SetOrderNumber([NotNull] string orderNumber)
@@ -198,7 +215,7 @@ namespace EasyAbp.EShop.Orders.Orders
             var orderLine = OrderLines.Single(x => x.Id == orderLineId);
 
             orderLine.AddDiscount(expectedDiscountAmount);
-            
+
             TotalDiscount += expectedDiscountAmount;
             ActualTotalPrice -= expectedDiscountAmount;
 
@@ -214,14 +231,14 @@ namespace EasyAbp.EShop.Orders.Orders
             {
                 throw new InvalidOrderExtraFeeException(extraFee);
             }
-            
+
             var orderExtraFee = new OrderExtraFee(Id, extraFeeName, extraFeeKey, extraFee);
 
             if (OrderExtraFees.Any(x => x.EntityEquals(orderExtraFee)))
             {
                 throw new DuplicateOrderExtraFeeException(extraFeeName, extraFeeKey);
             }
-            
+
             OrderExtraFees.Add(orderExtraFee);
 
             TotalPrice += extraFee;

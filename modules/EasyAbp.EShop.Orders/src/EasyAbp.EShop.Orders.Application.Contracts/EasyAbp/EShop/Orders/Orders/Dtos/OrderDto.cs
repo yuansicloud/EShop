@@ -54,5 +54,13 @@ namespace EasyAbp.EShop.Orders.Orders.Dtos
         public Guid? OccupantId { get; set; }
 
         public Guid? GraveId { get; set; }
+
+        public string ResourceType { get; set; }
+
+        public Guid? ResourceId { get; set; }
+
+        public string OrderType { get; set; }
+
+        public Guid? RegionId { get; set; }
     }
 }

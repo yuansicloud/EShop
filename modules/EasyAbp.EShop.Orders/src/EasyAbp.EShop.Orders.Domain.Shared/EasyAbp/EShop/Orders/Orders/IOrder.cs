@@ -16,6 +16,8 @@ namespace EasyAbp.EShop.Orders.Orders
 
         Guid? GraveId { get; }
 
+        Guid? RegionId { get; }
+
         OrderStatus OrderStatus { get; }
 
         string Currency { get; }
@@ -52,6 +54,12 @@ namespace EasyAbp.EShop.Orders.Orders
         DateTime? ReducedInventoryAfterPaymentTime { get; }
 
         DateTime? ReducedInventoryAfterConsumingTime { get; }
+
+        string ResourceType { get; }
+
+        Guid? ResourceId { get; }
+
+        string OrderType { get; }
 
     }
 }

@@ -71,7 +71,11 @@ namespace EasyAbp.EShop.Orders.Orders
                 staffRemark: input.StaffRemark,
                 staffUserId: input.StaffUserId,
                 occupantId: input.OccupantId,
-                graveId:input.GraveId);
+                graveId:input.GraveId,
+                regionId:input.RegionId,
+                resourceId:input.ResourceId,
+                resourceType:input.ResourceType,
+                orderType:input.OrderType);
 
             input.MapExtraPropertiesTo(order, MappingPropertyDefinitionChecks.Destination);
 
