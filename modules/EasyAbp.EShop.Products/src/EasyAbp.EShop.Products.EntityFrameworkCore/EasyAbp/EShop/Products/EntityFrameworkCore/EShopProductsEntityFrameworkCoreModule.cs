@@ -28,6 +28,7 @@ namespace EasyAbp.EShop.Products.EntityFrameworkCore
                  */
                 options.AddRepository<Category, CategoryRepository>();
                 options.AddRepository<Product, ProductRepository>();
+                options.AddRepository<ProductSku, ProductSkuRepository>();
                 options.AddRepository<ProductDetail, ProductDetailRepository>();
                 options.AddRepository<ProductCategory, ProductCategoryRepository>();
                 options.AddRepository<ProductHistory, ProductHistoryRepository>();

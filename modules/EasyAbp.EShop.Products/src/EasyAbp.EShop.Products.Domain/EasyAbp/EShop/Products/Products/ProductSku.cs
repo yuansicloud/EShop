@@ -38,6 +38,8 @@ namespace EasyAbp.EShop.Products.Products
 
         public virtual Guid? ProductId { get; protected set; }
 
+        public virtual Product Product { get; protected set; }
+
         public virtual Guid? UnitId { get; protected set; }
 
         public virtual ProductUnit Unit { get; protected set; }

@@ -85,7 +85,7 @@ namespace EasyAbp.EShop.Products.EntityFrameworkCore
                 b.Property(x => x.Price).HasColumnType("decimal(20,8)");
                 b.Property(x => x.OriginalPrice).HasColumnType("decimal(20,8)");
 
-                b.HasOne<Product>().WithMany(p => p.ProductSkus).HasForeignKey(x => x.ProductId);
+                b.HasOne(x => x.Product).WithMany(p => p.ProductSkus).HasForeignKey(x => x.ProductId);
 
                 b.HasOne(x => x.Unit).WithMany().HasForeignKey(x => x.UnitId).OnDelete(DeleteBehavior.SetNull);
             });
