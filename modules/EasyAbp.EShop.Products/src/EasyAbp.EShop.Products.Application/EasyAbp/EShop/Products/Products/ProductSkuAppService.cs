@@ -43,8 +43,8 @@ namespace EasyAbp.EShop.Products.Products
 
             return query
                 .WhereIf(input.StoreId.HasValue, x => x.Product.StoreId == input.StoreId)
-                .WhereIf(!input.ShowHidden, x => !x.Product.IsHidden)
-                .WhereIf(input.IsPublished.HasValue, x => x.Product.IsPublished == input.IsPublished.Value)
+                //.WhereIf(!input.ShowHidden, x => !x.Product.IsHidden)
+                //.WhereIf(input.IsPublished.HasValue, x => x.Product.IsPublished == input.IsPublished.Value)
                 .WhereIf(!input.Filter.IsNullOrEmpty(), x => x.Name.Contains(input.Filter))
                 .WhereIf(input.MinimumPrice.HasValue, x => x.Price >= input.MinimumPrice.Value)
                 .WhereIf(input.MaximumPrice.HasValue, x => x.Price <= input.MaximumPrice.Value);
@@ -57,29 +57,29 @@ namespace EasyAbp.EShop.Products.Products
             // Todo: Products cache.
             var query = await CreateFilteredQueryAsync(input);
 
-            if (input.StoreId.HasValue)
-            {
-                var isCurrentUserStoreAdmin =
-                    await AuthorizationService.IsMultiStoreGrantedAsync(input.StoreId,
-                        ProductsPermissions.Products.Default, ProductsPermissions.Products.CrossStore);
+            //if (input.StoreId.HasValue)
+            //{
+            //    var isCurrentUserStoreAdmin =
+            //        await AuthorizationService.IsMultiStoreGrantedAsync(input.StoreId,
+            //            ProductsPermissions.Products.Default, ProductsPermissions.Products.CrossStore);
 
-                if (input.ShowHidden && !isCurrentUserStoreAdmin)
-                {
-                    throw new NotAllowedToGetProductListWithShowHiddenException();
-                }
+            //    if (input.ShowHidden && !isCurrentUserStoreAdmin)
+            //    {
+            //        throw new NotAllowedToGetProductListWithShowHiddenException();
+            //    }
 
-                if (!isCurrentUserStoreAdmin)
-                {
-                    query = query.Where(x => x.Product.IsPublished);
-                }
-            }
-            else
-            {
-                if ((input.IsPublished.HasValue && input.IsPublished.Value) || input.ShowHidden)
-                {
-                    await CheckPolicyAsync(ProductsPermissions.Products.CrossStore);
-                }
-            }
+            //    if (!isCurrentUserStoreAdmin)
+            //    {
+            //        query = query.Where(x => x.Product.IsPublished);
+            //    }
+            //}
+            //else
+            //{
+            //    if ((input.IsPublished.HasValue && input.IsPublished.Value) || input.ShowHidden)
+            //    {
+            //        await CheckPolicyAsync(ProductsPermissions.Products.CrossStore);
+            //    }
+            //}
 
             var totalCount = await AsyncExecuter.CountAsync(query);
 
