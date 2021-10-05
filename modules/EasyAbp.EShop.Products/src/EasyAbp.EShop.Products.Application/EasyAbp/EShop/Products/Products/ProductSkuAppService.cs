@@ -114,8 +114,8 @@ namespace EasyAbp.EShop.Products.Products
 
         protected virtual async Task<ProductSkuDto> LoadDtoExtraDataAsync(ProductSku productSku, ProductSkuDto productSkuDto)
         {
-            await LoadDtoInventoryDataAsync(productSku, productSkuDto);
-            await LoadDtoPriceDataAsync(productSku, productSkuDto);
+            //await LoadDtoInventoryDataAsync(productSku, productSkuDto);
+            //await LoadDtoPriceDataAsync(productSku, productSkuDto);
 
             return productSkuDto;
         }
