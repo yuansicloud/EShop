@@ -200,5 +200,12 @@
         {
             return _service.FindAsync(id);
         }
+
+        [HttpGet]
+        [Route("sku-list")]
+        public Task<PagedResultDto<ProductSkuDto>> GetProductSkuList(GetProductListInput input)
+        {
+            return _service.GetProductSkuList(input);
+        }
     }
 }

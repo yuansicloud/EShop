@@ -36,5 +36,7 @@ namespace EasyAbp.EShop.Products.Products
         Task<ProductDto> MakeProductStatic(Guid productId);
 
         Task<ProductDto> FindAsync(Guid id);
+
+        Task<PagedResultDto<ProductSkuDto>> GetProductSkuList(GetProductListInput input);
     }
 }

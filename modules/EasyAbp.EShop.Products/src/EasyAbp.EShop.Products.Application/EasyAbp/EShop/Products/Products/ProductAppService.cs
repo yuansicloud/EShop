@@ -59,6 +59,15 @@ namespace EasyAbp.EShop.Products.Products
             _productCategoryRepository = productCategoryRepository;
         }
 
+        public async Task<PagedResultDto<ProductSkuDto>> GetProductSkuList(GetProductListInput input)
+        {
+            var spus = await GetListAsync(input);
+
+            var skus = spus.Items.SelectMany(x => x.ProductSkus).ToList();
+
+            return new PagedResultDto<ProductSkuDto>(spus.TotalCount, skus);
+        }
+
         protected override async Task<IQueryable<Product>> CreateFilteredQueryAsync(GetProductListInput input)
         {
             var query = input.CategoryId.HasValue
