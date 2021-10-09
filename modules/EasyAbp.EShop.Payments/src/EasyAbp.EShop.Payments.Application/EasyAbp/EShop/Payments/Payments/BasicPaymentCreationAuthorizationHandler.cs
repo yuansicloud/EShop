@@ -15,7 +15,6 @@ namespace EasyAbp.EShop.Payments.Payments
             PaymentOperationAuthorizationRequirement requirement, PaymentCreationResource resource)
         {
             if (resource.Orders.Any(order =>
-                !order.ReducedInventoryAfterPlacingTime.HasValue ||
                 order.PaymentId.HasValue ||
                 order.PaidTime.HasValue))
             {
