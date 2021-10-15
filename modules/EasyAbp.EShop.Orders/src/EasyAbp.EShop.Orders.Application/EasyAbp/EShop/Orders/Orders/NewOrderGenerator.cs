@@ -6,6 +6,7 @@ using EasyAbp.EShop.Orders.Orders.Dtos;
 using EasyAbp.EShop.Products.Products;
 using EasyAbp.EShop.Products.Products.Dtos;
 using Microsoft.Extensions.DependencyInjection;
+using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Guids;
 using Volo.Abp.MultiTenancy;
@@ -77,13 +78,18 @@ namespace EasyAbp.EShop.Orders.Orders
                 resourceType:input.ResourceType,
                 orderType:input.OrderType);
 
-            input.MapExtraPropertiesTo(order, MappingPropertyDefinitionChecks.Destination);
+            input.MapExtraPropertiesTo(order, MappingPropertyDefinitionChecks.None);
 
             await AddOrderExtraFeesAsync(order, customerUserId, input, productDict);
 
             order.SetOrderLines(orderLines);
 
             order.SetOrderNumber(await _orderNumberGenerator.CreateAsync(order));
+
+            if (input.HasProperty("creationtime"))
+            {
+                order.CreationTime = input.GetProperty("creationtime", DateTime.Now);
+            }
 
             return order;
         }
