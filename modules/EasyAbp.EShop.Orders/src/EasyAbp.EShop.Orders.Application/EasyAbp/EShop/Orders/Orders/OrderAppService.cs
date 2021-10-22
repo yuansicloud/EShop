@@ -216,5 +216,31 @@ namespace EasyAbp.EShop.Orders.Orders
 
             return await MapToGetOutputDtoAsync(order);
         }
+
+        [AllowAnonymous]
+        public async Task<OrderDto> CreateByImport(CreateOrderDto input)
+        {
+            // Todo: Check if the store is open.
+
+            var productDict = await GetProductDictionaryAsync(input.OrderLines.Select(dto => dto.ProductId).ToList(),
+                input.StoreId);
+
+            //await AuthorizationService.CheckAsync(
+            //    new OrderCreationResource
+            //    {
+            //        Input = input,
+            //        ProductDictionary = productDict
+            //    },
+            //    new OrderOperationAuthorizationRequirement(OrderOperation.Creation)
+            //);
+
+            var order = await _newOrderGenerator.GenerateAsync(input.CustomerUserId ?? CurrentUser.GetId(), input, productDict);
+
+            await DiscountOrderAsync(order, productDict);
+
+            await Repository.InsertAsync(order, autoSave: true);
+
+            return await MapToGetOutputDtoAsync(order);
+        }
     }
 }

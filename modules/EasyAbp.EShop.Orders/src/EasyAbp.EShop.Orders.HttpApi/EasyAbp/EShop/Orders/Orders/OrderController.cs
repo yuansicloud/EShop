@@ -82,5 +82,12 @@ namespace EasyAbp.EShop.Orders.Orders
         {
             return _service.CreateInBulk(input);
         }
+
+        [HttpPost]
+        [Route("import")]
+        public Task<OrderDto> CreateByImport(CreateOrderDto input)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

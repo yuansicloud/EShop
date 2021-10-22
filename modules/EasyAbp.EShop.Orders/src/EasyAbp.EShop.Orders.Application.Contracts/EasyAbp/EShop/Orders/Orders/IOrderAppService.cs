@@ -20,5 +20,7 @@ namespace EasyAbp.EShop.Orders.Orders
         Task<OrderDto> CancelAsync(Guid id, CancelOrderInput input);
 
         Task<List<OrderDto>> CreateInBulk(List<CreateOrderDto> input);
+
+        Task<OrderDto> CreateByImport(CreateOrderDto input);
     }
 }
