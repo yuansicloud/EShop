@@ -126,15 +126,15 @@
         [Route("by-code/{code}")]
         public Task<ProductDto> GetByCodeAsync(Guid storeId, string code)
         {
-            return _service.GetByUniqueNameAsync(storeId, code);
+            return _service.GetByCodeAsync(storeId, code);
         }
 
-        [HttpGet]
-        [Route("by-unique-name/{uniqueName}")]
-        public Task<ProductDto> GetByUniqueNameAsync(Guid storeId, string uniqueName)
-        {
-            return _service.GetByUniqueNameAsync(storeId, uniqueName);
-        }
+        //[HttpGet]
+        //[Route("by-unique-name/{uniqueName}")]
+        //public Task<ProductDto> GetByUniqueNameAsync(Guid storeId, string uniqueName)
+        //{
+        //    return _service.GetByCodeAsync(storeId, uniqueName);
+        //}
 
         /// <summary>
         /// 删除商品SKU

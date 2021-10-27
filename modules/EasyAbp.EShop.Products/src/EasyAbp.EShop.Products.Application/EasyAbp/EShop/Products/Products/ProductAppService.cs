@@ -1,4 +1,3 @@
-using EasyAbp.EShop.Inventory.Aggregates;
 using EasyAbp.EShop.Products.Options;
 using EasyAbp.EShop.Products.Permissions;
 using EasyAbp.EShop.Products.ProductCategories;
@@ -741,6 +740,25 @@ namespace EasyAbp.EShop.Products.Products
             {
                 await ClearProductViewCacheAsync(product.StoreId);
             });
+
+            return dto;
+        }
+
+        public async Task<ProductDto> GetByCodeAsync(Guid storeId, string code)
+        {
+            await CheckGetPolicyAsync();
+
+            var product = await _repository.GetAsync(x => x.UniqueName == code);
+
+            if (!product.IsPublished)
+            {
+                await CheckMultiStorePolicyAsync(product.StoreId, ProductsPermissions.Products.Manage);
+            }
+
+            var dto = await MapToGetOutputDtoAsync(product);
+
+            await LoadDtoExtraDataAsync(product, dto);
+            await LoadDtosProductGroupDisplayNameAsync(new[] { dto });
 
             return dto;
         }

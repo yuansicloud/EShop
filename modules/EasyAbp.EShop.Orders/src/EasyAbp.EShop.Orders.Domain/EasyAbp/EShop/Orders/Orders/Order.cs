@@ -101,7 +101,7 @@ namespace EasyAbp.EShop.Orders.Orders
             string resourceType = null,
             Guid? resourceId = null,
             string orderType = null,
-            DateTime? paymentExpiration
+            DateTime? paymentExpiration = null
         ) : base(id)
         {
             TenantId = tenantId;

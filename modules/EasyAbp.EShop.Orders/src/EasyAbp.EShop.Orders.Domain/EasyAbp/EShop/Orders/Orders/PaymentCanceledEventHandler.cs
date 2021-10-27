@@ -1,8 +1,8 @@
-﻿using System;
+﻿using EasyAbp.EShop.Payments;
+using EasyAbp.EShop.Payments.Payments;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using EasyAbp.EShop.Payments;
-using EasyAbp.EShop.Payments.Payments;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.EventBus.Distributed;
 using Volo.Abp.MultiTenancy;
@@ -26,19 +26,18 @@ namespace EasyAbp.EShop.Orders.Orders
         [UnitOfWork(true)]
         public virtual async Task HandleEventAsync(EShopPaymentCanceledEto eventData)
         {
-                foreach (var paymentItem in eventData.Payment.PaymentItems.Where(item =>
-                    item.ItemType == PaymentsConsts.PaymentItemType))
-                {
-                    var order = await _orderRepository.GetAsync(Guid.Parse(paymentItem.ItemKey));
+            foreach (var paymentItem in eventData.Payment.PaymentItems.Where(item =>
+                item.ItemType == PaymentsConsts.PaymentItemType))
+            {
+                var order = await _orderRepository.GetAsync(Guid.Parse(paymentItem.ItemKey));
 
-                    order.SetPaymentId(null);
+                order.SetPaymentId(null);
 
-                    order.SetOrderStatus(OrderStatus.Pending);
+                order.SetOrderStatus(OrderStatus.Pending);
 
-                    order.SetPaidTime(null);
+                order.SetPaidTime(null);
 
-                    await _orderRepository.UpdateAsync(order, true);
-                }
+                await _orderRepository.UpdateAsync(order, true);
             }
         }
     }

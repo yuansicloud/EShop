@@ -92,8 +92,7 @@ namespace EasyAbp.EShop.Orders.Orders
 
             foreach (var createOrderDto in input)
             {
-                var productDict = await GetProductDictionaryAsync(createOrderDto.OrderLines.Select(dto => dto.ProductId).ToList(),
-                    createOrderDto.StoreId);
+                var productDict = await GetProductDictionaryAsync(createOrderDto.OrderLines.Select(dto => dto.ProductId).ToList());
 
                 await AuthorizationService.CheckAsync(
                     new OrderCreationResource
@@ -221,8 +220,7 @@ namespace EasyAbp.EShop.Orders.Orders
         {
             // Todo: Check if the store is open.
 
-            var productDict = await GetProductDictionaryAsync(input.OrderLines.Select(dto => dto.ProductId).ToList(),
-                input.StoreId);
+            var productDict = await GetProductDictionaryAsync(input.OrderLines.Select(dto => dto.ProductId).ToList());
 
             //await AuthorizationService.CheckAsync(
             //    new OrderCreationResource

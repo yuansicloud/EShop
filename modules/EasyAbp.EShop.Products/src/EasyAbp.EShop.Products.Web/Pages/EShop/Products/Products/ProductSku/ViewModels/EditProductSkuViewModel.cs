@@ -1,9 +1,8 @@
-﻿using System;
+﻿using EasyAbp.EShop.Products.Products.Dtos;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using EasyAbp.EShop.Products.Products.Dtos;
-using Microsoft.AspNetCore.Mvc;
-using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form;
 
 namespace EasyAbp.EShop.Products.Web.Pages.EShop.Products.Products.ProductSku.ViewModels
 {

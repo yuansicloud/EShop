@@ -50,8 +50,6 @@ namespace EasyAbp.EShop.Products.Products.Dtos
         [DisplayName("ProductPaymentExpireIn")]
         public TimeSpan? PaymentExpireIn { get; set; }
 
-        public bool IsHidden { get; set; }
-
         public bool IsStatic { get; set; }
 
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
