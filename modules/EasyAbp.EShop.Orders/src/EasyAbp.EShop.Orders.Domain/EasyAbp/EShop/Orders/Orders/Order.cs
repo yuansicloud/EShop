@@ -57,7 +57,9 @@ namespace EasyAbp.EShop.Orders.Orders
         public virtual DateTime? ReducedInventoryAfterPaymentTime { get; protected set; }
 
         public virtual DateTime? ReducedInventoryAfterConsumingTime { get; protected set; }
-
+        
+        public virtual DateTime? PaymentExpiration { get; protected set; }
+        
         public virtual List<OrderLine> OrderLines { get; protected set; }
 
         public virtual List<OrderExtraFee> OrderExtraFees { get; protected set; }
@@ -85,7 +87,7 @@ namespace EasyAbp.EShop.Orders.Orders
             Guid? tenantId,
             Guid storeId,
             Guid customerUserId,
-            string currency,
+            [NotNull] string currency,
             decimal productTotalPrice,
             decimal totalDiscount,
             decimal totalPrice,
@@ -98,7 +100,8 @@ namespace EasyAbp.EShop.Orders.Orders
             Guid? regionId = null,
             string resourceType = null,
             Guid? resourceId = null,
-            string orderType = null
+            string orderType = null,
+            DateTime? paymentExpiration
         ) : base(id)
         {
             TenantId = tenantId;
@@ -111,6 +114,7 @@ namespace EasyAbp.EShop.Orders.Orders
             ActualTotalPrice = actualTotalPrice;
             CustomerRemark = customerRemark;
             StaffRemark = staffRemark;
+            PaymentExpiration = paymentExpiration;
 
             RefundAmount = 0;
 
@@ -154,9 +158,16 @@ namespace EasyAbp.EShop.Orders.Orders
         {
             ReducedInventoryAfterConsumingTime = time;
         }
+        
+        public void SetPaymentExpiration(DateTime? paymentExpiration)
+        {
+            PaymentExpiration = paymentExpiration;
+        }
 
         public void SetPaymentId(Guid? paymentId)
         {
+            AddLocalEvent(new OrderPaymentIdChangedEto(TenantId, this, PaymentId, paymentId));
+            
             PaymentId = paymentId;
         }
 

@@ -120,8 +120,7 @@ namespace EasyAbp.EShop.Orders.Orders
         {
             // Todo: Check if the store is open.
 
-            var productDict = await GetProductDictionaryAsync(input.OrderLines.Select(dto => dto.ProductId).ToList(),
-                input.StoreId);
+            var productDict = await GetProductDictionaryAsync(input.OrderLines.Select(dto => dto.ProductId).ToList());
 
             //await AuthorizationService.CheckAsync(
             //    new OrderCreationResource
@@ -150,7 +149,7 @@ namespace EasyAbp.EShop.Orders.Orders
         }
 
         protected virtual async Task<Dictionary<Guid, ProductDto>> GetProductDictionaryAsync(
-            IEnumerable<Guid> productIds, Guid storeId)
+            IEnumerable<Guid> productIds)
         {
             var dict = new Dictionary<Guid, ProductDto>();
 

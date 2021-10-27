@@ -60,6 +60,8 @@
         /// </summary>
         public int OrderMaxQuantity { get; set; }
 
+        public TimeSpan? PaymentExpireIn { get; set; }
+
         /// <summary>
         /// 媒体文件
         /// </summary>

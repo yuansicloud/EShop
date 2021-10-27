@@ -43,6 +43,12 @@ namespace EasyAbp.EShop.Products.Products.Dtos
 
         [DisplayName("ProductIsPublished")]
         public bool IsPublished { get; set; }
+        
+        [DisplayName("ProductIsHidden")]
+        public bool IsHidden { get; set; }
+        
+        [DisplayName("ProductPaymentExpireIn")]
+        public TimeSpan? PaymentExpireIn { get; set; }
 
         public bool IsHidden { get; set; }
 
@@ -51,6 +57,14 @@ namespace EasyAbp.EShop.Products.Products.Dtos
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             base.Validate(validationContext);
+
+            if (PaymentExpireIn.HasValue && PaymentExpireIn.Value < TimeSpan.Zero)
+            {
+                yield return new ValidationResult(
+                    "PaymentExpireIn should be greater than or equal to 0.",
+                    new[] { "PaymentExpireIn" }
+                );
+            }
             
             if (ProductAttributes.Select(a => a.DisplayName.Trim()).Distinct().Count() != ProductAttributes.Count)
             {

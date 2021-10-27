@@ -7,54 +7,54 @@ namespace EasyAbp.EShop.Products.Categories.Dtos
     using Volo.Abp.Application.Dtos;
 
     /// <summary>
-    /// ÉÌÆ·Àà±ðÄ£ÐÍ
+    /// ï¿½ï¿½Æ·ï¿½ï¿½ï¿½Ä£ï¿½ï¿½
     /// </summary>
     [Serializable]
     public class CategoryDto : ExtensibleFullAuditedEntityDto<Guid>
     {
         /// <summary>
-        /// ±àÂë
+        /// ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         public string UniqueName { get; set; }
 
         /// <summary>
-        /// ÏÔÊ¾Ãû³Æ
+        /// ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         public string DisplayName { get; set; }
 
         /// <summary>
-        /// Àà±ð´úÂë
+        /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         [NotNull]
         public string Code { get; set; }
 
         /// <summary>
-        /// ²ã¼¶
+        /// ï¿½ã¼¶
         /// </summary>
         public int Level { get; set; }
 
         /// <summary>
-        /// ¸¸ID
+        /// ï¿½ï¿½ID
         /// </summary>
         public Guid? ParentId { get; set; }
 
         /// <summary>
-        /// ×Ó¼¯
+        /// ï¿½Ó¼ï¿½
         /// </summary>
         public ICollection<CategoryDto> Children { get; set; }
 
         /// <summary>
-        /// ÃèÊö
+        /// ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         public string Description { get; set; }
 
         /// <summary>
-        /// Ã½ÌåÎÄ¼þ
+        /// Ã½ï¿½ï¿½ï¿½Ä¼ï¿½
         /// </summary>
         public string MediaResources { get; set; }
 
         /// <summary>
-        /// ÖÐÎÄ¼¶±ðÏÔÊ¾
+        /// ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
         /// </summary>
         public string LevelToChinese
         {
@@ -65,7 +65,7 @@ namespace EasyAbp.EShop.Products.Categories.Dtos
         }
 
         /// <summary>
-        /// ÊÇ·ñÒþ²Ø
+        /// ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         public bool IsHidden { get; set; }
     }

@@ -5,24 +5,27 @@ using EasyAbp.EShop.Payments;
 using EasyAbp.EShop.Payments.Payments;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.EventBus.Distributed;
+using Volo.Abp.MultiTenancy;
 using Volo.Abp.Uow;
 
 namespace EasyAbp.EShop.Orders.Orders
 {
     public class PaymentCanceledEventHandler : IDistributedEventHandler<EShopPaymentCanceledEto>, ITransientDependency
     {
+        private readonly ICurrentTenant _currentTenant;
         private readonly IOrderRepository _orderRepository;
 
-        public PaymentCanceledEventHandler(IOrderRepository orderRepository)
+        public PaymentCanceledEventHandler(
+            ICurrentTenant currentTenant,
+            IOrderRepository orderRepository)
         {
+            _currentTenant = currentTenant;
             _orderRepository = orderRepository;
         }
 
         [UnitOfWork(true)]
         public virtual async Task HandleEventAsync(EShopPaymentCanceledEto eventData)
         {
-            try
-            {
                 foreach (var paymentItem in eventData.Payment.PaymentItems.Where(item =>
                     item.ItemType == PaymentsConsts.PaymentItemType))
                 {
@@ -37,7 +40,6 @@ namespace EasyAbp.EShop.Orders.Orders
                     await _orderRepository.UpdateAsync(order, true);
                 }
             }
-            catch { }
         }
     }
 }

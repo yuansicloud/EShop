@@ -122,10 +122,18 @@
         /// <param name="code">The code<see cref="string"/>.</param>
         /// <returns>The <see cref="Task{ProductDto}"/>.</returns>
         [HttpGet]
+        [Obsolete("Use `by-unique-name/{uniqueName}`")]
         [Route("by-code/{code}")]
         public Task<ProductDto> GetByCodeAsync(Guid storeId, string code)
         {
-            return _service.GetByCodeAsync(storeId, code);
+            return _service.GetByUniqueNameAsync(storeId, code);
+        }
+
+        [HttpGet]
+        [Route("by-unique-name/{uniqueName}")]
+        public Task<ProductDto> GetByUniqueNameAsync(Guid storeId, string uniqueName)
+        {
+            return _service.GetByUniqueNameAsync(storeId, uniqueName);
         }
 
         /// <summary>

@@ -7,103 +7,102 @@ namespace EasyAbp.EShop.Products.Products.Dtos
     using Volo.Abp.Application.Dtos;
 
     /// <summary>
-    /// ÉÌÆ·Ä£ÐÍ
+    /// ï¿½ï¿½Æ·Ä£ï¿½ï¿½
     /// </summary>
     [Serializable]
     public class ProductDto : ExtensibleFullAuditedEntityDto<Guid>
     {
         /// <summary>
-        /// µêÆÌID
+        /// ï¿½ï¿½ï¿½ï¿½ID
         /// </summary>
         public Guid StoreId { get; set; }
 
         /// <summary>
-        /// ÉÌÆ·×éÃû
+        /// ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         public string ProductGroupName { get; set; }
 
         /// <summary>
-        /// ÉÌÆ·×éÏÔÊ¾Ãû³Æ
+        /// ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         public string ProductGroupDisplayName { get; set; }
 
         /// <summary>
-        /// ÏêÇéID
+        /// ï¿½ï¿½ï¿½ï¿½ID
         /// </summary>
         public Guid ProductDetailId { get; set; }
 
         /// <summary>
-        /// ±àÂë
+        /// ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         public string UniqueName { get; set; }
 
         /// <summary>
-        /// ÏÔÊ¾Ãû³Æ
+        /// ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         public string DisplayName { get; set; }
 
         /// <summary>
-        /// ¿â´æ²ßÂÔ
+        /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         public InventoryStrategy InventoryStrategy { get; set; }
 
         /// <summary>
-        /// Ã½ÌåÎÄ¼þ
+        /// Ã½ï¿½ï¿½ï¿½Ä¼ï¿½
         /// </summary>
         public string MediaResources { get; set; }
 
         /// <summary>
-        /// ÏÔÊ¾Ë³Ðò
+        /// ï¿½ï¿½Ê¾Ë³ï¿½ï¿½
         /// </summary>
         public int DisplayOrder { get; set; }
 
         /// <summary>
-        /// ÊÇ·ñÒÑ·¢²¼
+        /// ï¿½Ç·ï¿½ï¿½Ñ·ï¿½ï¿½ï¿½
         /// </summary>
         public bool IsPublished { get; set; }
 
         /// <summary>
-        /// ÊÇ·ñÊÇ¾²Ì¬
+        /// ï¿½Ç·ï¿½ï¿½Ç¾ï¿½Ì¬
         /// </summary>
         public bool IsStatic { get; set; }
 
         /// <summary>
-        /// ÊÇ·ñÒþ²Ø
+        /// ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         public bool IsHidden { get; set; }
+        
+        public TimeSpan? PaymentExpireIn { get; set; }
 
-        /// <summary>
-        /// ÒÑÊÛÊýÁ¿
-        /// </summary>
         public long Sold { get; set; }
 
         /// <summary>
-        /// ×îÐ¡¼Û¸ñ
+        /// ï¿½ï¿½Ð¡ï¿½Û¸ï¿½
         /// </summary>
         public decimal? MinimumPrice { get; set; }
 
         /// <summary>
-        /// ×î´ó¼Û¸ñ
+        /// ï¿½ï¿½ï¿½Û¸ï¿½
         /// </summary>
         public decimal? MaximumPrice { get; set; }
 
         /// <summary>
-        /// ÉÌÆ·ÊôÐÔ
+        /// ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         public ICollection<ProductAttributeDto> ProductAttributes { get; set; }
 
         /// <summary>
-        /// ÉÌÆ·SKU
+        /// ï¿½ï¿½Æ·SKU
         /// </summary>
         public ICollection<ProductSkuDto> ProductSkus { get; set; }
 
         /// <summary>
-        /// ÉÌÆ·Àà±ð
+        /// ï¿½ï¿½Æ·ï¿½ï¿½ï¿½
         /// </summary>
         public ICollection<ProductCategoryDto> ProductCategories { get; set; }
 
         /// <summary>
-        /// ÉÌÆ·¿â´æÏêÇé
+        /// ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         public ProductStockDetailDto ProductStockDetail { get; set; }
 
@@ -124,6 +123,13 @@ namespace EasyAbp.EShop.Products.Products.Dtos
         public ProductSkuDto FindSkuById(Guid skuId)
         {
             return ProductSkus.FirstOrDefault(x => x.Id == skuId);
+        }
+
+        public TimeSpan? GetSkuPaymentExpireIn(Guid skuId)
+        {
+            var sku = GetSkuById(skuId);
+
+            return sku.PaymentExpireIn ?? PaymentExpireIn;
         }
     }
 }

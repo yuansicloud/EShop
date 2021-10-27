@@ -63,7 +63,6 @@ namespace EasyAbp.EShop.Products
             CreateMap<UpdateProductSkuDto, ProductSku>(MemberList.Source);
             CreateMap<Category, CategoryDto>();
             CreateMap<Category, CategorySummaryDto>();
-            CreateMap<CreateUpdateCategoryDto, Category>(MemberList.Source);
             CreateMap<ProductCategory, ProductCategoryDto>();
             CreateMap<ProductHistory, ProductHistoryDto>();
             CreateMap<ProductDetailHistory, ProductDetailHistoryDto>();
@@ -74,6 +73,7 @@ namespace EasyAbp.EShop.Products
             CreateMap<Inventory.Aggregates.Dtos.ProductSkuStockDetailDto, Products.Dtos.ProductSkuStockDetailDto>(MemberList.None).ReverseMap();
             CreateMap<ProductUnit, ProductUnitDto>();
             CreateMap<CreateUpdateProductUnitDto, ProductUnit>();
+            CreateMap<Product, ProductView>(MemberList.Destination);
         }
     }
 }
