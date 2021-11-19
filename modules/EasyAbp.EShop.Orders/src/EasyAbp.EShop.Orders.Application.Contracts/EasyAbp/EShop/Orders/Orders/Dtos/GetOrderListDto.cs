@@ -19,6 +19,8 @@ namespace EasyAbp.EShop.Orders.Orders.Dtos
 
         public Guid? GraveId { get; set; }
 
+        public Guid? RegionId { get; set; }
+
         public int? MaxActualTotalPrice { get; set; }
 
         public int? MinActualTotalPrice { get; set; }
