@@ -29,6 +29,14 @@ namespace EasyAbp.EShop.Orders.Orders.Dtos
 
         public DateTime? MinCreationDate { get; set; }
 
+        public DateTime? MaxCompletionDate { get; set; }
+
+        public DateTime? MinCompletionDate { get; set; }
+
+        public DateTime? MaxPaidDate { get; set; }
+
+        public DateTime? MinPaidDate { get; set; }
+
         public OrderStatus? OrderStatus { get; set; }
 
         [Range(1, 10000)]
