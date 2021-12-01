@@ -38,58 +38,54 @@ namespace EasyAbp.EShop.Orders.Orders
             _distributedEventBus = distributedEventBus;
             _orderRepository = orderRepository;
         }
-        
+
         [UnitOfWork]
         public virtual async Task HandleEventAsync(EShopPaymentCompletedEto eventData)
         {
-            try
+            var payment = eventData.Payment;
+
+            if (!payment.CompletionTime.HasValue || payment.CanceledTime.HasValue)
             {
-                var payment = eventData.Payment;
-
-                if (!payment.CompletionTime.HasValue || payment.CanceledTime.HasValue)
-                {
-                    return;
-                }
-
-                using var uow = _unitOfWorkManager.Begin(isTransactional: true);
-
-                using var currentTenant = _currentTenant.Change(payment.TenantId);
-
-                foreach (var item in payment.PaymentItems.Where(item => item.ItemType == PaymentsConsts.PaymentItemType))
-                {
-                    var orderId = Guid.Parse(item.ItemKey);
-
-                    var order = await _orderRepository.GetAsync(orderId);
-
-                    if (order.PaymentId != payment.Id || order.PaidTime.HasValue ||
-                        order.OrderStatus != OrderStatus.Processing)
-                    {
-                        throw new OrderIsInWrongStageException(order.Id);
-                    }
-
-                    if (!await _orderPaymentChecker.IsValidPaymentAsync(order, payment, item))
-                    {
-                        throw new InvalidPaymentException(payment.Id, orderId);
-                    }
-
-                    order.SetPaidTime(_clock.Now);
-                    order.SetOrderStatus(OrderStatus.Completed);
-                    order.SetCompletionTime(_clock.Now);
-
-                    await _orderRepository.UpdateAsync(order, true);
-
-                    uow.OnCompleted(async () =>
-                        await _distributedEventBus.PublishAsync(
-                            new OrderCompletedEto(_objectMapper.Map<Order, OrderEto>(order))));
-
-                    uow.OnCompleted(async () =>
-                        await _distributedEventBus.PublishAsync(new OrderPaidEto(_objectMapper.Map<Order, OrderEto>(order),
-                            payment.Id, item.Id)));
-                }
-
-                await uow.CompleteAsync();
+                return;
             }
-            catch { }
+
+            using var uow = _unitOfWorkManager.Begin(isTransactional: true);
+
+            using var currentTenant = _currentTenant.Change(payment.TenantId);
+
+            foreach (var item in payment.PaymentItems.Where(item => item.ItemType == PaymentsConsts.PaymentItemType))
+            {
+                var orderId = Guid.Parse(item.ItemKey);
+
+                var order = await _orderRepository.GetAsync(orderId);
+
+                if (order.PaymentId != payment.Id || order.PaidTime.HasValue ||
+                    order.OrderStatus != OrderStatus.Processing)
+                {
+                    throw new OrderIsInWrongStageException(order.Id);
+                }
+
+                if (!await _orderPaymentChecker.IsValidPaymentAsync(order, payment, item))
+                {
+                    throw new InvalidPaymentException(payment.Id, orderId);
+                }
+
+                order.SetPaidTime(payment.CompletionTime);
+                order.SetOrderStatus(OrderStatus.Completed);
+                order.SetCompletionTime(payment.CompletionTime);
+
+                await _orderRepository.UpdateAsync(order, true);
+
+                uow.OnCompleted(async () =>
+                    await _distributedEventBus.PublishAsync(
+                        new OrderCompletedEto(_objectMapper.Map<Order, OrderEto>(order))));
+
+                uow.OnCompleted(async () =>
+                    await _distributedEventBus.PublishAsync(new OrderPaidEto(_objectMapper.Map<Order, OrderEto>(order),
+                        payment.Id, item.Id)));
+            }
+
+            await uow.CompleteAsync();
         }
     }
 }
