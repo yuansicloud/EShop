@@ -10,5 +10,7 @@ namespace EasyAbp.EShop.Stores.Stores.Dtos
         /// Users who have the <code>EasyAbp.EShop.Stores.Store.CrossStore</code> permission can get all stores.
         /// </summary>
         public bool OnlyManageable { get; set; }
+
+        public bool? IsRetail { get; set; }
     }
 }

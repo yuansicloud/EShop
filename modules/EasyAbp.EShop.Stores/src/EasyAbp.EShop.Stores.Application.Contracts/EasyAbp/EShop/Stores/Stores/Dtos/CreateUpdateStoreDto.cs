@@ -33,5 +33,7 @@
         /// 店铺管理员IDs
         /// </summary>
         public List<Guid> StoreOwnerIds { get; set; } = new List<Guid>();
+
+        public bool IsRetail { get; set; }
     }
 }

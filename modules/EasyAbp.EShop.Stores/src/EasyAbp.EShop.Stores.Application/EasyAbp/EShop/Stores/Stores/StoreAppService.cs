@@ -1,11 +1,10 @@
-﻿using System;
+﻿using EasyAbp.EShop.Stores.Permissions;
+using EasyAbp.EShop.Stores.StoreOwners;
+using EasyAbp.EShop.Stores.Stores.Dtos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Transactions;
-using EasyAbp.EShop.Stores.Permissions;
-using EasyAbp.EShop.Stores.StoreOwners;
-using EasyAbp.EShop.Stores.Stores.Dtos;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Authorization.Permissions;
@@ -94,12 +93,19 @@ namespace EasyAbp.EShop.Stores.Stores
 
         protected override async Task<IQueryable<Store>> CreateFilteredQueryAsync(GetStoreListInput input)
         {
+            IQueryable<Store> query = null;
+
             if (!input.OnlyManageable || await _permissionChecker.IsGrantedAsync(StoresPermissions.Stores.CrossStore))
             {
-                return _repository.AsQueryable();
+                query = _repository.AsQueryable();
+            }
+            else
+            {
+                query = await _repository.GetQueryableOnlyOwnStoreAsync(CurrentUser.GetId());
             }
 
-            return await _repository.GetQueryableOnlyOwnStoreAsync(CurrentUser.GetId());
+            return query
+                .WhereIf(input.IsRetail.HasValue, x => x.IsRetail == input.IsRetail.Value);
         }
 
         public override async Task<PagedResultDto<StoreDto>> GetListAsync(GetStoreListInput input)

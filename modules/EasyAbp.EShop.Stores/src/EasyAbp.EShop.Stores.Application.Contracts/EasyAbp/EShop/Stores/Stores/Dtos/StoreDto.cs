@@ -32,5 +32,7 @@
         /// 店铺管理员
         /// </summary>
         public List<StoreOwnerDto> StoreOwners { get; set; }
+
+        public bool IsRetail { get; set; }
     }
 }

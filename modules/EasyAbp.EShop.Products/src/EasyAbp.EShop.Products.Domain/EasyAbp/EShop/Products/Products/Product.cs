@@ -36,6 +36,8 @@ namespace EasyAbp.EShop.Products.Products
         
         public virtual bool IsHidden { get; protected set; }
         
+        public virtual bool IsRetail { get; protected set; }
+
         public virtual TimeSpan? PaymentExpireIn { get; protected set; }
         
         public virtual List<ProductAttribute> ProductAttributes { get; protected set; }

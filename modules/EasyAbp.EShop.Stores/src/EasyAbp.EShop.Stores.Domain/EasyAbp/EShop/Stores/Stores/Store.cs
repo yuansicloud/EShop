@@ -19,15 +19,19 @@ namespace EasyAbp.EShop.Stores.Stores
 
         public virtual string MediaResources { get; protected set; }
 
+        public virtual bool IsRetail { get; protected set; }
+
         protected Store() {}
 
         public Store(
             Guid id,
             Guid? tenantId,
-            [NotNull] string name) : base(id)
+            [NotNull] string name,
+            bool isRetail) : base(id)
         {
             TenantId = tenantId;
             Name = name;
+            IsRetail = isRetail;
         }
     }
 }
