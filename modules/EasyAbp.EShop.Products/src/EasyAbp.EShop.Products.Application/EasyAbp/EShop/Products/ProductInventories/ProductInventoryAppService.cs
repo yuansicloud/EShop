@@ -14,12 +14,12 @@ namespace EasyAbp.EShop.Products.ProductInventories
     {
         private readonly IProductRepository _productRepository;
         private readonly IProductInventoryRepository _repository;
-        private readonly StockProductInventoryProvider _productInventoryProvider;
+        private readonly DefaultProductInventoryProvider _productInventoryProvider;
 
         public ProductInventoryAppService(
             IProductRepository productRepository,
             IProductInventoryRepository repository,
-            StockProductInventoryProvider productInventoryProvider)
+            DefaultProductInventoryProvider productInventoryProvider)
         {
             _productRepository = productRepository;
             _repository = repository;
@@ -29,65 +29,63 @@ namespace EasyAbp.EShop.Products.ProductInventories
         [Authorize(ProductsPermissions.ProductInventory.Default)]
         public virtual async Task<ProductInventoryDto> GetAsync(Guid productId, Guid productSkuId)
         {
-            throw new UserFriendlyException("无法调用的方法");
-            //var productInventory = await _repository.FindAsync(x => x.ProductSkuId == productSkuId);
+            var productInventory = await _repository.FindAsync(x => x.ProductSkuId == productSkuId);
 
-            //if (productInventory == null)
-            //{
-            //    productInventory = new ProductInventory(GuidGenerator.Create(), CurrentTenant.Id, productId,
-            //        productSkuId, 0, 0);
+            if (productInventory == null)
+            {
+                productInventory = new ProductInventory(GuidGenerator.Create(), CurrentTenant.Id, productId,
+                    productSkuId, 0, 0);
 
-            //    await _repository.InsertAsync(productInventory, true);
-            //}
+                await _repository.InsertAsync(productInventory, true);
+            }
 
-            //return ObjectMapper.Map<ProductInventory, ProductInventoryDto>(productInventory);
+            return ObjectMapper.Map<ProductInventory, ProductInventoryDto>(productInventory);
         }
 
         public virtual async Task<ProductInventoryDto> UpdateAsync(UpdateProductInventoryDto input)
         {
-            throw new UserFriendlyException("无法调用的方法");
-            //var product = await _productRepository.GetAsync(input.ProductId);
+            var product = await _productRepository.GetAsync(input.ProductId);
 
-            //await AuthorizationService.CheckMultiStorePolicyAsync(product.StoreId,
-            //    ProductsPermissions.ProductInventory.Update, ProductsPermissions.ProductInventory.CrossStore);
+            await AuthorizationService.CheckMultiStorePolicyAsync(product.StoreId,
+                ProductsPermissions.ProductInventory.Update, ProductsPermissions.ProductInventory.CrossStore);
 
-            //var productInventory = await _repository.FindAsync(x => x.ProductSkuId == input.ProductSkuId);
+            var productInventory = await _repository.FindAsync(x => x.ProductSkuId == input.ProductSkuId);
 
-            //if (productInventory == null)
-            //{
-            //    productInventory =
-            //        new ProductInventory(GuidGenerator.Create(), CurrentTenant.Id, input.ProductId, input.ProductSkuId,
-            //            0, 0);
+            if (productInventory == null)
+            {
+                productInventory =
+                    new ProductInventory(GuidGenerator.Create(), CurrentTenant.Id, input.ProductId, input.ProductSkuId,
+                        0, 0);
 
-            //    await _repository.InsertAsync(productInventory, true);
-            //}
+                await _repository.InsertAsync(productInventory, true);
+            }
 
-            //await ChangeInventoryAsync(product, productInventory, input.ChangedInventory);
+            await ChangeInventoryAsync(product, productInventory, input.ChangedInventory);
 
-            //return ObjectMapper.Map<ProductInventory, ProductInventoryDto>(productInventory);
+            return ObjectMapper.Map<ProductInventory, ProductInventoryDto>(productInventory);
         }
 
         protected virtual async Task ChangeInventoryAsync(Product product, ProductInventory productInventory,
             int changedInventory)
         {
-            //if (changedInventory >= 0)
-            //{
-            //    if (!await _productInventoryProvider.TryIncreaseInventoryAsync(product, productInventory,
-            //        changedInventory, false))
-            //    {
-            //        throw new InventoryChangeFailedException(productInventory.ProductId, productInventory.ProductSkuId,
-            //            productInventory.Inventory, changedInventory);
-            //    }
-            //}
-            //else
-            //{
-            //    if (!await _productInventoryProvider.TryReduceInventoryAsync(product, productInventory,
-            //        -changedInventory, false))
-            //    {
-            //        throw new InventoryChangeFailedException(productInventory.ProductId, productInventory.ProductSkuId,
-            //            productInventory.Inventory, changedInventory);
-            //    }
-            //}
+            if (changedInventory >= 0)
+            {
+                if (!await _productInventoryProvider.TryIncreaseInventoryAsync(product, productInventory,
+                    changedInventory, false))
+                {
+                    throw new InventoryChangeFailedException(productInventory.ProductId, productInventory.ProductSkuId,
+                        productInventory.Inventory, changedInventory);
+                }
+            }
+            else
+            {
+                if (!await _productInventoryProvider.TryReduceInventoryAsync(product, productInventory,
+                    -changedInventory, false))
+                {
+                    throw new InventoryChangeFailedException(productInventory.ProductId, productInventory.ProductSkuId,
+                        productInventory.Inventory, changedInventory);
+                }
+            }
         }
     }
 }

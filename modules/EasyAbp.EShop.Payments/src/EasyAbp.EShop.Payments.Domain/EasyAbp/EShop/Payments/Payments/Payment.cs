@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using EasyAbp.PaymentService.Payments;
 using JetBrains.Annotations;
+using Volo.Abp;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 
@@ -48,6 +49,16 @@ namespace EasyAbp.EShop.Payments.Payments
         private Payment()
         {
             
+        }
+
+        public void SetCompletionTime(DateTime completionTime)
+        {
+            if (!IsCompleted)
+            {
+                throw new UserFriendlyException("必须完成付款单才能修改完成时间");
+            }
+
+            CompletionTime = completionTime;
         }
 
         public void SetPaymentItems(List<PaymentItem> paymentItems)
