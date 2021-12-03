@@ -373,6 +373,7 @@ namespace EasyAbp.EShop.Products.Products
                 productSkuDto.Inventory = inventoryData.Inventory;
                 productSkuDto.Sold = inventoryData.Sold;
                 productDto.Sold += productSkuDto.Sold;
+                productDto.Inventory += inventoryData.Inventory;
             }
 
             return productDto;

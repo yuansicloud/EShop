@@ -83,11 +83,6 @@
         public int Threshold { get; set; }
 
         /// <summary>
-        /// 商品SKU库存详情
-        /// </summary>
-        //public ProductSkuStockDetailDto ProductSkuStockDetail { get; set; }
-
-        /// <summary>
         /// 属性选项显示名称
         /// </summary>
         public List<string> AttributeOptionDisplayNames { get; set; }

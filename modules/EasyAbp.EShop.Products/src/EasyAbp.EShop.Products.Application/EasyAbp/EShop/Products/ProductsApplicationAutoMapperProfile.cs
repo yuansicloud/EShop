@@ -1,5 +1,4 @@
 using AutoMapper;
-using EasyAbp.EShop.Inventory.Aggregates.Dtos;
 using EasyAbp.EShop.Products.Categories;
 using EasyAbp.EShop.Products.Categories.Dtos;
 using EasyAbp.EShop.Products.ProductCategories;
@@ -69,8 +68,6 @@ namespace EasyAbp.EShop.Products
             CreateMap<ProductInventory, ProductInventoryDto>();
             CreateMap<ProductView, ProductViewDto>();
             CreateMap<ProductDto, ProductView>(MemberList.Destination);
-            CreateMap<Inventory.Aggregates.Dtos.ProductStockDetailDto, Products.Dtos.ProductStockDetailDto>(MemberList.None).ReverseMap();
-            CreateMap<Inventory.Aggregates.Dtos.ProductSkuStockDetailDto, Products.Dtos.ProductSkuStockDetailDto>(MemberList.None).ReverseMap();
             CreateMap<ProductUnit, ProductUnitDto>();
             CreateMap<CreateUpdateProductUnitDto, ProductUnit>();
             CreateMap<Product, ProductView>(MemberList.Destination);
