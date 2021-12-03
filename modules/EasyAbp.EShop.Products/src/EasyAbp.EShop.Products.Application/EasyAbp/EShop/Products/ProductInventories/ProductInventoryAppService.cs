@@ -4,6 +4,7 @@ using EasyAbp.EShop.Products.Products;
 using EasyAbp.EShop.Stores.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Services;
@@ -14,12 +15,12 @@ namespace EasyAbp.EShop.Products.ProductInventories
     {
         private readonly IProductRepository _productRepository;
         private readonly IProductInventoryRepository _repository;
-        private readonly DefaultProductInventoryProvider _productInventoryProvider;
+        private readonly IProductInventoryProvider _productInventoryProvider;
 
         public ProductInventoryAppService(
             IProductRepository productRepository,
             IProductInventoryRepository repository,
-            DefaultProductInventoryProvider productInventoryProvider)
+            IProductInventoryProvider productInventoryProvider)
         {
             _productRepository = productRepository;
             _repository = repository;
@@ -46,6 +47,8 @@ namespace EasyAbp.EShop.Products.ProductInventories
         {
             var product = await _productRepository.GetAsync(input.ProductId);
 
+            var productSku = product.ProductSkus.Single(x => x.Id == input.ProductSkuId);
+
             await AuthorizationService.CheckMultiStorePolicyAsync(product.StoreId,
                 ProductsPermissions.ProductInventory.Update, ProductsPermissions.ProductInventory.CrossStore);
 
@@ -60,30 +63,28 @@ namespace EasyAbp.EShop.Products.ProductInventories
                 await _repository.InsertAsync(productInventory, true);
             }
 
-            await ChangeInventoryAsync(product, productInventory, input.ChangedInventory);
+            await ChangeInventoryAsync(product, productSku, input.ChangedInventory);
 
             return ObjectMapper.Map<ProductInventory, ProductInventoryDto>(productInventory);
         }
 
-        protected virtual async Task ChangeInventoryAsync(Product product, ProductInventory productInventory,
+        protected virtual async Task ChangeInventoryAsync(Product product, ProductSku productSku,
             int changedInventory)
         {
             if (changedInventory >= 0)
             {
-                if (!await _productInventoryProvider.TryIncreaseInventoryAsync(product, productInventory,
+                if (!await _productInventoryProvider.TryIncreaseInventoryAsync(product, productSku,
                     changedInventory, false))
                 {
-                    throw new InventoryChangeFailedException(productInventory.ProductId, productInventory.ProductSkuId,
-                        productInventory.Inventory, changedInventory);
+                    throw new InventoryChangeFailedException(product.Id, productSku.Id);
                 }
             }
             else
             {
-                if (!await _productInventoryProvider.TryReduceInventoryAsync(product, productInventory,
+                if (!await _productInventoryProvider.TryReduceInventoryAsync(product, productSku,
                     -changedInventory, false))
                 {
-                    throw new InventoryChangeFailedException(productInventory.ProductId, productInventory.ProductSkuId,
-                        productInventory.Inventory, changedInventory);
+                    throw new InventoryChangeFailedException(product.Id, productSku.Id);
                 }
             }
         }

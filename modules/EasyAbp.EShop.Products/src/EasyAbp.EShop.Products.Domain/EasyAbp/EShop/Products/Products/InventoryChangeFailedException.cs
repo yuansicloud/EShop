@@ -5,10 +5,9 @@ namespace EasyAbp.EShop.Products.Products
 {
     public class InventoryChangeFailedException : BusinessException
     {
-        public InventoryChangeFailedException(Guid productId, Guid productSkuId, int originalInventory,
-            int changedInventory) : base(
+        public InventoryChangeFailedException(Guid productId, Guid productSkuId) : base(
             message:
-            $"Inventory of product {productId} (SKU: {productSkuId}) cannot be changed by {changedInventory} from {originalInventory}")
+            $"Inventory of product {productId} (SKU: {productSkuId}) cannot be changed")
         {
         }
     }
