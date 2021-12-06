@@ -62,5 +62,11 @@ namespace EasyAbp.EShop.Products.Products.Dtos
         ///// 库存记录结束时间
         ///// </summary>
         //public DateTime? TermEndTime { get; set; }
+
+        /// <summary>
+        /// 是否零售
+        /// </summary>
+        public bool? IsRetail { get; set; }
+
     }
 }

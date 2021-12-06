@@ -79,7 +79,8 @@ namespace EasyAbp.EShop.Products.Products
                 .WhereIf(input.IsPublished.HasValue, x => x.IsPublished == input.IsPublished.Value)
                 .WhereIf(!input.Filter.IsNullOrEmpty(), x => x.DisplayName.Contains(input.Filter))
                 .WhereIf(input.MinimumPrice.HasValue, x => x.ProductSkus.Min(x => x.Price) >= input.MinimumPrice.Value)
-                .WhereIf(input.MaximumPrice.HasValue, x => x.ProductSkus.Max(x => x.Price) <= input.MaximumPrice.Value);
+                .WhereIf(input.MaximumPrice.HasValue, x => x.ProductSkus.Max(x => x.Price) <= input.MaximumPrice.Value)
+                .WhereIf(input.IsRetail.HasValue, x => x.IsRetail == input.IsRetail.Value);
         }
 
         protected override Product MapToEntity(CreateUpdateProductDto createInput)

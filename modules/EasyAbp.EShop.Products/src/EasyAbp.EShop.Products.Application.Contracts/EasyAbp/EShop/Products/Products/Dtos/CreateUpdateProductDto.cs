@@ -52,6 +52,8 @@ namespace EasyAbp.EShop.Products.Products.Dtos
 
         public bool IsStatic { get; set; }
 
+        public bool IsRetail { get; set; }
+
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             base.Validate(validationContext);
