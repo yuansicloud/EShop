@@ -16,7 +16,7 @@ namespace EasyAbp.EShop.Stores.Permissions
             stores.AddChild(StoresPermissions.Stores.Manage, L("Permission:Manage"));
             stores.AddChild(StoresPermissions.Stores.Create, L("Permission:Create"));
             stores.AddChild(StoresPermissions.Stores.Update, L("Permission:Update"));
-            stores.AddChild(StoresPermissions.Stores.Delete, L("Permission:Delete"), MultiTenancySides.Host);
+            stores.AddChild(StoresPermissions.Stores.Delete, L("Permission:Delete"));
 
             var transactionPermission = myGroup.AddPermission(StoresPermissions.Transaction.Default, L("Permission:Transaction"));
             transactionPermission.AddChild(StoresPermissions.Transaction.Create, L("Permission:Create"));

@@ -28,17 +28,17 @@ namespace EasyAbp.EShop.Products.Products.Dtos
         [DisplayName("ProductSkuPrice")]
         [Range(MinimumPrice, MaximumPrice)]
         public decimal Price { get; set; }
-        
+
         [DefaultValue(1)]
         [DisplayName("ProductSkuOrderMinQuantity")]
         [Range(MinimumQuantity, MaximumQuantity)]
         public int OrderMinQuantity { get; set; }
-        
+
         [DefaultValue(99)]
         [DisplayName("ProductSkuOrderMaxQuantity")]
         [Range(MinimumQuantity, MaximumQuantity)]
         public int OrderMaxQuantity { get; set; }
-        
+
         [DisplayName("ProductSkuPaymentExpireIn")]
         public TimeSpan? PaymentExpireIn { get; set; }
 

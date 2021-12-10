@@ -68,5 +68,10 @@ namespace EasyAbp.EShop.Products.Products.Dtos
         /// </summary>
         public bool? IsRetail { get; set; }
 
+        /// <summary>
+        /// 拥有SKU
+        /// </summary>
+        public bool? HasSku { get; set; }
+
     }
 }
