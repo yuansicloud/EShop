@@ -36,5 +36,7 @@ namespace EasyAbp.EShop.Products.Products.Dtos
         public long Sold { get; set; }
 
         public string ProductGroupDisplayName { get; set; }
+
+        public bool IsRetail { get; set; }
     }
 }

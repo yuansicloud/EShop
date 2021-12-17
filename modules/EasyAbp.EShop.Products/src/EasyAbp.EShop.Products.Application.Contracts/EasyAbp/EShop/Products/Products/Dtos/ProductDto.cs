@@ -53,6 +53,8 @@ namespace EasyAbp.EShop.Products.Products.Dtos
 
         public long Inventory { get; set; }
 
+        public bool IsRetail { get; set; }
+
         public ProductSkuDto GetSkuById(Guid skuId)
         {
             return ProductSkus.Single(x => x.Id == skuId);
