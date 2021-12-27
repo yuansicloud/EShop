@@ -26,11 +26,6 @@
         public decimal UnitPrice { get; set; }
 
         /// <summary>
-        /// 数量
-        /// </summary>
-        public int Units { get; set; }
-
-        /// <summary>
         /// 操作人姓名
         /// </summary>
         public string OperatorName { get; set; }
@@ -39,11 +34,6 @@
         /// 描述
         /// </summary>
         public string Description { get; set; }
-
-        /// <summary>
-        /// 仓库ID
-        /// </summary>
-        public Guid WarehouseId { get; set; }
 
         /// <summary>
         /// 店铺ID
