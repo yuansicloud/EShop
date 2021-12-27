@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Volo.Abp.Data;
 using Volo.Abp.Domain.Services;
 
 namespace EasyAbp.EShop.Products.Products
@@ -25,9 +26,9 @@ namespace EasyAbp.EShop.Products.Products
         
         Task<InventoryDataModel> GetInventoryDataAsync(Product product, ProductSku productSku);
 
-        Task<bool> TryIncreaseInventoryAsync(Product product, ProductSku productSku, int quantity, bool reduceSold);
+        Task<bool> TryIncreaseInventoryAsync(Product product, ProductSku productSku, int quantity, bool reduceSold, ExtraPropertyDictionary extraProperties = null);
         
-        Task<bool> TryReduceInventoryAsync(Product product, ProductSku productSku, int quantity, bool increaseSold);
+        Task<bool> TryReduceInventoryAsync(Product product, ProductSku productSku, int quantity, bool increaseSold, ExtraPropertyDictionary extraProperties = null);
 
         Task<PriceDataModel> GetProductPriceAsync(Product product, ProductSku productSku);
     }

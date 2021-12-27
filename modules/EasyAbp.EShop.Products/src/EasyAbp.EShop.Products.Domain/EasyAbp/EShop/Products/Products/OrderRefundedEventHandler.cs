@@ -65,13 +65,19 @@ namespace EasyAbp.EShop.Products.Products
                 //    return;
                 //}
 
-                models.Add(new ConsumeInventoryModel
+                var model = new ConsumeInventoryModel
                 {
                     Product = product,
                     ProductSku = productSku,
                     StoreId = eventData.Order.StoreId,
-                    Quantity = orderLine.RefundedQuantity
-                });
+                    Quantity = orderLine.Quantity,
+                    ExtraProperties = new()
+                };
+
+                model.ExtraProperties.Add("Description", "订单退款返库存");
+                model.ExtraProperties.Add("InstockType", 4.ToString());
+
+                models.Add(model);
             }
 
             foreach (var model in models)

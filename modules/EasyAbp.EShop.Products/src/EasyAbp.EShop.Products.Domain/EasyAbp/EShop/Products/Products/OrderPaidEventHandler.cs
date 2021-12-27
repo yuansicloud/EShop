@@ -65,18 +65,23 @@ namespace EasyAbp.EShop.Products.Products
                     return;
                 }
 
-                models.Add(new ConsumeInventoryModel
+                var model = new ConsumeInventoryModel
                 {
                     Product = product,
                     ProductSku = productSku,
                     StoreId = eventData.Order.StoreId,
-                    Quantity = orderLine.Quantity
-                });
+                    Quantity = orderLine.Quantity,
+                    ExtraProperties = new()
+                };
+
+                model.ExtraProperties.Add("UnitPrice", orderLine.ActualTotalPrice / orderLine.Quantity);
+
+                models.Add(model);
             }
 
             foreach (var model in models)
             {
-                if (await _productManager.TryReduceInventoryAsync(model.Product, model.ProductSku, model.Quantity, true))
+                if (await _productManager.TryReduceInventoryAsync(model.Product, model.ProductSku, model.Quantity, true, model.ExtraProperties))
                 {
                     continue;
                 }

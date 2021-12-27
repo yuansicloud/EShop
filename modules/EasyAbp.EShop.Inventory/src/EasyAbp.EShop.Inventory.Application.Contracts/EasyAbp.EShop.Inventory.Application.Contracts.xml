@@ -49,6 +49,11 @@
             入库人
             </summary>
         </member>
+        <member name="P:EasyAbp.EShop.Inventory.Instocks.Dtos.GetInstockListInput.InstockType">
+            <summary>
+            入库类型
+            </summary>
+        </member>
         <member name="T:EasyAbp.EShop.Inventory.Instocks.Dtos.InstockDto">
             <summary>
             入库数据模型
@@ -74,19 +79,9 @@
             单价
             </summary>
         </member>
-        <member name="P:EasyAbp.EShop.Inventory.Instocks.Dtos.InstockDto.Units">
-            <summary>
-            数量
-            </summary>
-        </member>
         <member name="P:EasyAbp.EShop.Inventory.Instocks.Dtos.InstockDto.OperatorName">
             <summary>
             操作人姓名
-            </summary>
-        </member>
-        <member name="P:EasyAbp.EShop.Inventory.Instocks.Dtos.InstockDto.WarehouseId">
-            <summary>
-            仓库ID
             </summary>
         </member>
         <member name="P:EasyAbp.EShop.Inventory.Instocks.Dtos.InstockDto.StoreId">
@@ -144,6 +139,11 @@
             出库人
             </summary>
         </member>
+        <member name="P:EasyAbp.EShop.Inventory.Outstocks.Dtos.GetOutstockListInput.OutstockType">
+            <summary>
+            出库类型
+            </summary>
+        </member>
         <member name="T:EasyAbp.EShop.Inventory.Outstocks.Dtos.OutstockDto">
             <summary>
             出库数据模型
@@ -164,11 +164,6 @@
             单价
             </summary>
         </member>
-        <member name="P:EasyAbp.EShop.Inventory.Outstocks.Dtos.OutstockDto.Units">
-            <summary>
-            数量
-            </summary>
-        </member>
         <member name="P:EasyAbp.EShop.Inventory.Outstocks.Dtos.OutstockDto.OperatorName">
             <summary>
             操作人姓名
@@ -177,11 +172,6 @@
         <member name="P:EasyAbp.EShop.Inventory.Outstocks.Dtos.OutstockDto.Description">
             <summary>
             描述
-            </summary>
-        </member>
-        <member name="P:EasyAbp.EShop.Inventory.Outstocks.Dtos.OutstockDto.WarehouseId">
-            <summary>
-            仓库ID
             </summary>
         </member>
         <member name="P:EasyAbp.EShop.Inventory.Outstocks.Dtos.OutstockDto.StoreId">

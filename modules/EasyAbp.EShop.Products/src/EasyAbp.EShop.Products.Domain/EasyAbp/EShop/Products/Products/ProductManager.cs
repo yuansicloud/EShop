@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using EasyAbp.EShop.Products.Options.ProductGroups;
 using EasyAbp.EShop.Products.ProductCategories;
 using Microsoft.Extensions.DependencyInjection;
+using Volo.Abp.Data;
 using Volo.Abp.Domain.Services;
 
 namespace EasyAbp.EShop.Products.Products
@@ -189,14 +190,14 @@ namespace EasyAbp.EShop.Products.Products
             return await _productInventoryProvider.GetInventoryDataAsync(product, productSku);
         }
 
-        public virtual async Task<bool> TryIncreaseInventoryAsync(Product product, ProductSku productSku, int quantity, bool reduceSold)
+        public virtual async Task<bool> TryIncreaseInventoryAsync(Product product, ProductSku productSku, int quantity, bool reduceSold, ExtraPropertyDictionary extraProperties = null)
         {
-            return await _productInventoryProvider.TryIncreaseInventoryAsync(product, productSku, quantity, reduceSold);
+            return await _productInventoryProvider.TryIncreaseInventoryAsync(product, productSku, quantity, reduceSold, extraProperties);
         }
 
-        public virtual async Task<bool> TryReduceInventoryAsync(Product product, ProductSku productSku, int quantity, bool increaseSold)
+        public virtual async Task<bool> TryReduceInventoryAsync(Product product, ProductSku productSku, int quantity, bool increaseSold, ExtraPropertyDictionary extraProperties = null)
         {
-            return await _productInventoryProvider.TryReduceInventoryAsync(product, productSku, quantity, increaseSold);
+            return await _productInventoryProvider.TryReduceInventoryAsync(product, productSku, quantity, increaseSold, extraProperties);
         }
 
         public virtual async Task<PriceDataModel> GetProductPriceAsync(Product product, ProductSku productSku)

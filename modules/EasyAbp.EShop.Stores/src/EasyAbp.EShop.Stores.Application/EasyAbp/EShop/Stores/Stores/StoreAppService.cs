@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Authorization.Permissions;
-using Volo.Abp.Users;
 
 namespace EasyAbp.EShop.Stores.Stores
 {
