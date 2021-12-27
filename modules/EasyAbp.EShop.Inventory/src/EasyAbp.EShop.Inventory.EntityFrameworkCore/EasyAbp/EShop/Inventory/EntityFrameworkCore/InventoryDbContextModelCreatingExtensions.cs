@@ -1,10 +1,5 @@
-using EasyAbp.EShop.Inventory.Suppliers;
 using EasyAbp.EShop.Inventory.Instocks;
 using EasyAbp.EShop.Inventory.Outstocks;
-using EasyAbp.EShop.Inventory.Reallocations;
-using EasyAbp.EShop.Inventory.StockHistories;
-using EasyAbp.EShop.Inventory.Stocks;
-using EasyAbp.EShop.Inventory.Warehouses;
 using Microsoft.EntityFrameworkCore;
 using System;
 using Volo.Abp;
@@ -67,58 +62,6 @@ namespace EasyAbp.EShop.Inventory.EntityFrameworkCore
                 b.Property(x => x.UnitPrice).HasColumnType("decimal(20,8)");
             });
 
-            builder.Entity<Reallocation>(b =>
-            {
-                b.ToTable(options.TablePrefix + "Reallocations", options.Schema);
-                b.ConfigureByConvention();
-
-                /* Configure more properties here */
-
-            });
-
-            builder.Entity<StockHistory>(b =>
-            {
-                b.ToTable(options.TablePrefix + "InventoryHistories", options.Schema);
-                b.ConfigureByConvention();
-
-                /* Configure more properties here */
-            });
-
-            builder.Entity<Warehouse>(b =>
-            {
-                b.ToTable(options.TablePrefix + "Warehouses", options.Schema);
-                b.ConfigureByConvention();
-
-                b.OwnsOne(b => b.Address);
-
-                /* Configure more properties here */
-            });
-
-            builder.Entity<Stock>(b =>
-            {
-                b.ToTable(options.TablePrefix + "Stocks", options.Schema);
-                b.ConfigureByConvention();
-
-                /* Configure more properties here */
-            });
-
-            builder.Entity<StockHistory>(b =>
-            {
-                b.ToTable(options.TablePrefix + "StockHistories", options.Schema);
-                b.ConfigureByConvention();
-
-                /* Configure more properties here */
-            });
-
-
-            builder.Entity<Supplier>(b =>
-            {
-                b.ToTable(options.TablePrefix + "Suppliers", options.Schema);
-                b.ConfigureByConvention();
-
-                b.OwnsOne(b => b.Address);
-                /* Configure more properties here */
-            });
         }
     }
 }

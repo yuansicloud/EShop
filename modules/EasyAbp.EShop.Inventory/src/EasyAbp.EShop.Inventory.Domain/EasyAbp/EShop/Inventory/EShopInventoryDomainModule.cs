@@ -1,6 +1,5 @@
-﻿using EasyAbp.EShop.Inventory.Inventories;
-using EasyAbp.EShop.Inventory.StockHistories;
-using EasyAbp.EShop.Inventory.Stocks;
+﻿using EasyAbp.EShop.Inventory.Instocks;
+using EasyAbp.EShop.Inventory.Outstocks;
 using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.AutoMapper;
 using Volo.Abp.Domain;
@@ -27,8 +26,8 @@ namespace EasyAbp.EShop.Inventory
 
             Configure<AbpDistributedEntityEventOptions>(options =>
             {
-                options.AutoEventSelectors.Add<Stock>();
-                options.AutoEventSelectors.Add<StockHistory>();
+                options.AutoEventSelectors.Add<Instock>();
+                options.AutoEventSelectors.Add<Outstock>();
                 
             });
         }

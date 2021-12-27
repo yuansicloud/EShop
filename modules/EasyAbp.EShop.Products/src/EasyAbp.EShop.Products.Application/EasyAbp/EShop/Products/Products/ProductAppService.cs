@@ -34,7 +34,6 @@ namespace EasyAbp.EShop.Products.Products
         private readonly IProductViewCacheKeyProvider _productViewCacheKeyProvider;
         private readonly IAttributeOptionIdsSerializer _attributeOptionIdsSerializer;
         private readonly IProductRepository _repository;
-        //private readonly IAggregateAppService _stockAggregateAppService;
         private readonly IProductCategoryRepository _productCategoryRepository;
         public ProductAppService(
             IProductManager productManager,

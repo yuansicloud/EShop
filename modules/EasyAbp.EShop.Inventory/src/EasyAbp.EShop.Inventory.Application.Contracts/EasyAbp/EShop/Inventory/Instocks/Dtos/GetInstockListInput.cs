@@ -16,11 +16,6 @@ namespace EasyAbp.EShop.Inventory.Instocks.Dtos
         public Guid? ProductId { get; set; }
 
         /// <summary>
-        /// 仓库ID
-        /// </summary>
-        public Guid? WarehouseId { get; set; }
-
-        /// <summary>
         /// 店铺ID
         /// </summary>
         public Guid? StoreId { get; set; }
@@ -31,29 +26,24 @@ namespace EasyAbp.EShop.Inventory.Instocks.Dtos
         public string Filter { get; set; }
 
         /// <summary>
-        /// 供应商ID
-        /// </summary>
-        public Guid? SupplierId { get; set; }
-
-        /// <summary>
         /// 创建时间开始
         /// </summary>
-        public DateTime? CreationStartTime { get; set; }
+        public DateTime? MinCreationTime { get; set; }
 
         /// <summary>
         /// 创建时间结束
         /// </summary>
-        public DateTime? CreationEndTime { get; set; }
+        public DateTime? MaxCreationTime { get; set; }
 
         /// <summary>
         /// 入库时间开始
         /// </summary>
-        public DateTime? InstockStartTime { get; set; }
+        public DateTime? MinInstockTime { get; set; }
 
         /// <summary>
         /// 入库时间结束
         /// </summary>
-        public DateTime? InstockEndTime { get; set; }
+        public DateTime? MaxInstockTime { get; set; }
 
         /// <summary>
         /// 入库人

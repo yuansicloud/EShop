@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using EasyAbp.EShop.Inventory.Instocks.Dtos;
-using Volo.Abp.Application.Dtos;
+﻿using EasyAbp.EShop.Inventory.Instocks.Dtos;
+using System;
 using Volo.Abp.Application.Services;
 
 namespace EasyAbp.EShop.Inventory.Instocks
 {
     public interface IInstockAppService :
-        ICrudAppService< 
+        IReadOnlyAppService< 
             InstockDto, 
             Guid,
-            GetInstockListInput,
-            InstockCreateDto,
-            InstockUpdateDto>
+            GetInstockListInput>
     {
-        Task MultiCreateAsync(List<InstockCreateDto> input);
     }
 }

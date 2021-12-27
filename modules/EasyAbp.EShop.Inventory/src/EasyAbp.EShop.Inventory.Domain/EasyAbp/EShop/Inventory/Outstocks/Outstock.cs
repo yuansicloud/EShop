@@ -1,13 +1,10 @@
-﻿using EasyAbp.EShop.Inventory.Warehouses;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 
 namespace EasyAbp.EShop.Inventory.Outstocks
 {
-    public class Outstock : FullAuditedEntity<Guid>, IOutstock, IMultiWarehouse, IMultiTenant
+    public class Outstock : FullAuditedEntity<Guid>, IOutstock, IMultiTenant
     {
         public DateTime OutstockTime { get; protected set; }
 
@@ -15,13 +12,9 @@ namespace EasyAbp.EShop.Inventory.Outstocks
 
         public decimal UnitPrice { get; protected set; }
 
-        public int Units { get; protected set; }
-
         public string OperatorName { get; protected set; }
 
         public string Description { get; protected set; }
-
-        public Guid WarehouseId { get; protected set; }
 
         public Guid StoreId { get; protected set; }
 
@@ -33,41 +26,79 @@ namespace EasyAbp.EShop.Inventory.Outstocks
 
         public string OutstockNumber { get; protected set; }
 
+        public string ProductGroupName { get; protected set; }
+
+        public string ProductGroupDisplayName { get; protected set; }
+
+        public string ProductUniqueName { get; protected set; }
+
+        public string ProductDisplayName { get; protected set; }
+
+        public string SkuName { get; protected set; }
+
+        public string SkuDescription { get; protected set; }
+
+        public string MediaResources { get; protected set; }
+
+        public string Currency { get; protected set; }
+
+        public int Quantity { get; protected set; }
+
+        public string Unit { get; protected set; }
+
         protected Outstock()
         {
+        }
+
+        public void SetOutstockNumber(string outstockNumber)
+        {
+            OutstockNumber = outstockNumber;
         }
 
         public Outstock(
             Guid id,
             DateTime outstockTime,
             Guid productSkuId,
-            Guid productId,
             decimal unitPrice,
-            int units,
             string operatorName,
             string description,
-            Guid warehouseId,
             Guid storeId,
+            Guid? tenantId,
+            Guid productId,
             OutstockType outstockType,
-            Guid? tenantId
+            string outstockNumber,
+            string productGroupName,
+            string productGroupDisplayName,
+            string productUniqueName,
+            string productDisplayName,
+            string skuName,
+            string skuDescription,
+            string mediaResources,
+            string currency,
+            int quantity,
+            string unit
         ) : base(id)
         {
             OutstockTime = outstockTime;
             ProductSkuId = productSkuId;
-            ProductId = productId;
             UnitPrice = unitPrice;
-            Units = units;
             OperatorName = operatorName;
             Description = description;
-            WarehouseId = warehouseId;
             StoreId = storeId;
-            OutstockType = outstockType;
             TenantId = tenantId;
-        }
-
-        public void SetOutstockNumber(string outstockNumber)
-        {
+            ProductId = productId;
+            OutstockType = outstockType;
             OutstockNumber = outstockNumber;
+            ProductGroupName = productGroupName;
+            ProductGroupDisplayName = productGroupDisplayName;
+            ProductUniqueName = productUniqueName;
+            ProductDisplayName = productDisplayName;
+            SkuName = skuName;
+            SkuDescription = skuDescription;
+            MediaResources = mediaResources;
+            Currency = currency;
+            Quantity = quantity;
+            Unit = unit;
         }
     }
 }

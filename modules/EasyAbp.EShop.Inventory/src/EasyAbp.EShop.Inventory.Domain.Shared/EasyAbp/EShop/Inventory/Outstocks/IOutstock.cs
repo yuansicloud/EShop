@@ -29,17 +29,12 @@
         decimal UnitPrice { get; }
 
         /// <summary>
-        /// Gets the Units.
-        /// </summary>
-        int Units { get; }
-
-        /// <summary>
-        /// Gets the OperatorName.
+        /// 出库人
         /// </summary>
         string OperatorName { get; }
 
         /// <summary>
-        /// Gets the Description.
+        /// 描述
         /// </summary>
         string Description { get; }
 
@@ -52,5 +47,54 @@
         /// 出库单号
         /// </summary>
         string OutstockNumber { get; }
+
+        /// <summary>
+        /// 产品组
+        /// </summary>
+        string ProductGroupName { get; }
+
+        /// <summary>
+        /// 产品组显示名称
+        /// </summary>
+        string ProductGroupDisplayName { get; }
+
+        /// <summary>
+        /// 产品编号
+        /// </summary>
+        string ProductUniqueName { get; }
+
+        /// <summary>
+        /// 产品显示名称
+        /// </summary>
+        string ProductDisplayName { get; }
+
+        /// <summary>
+        /// SKU名称
+        /// </summary>
+        string SkuName { get; }
+
+        /// <summary>
+        /// SKU描述
+        /// </summary>
+        string SkuDescription { get; }
+
+        /// <summary>
+        /// 图片
+        /// </summary>
+        string MediaResources { get; }
+
+        /// <summary>
+        /// 货币
+        /// </summary>
+        string Currency { get; }
+        /// <summary>
+        /// 数量
+        /// </summary>
+        int Quantity { get; }
+
+        /// <summary>
+        /// 单位
+        /// </summary>
+        string Unit { get; }
     }
 }

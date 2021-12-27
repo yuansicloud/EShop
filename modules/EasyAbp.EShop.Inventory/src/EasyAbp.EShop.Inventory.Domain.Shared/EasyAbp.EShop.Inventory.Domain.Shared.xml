@@ -34,11 +34,6 @@
             单价
             </summary>
         </member>
-        <member name="P:EasyAbp.EShop.Inventory.Instocks.IInstock.Units">
-            <summary>
-            数量
-            </summary>
-        </member>
         <member name="P:EasyAbp.EShop.Inventory.Instocks.IInstock.OperatorName">
             <summary>
             入库人
@@ -52,6 +47,56 @@
         <member name="P:EasyAbp.EShop.Inventory.Instocks.IInstock.InstockNumber">
             <summary>
             入库单号
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Inventory.Instocks.IInstock.ProductGroupName">
+            <summary>
+            产品组
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Inventory.Instocks.IInstock.ProductGroupDisplayName">
+            <summary>
+            产品组显示名称
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Inventory.Instocks.IInstock.ProductUniqueName">
+            <summary>
+            产品编号
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Inventory.Instocks.IInstock.ProductDisplayName">
+            <summary>
+            产品显示名称
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Inventory.Instocks.IInstock.SkuName">
+            <summary>
+            SKU名称
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Inventory.Instocks.IInstock.SkuDescription">
+            <summary>
+            SKU描述
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Inventory.Instocks.IInstock.MediaResources">
+            <summary>
+            图片
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Inventory.Instocks.IInstock.Currency">
+            <summary>
+            货币
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Inventory.Instocks.IInstock.Quantity">
+            <summary>
+            数量
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Inventory.Instocks.IInstock.Unit">
+            <summary>
+            单位
             </summary>
         </member>
         <member name="T:EasyAbp.EShop.Inventory.Instocks.InstockType">
@@ -84,26 +129,6 @@
             其他
             </summary>
         </member>
-        <member name="P:EasyAbp.EShop.Inventory.Inventories.Address.Street">
-            <summary>
-            街道地址
-            </summary>
-        </member>
-        <member name="P:EasyAbp.EShop.Inventory.Inventories.Address.Area">
-            <summary>
-            区/县
-            </summary>
-        </member>
-        <member name="P:EasyAbp.EShop.Inventory.Inventories.Address.City">
-            <summary>
-            市
-            </summary>
-        </member>
-        <member name="P:EasyAbp.EShop.Inventory.Inventories.Address.Province">
-            <summary>
-            省
-            </summary>
-        </member>
         <member name="T:EasyAbp.EShop.Inventory.Outstocks.IOutstock">
             <summary>
             出库单
@@ -129,19 +154,14 @@
             单价
             </summary>
         </member>
-        <member name="P:EasyAbp.EShop.Inventory.Outstocks.IOutstock.Units">
-            <summary>
-            Gets the Units.
-            </summary>
-        </member>
         <member name="P:EasyAbp.EShop.Inventory.Outstocks.IOutstock.OperatorName">
             <summary>
-            Gets the OperatorName.
+            出库人
             </summary>
         </member>
         <member name="P:EasyAbp.EShop.Inventory.Outstocks.IOutstock.Description">
             <summary>
-            Gets the Description.
+            描述
             </summary>
         </member>
         <member name="P:EasyAbp.EShop.Inventory.Outstocks.IOutstock.OutstockType">
@@ -152,6 +172,56 @@
         <member name="P:EasyAbp.EShop.Inventory.Outstocks.IOutstock.OutstockNumber">
             <summary>
             出库单号
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Inventory.Outstocks.IOutstock.ProductGroupName">
+            <summary>
+            产品组
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Inventory.Outstocks.IOutstock.ProductGroupDisplayName">
+            <summary>
+            产品组显示名称
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Inventory.Outstocks.IOutstock.ProductUniqueName">
+            <summary>
+            产品编号
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Inventory.Outstocks.IOutstock.ProductDisplayName">
+            <summary>
+            产品显示名称
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Inventory.Outstocks.IOutstock.SkuName">
+            <summary>
+            SKU名称
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Inventory.Outstocks.IOutstock.SkuDescription">
+            <summary>
+            SKU描述
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Inventory.Outstocks.IOutstock.MediaResources">
+            <summary>
+            图片
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Inventory.Outstocks.IOutstock.Currency">
+            <summary>
+            货币
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Inventory.Outstocks.IOutstock.Quantity">
+            <summary>
+            数量
+            </summary>
+        </member>
+        <member name="P:EasyAbp.EShop.Inventory.Outstocks.IOutstock.Unit">
+            <summary>
+            单位
             </summary>
         </member>
         <member name="T:EasyAbp.EShop.Inventory.Outstocks.OutstockType">
@@ -184,86 +254,6 @@
             其他
             </summary>
         </member>
-        <member name="P:EasyAbp.EShop.Inventory.Reallocations.IReallocation.ProductId">
-            <summary>
-            商品SPU
-            </summary>
-        </member>
-        <member name="P:EasyAbp.EShop.Inventory.StockDetails.IProductSkuStockDetail.LockedQuantity">
-            <summary>
-            锁定库存数量.
-            </summary>
-        </member>
-        <member name="P:EasyAbp.EShop.Inventory.StockDetails.IProductSkuStockDetail.ProductId">
-            <summary>
-            商品SPU
-            </summary>
-        </member>
-        <member name="P:EasyAbp.EShop.Inventory.StockDetails.IProductSkuStockDetail.ProductSkuId">
-            <summary>
-            商品SKU
-            </summary>
-        </member>
-        <member name="P:EasyAbp.EShop.Inventory.StockDetails.IProductSkuStockDetail.Quantity">
-            <summary>
-            库存数
-            </summary>
-        </member>
-        <member name="P:EasyAbp.EShop.Inventory.StockDetails.IProductSkuStockDetail.InstockQuantity">
-            <summary>
-            库存数
-            </summary>
-        </member>
-        <member name="P:EasyAbp.EShop.Inventory.StockDetails.IProductSkuStockDetail.OutStockQuantity">
-            <summary>
-            库存数
-            </summary>
-        </member>
-        <member name="P:EasyAbp.EShop.Inventory.StockDetails.IProductSkuStockDetail.TermStartQuantity">
-            <summary>
-            期初库存数
-            </summary>
-        </member>
-        <member name="P:EasyAbp.EShop.Inventory.StockDetails.IProductSkuStockDetail.TermEndQuantity">
-            <summary>
-            期末库存数
-            </summary>
-        </member>
-        <member name="P:EasyAbp.EShop.Inventory.StockDetails.IProductStockDetail.LockedQuantity">
-            <summary>
-            锁定库存数量.
-            </summary>
-        </member>
-        <member name="P:EasyAbp.EShop.Inventory.StockDetails.IProductStockDetail.ProductId">
-            <summary>
-            商品SPU
-            </summary>
-        </member>
-        <member name="P:EasyAbp.EShop.Inventory.StockDetails.IProductStockDetail.Quantity">
-            <summary>
-            库存数
-            </summary>
-        </member>
-        <member name="P:EasyAbp.EShop.Inventory.StockDetails.IProductStockDetail.InstockQuantity">
-            <summary>
-            库存数
-            </summary>
-        </member>
-        <member name="P:EasyAbp.EShop.Inventory.StockDetails.IProductStockDetail.OutStockQuantity">
-            <summary>
-            库存数
-            </summary>
-        </member>
-        <member name="P:EasyAbp.EShop.Inventory.StockDetails.IProductStockDetail.TermStartQuantity">
-            <summary>
-            期初库存数
-            </summary>
-        </member>
-        <member name="P:EasyAbp.EShop.Inventory.StockDetails.IProductStockDetail.TermEndQuantity">
-            <summary>
-            期末库存数
-            </summary>
-        </member>
         <member name="T:EasyAbp.EShop.Inventory.StockHistories.IStockHistory">
             <summary>
             库存存品历史记录
@@ -282,97 +272,22 @@
         </member>
         <member name="P:EasyAbp.EShop.Inventory.StockHistories.IStockHistory.ProductSkuId">
             <summary>
-            Gets the ProductSkuId.
+            商品SKU
             </summary>
         </member>
         <member name="P:EasyAbp.EShop.Inventory.StockHistories.IStockHistory.Quantity">
             <summary>
-            Gets the Quantity.
+            库存量
             </summary>
         </member>
         <member name="P:EasyAbp.EShop.Inventory.StockHistories.IStockHistory.AdjustedQuantity">
             <summary>
-            Gets the AdjustedQuantity.
+            变化量
             </summary>
         </member>
         <member name="P:EasyAbp.EShop.Inventory.StockHistories.IStockHistory.Description">
             <summary>
-            Gets the Description.
-            </summary>
-        </member>
-        <member name="T:EasyAbp.EShop.Inventory.Stocks.IStock">
-            <summary>
-            存品接口
-            </summary>
-        </member>
-        <member name="P:EasyAbp.EShop.Inventory.Stocks.IStock.LockedQuantity">
-            <summary>
-            锁定库存数量.
-            </summary>
-        </member>
-        <member name="P:EasyAbp.EShop.Inventory.Stocks.IStock.ProductId">
-            <summary>
-            商品SPU
-            </summary>
-        </member>
-        <member name="P:EasyAbp.EShop.Inventory.Stocks.IStock.ProductSkuId">
-            <summary>
-            商品SKU
-            </summary>
-        </member>
-        <member name="P:EasyAbp.EShop.Inventory.Stocks.IStock.Quantity">
-            <summary>
-            库存数
-            </summary>
-        </member>
-        <member name="P:EasyAbp.EShop.Inventory.Stocks.IStock.DisplayOrder">
-            <summary>
-            排序
-            </summary>
-        </member>
-        <member name="P:EasyAbp.EShop.Inventory.Stocks.IStock.IsEnabled">
-            <summary>
-            是否启用
-            </summary>
-        </member>
-        <member name="P:EasyAbp.EShop.Inventory.Stocks.IStock.Description">
-            <summary>
-            描述
-            </summary>
-        </member>
-        <member name="T:EasyAbp.EShop.Inventory.Suppliers.ISupplier">
-            <summary>
-            供应商接口
-            </summary>
-        </member>
-        <member name="P:EasyAbp.EShop.Inventory.Suppliers.ISupplier.Name">
-            <summary>
-            名字
-            </summary>
-        </member>
-        <member name="P:EasyAbp.EShop.Inventory.Suppliers.ISupplier.Address">
-            <summary>
-            地址
-            </summary>
-        </member>
-        <member name="P:EasyAbp.EShop.Inventory.Suppliers.ISupplier.Description">
-            <summary>
-            描述
-            </summary>
-        </member>
-        <member name="P:EasyAbp.EShop.Inventory.Suppliers.ISupplier.ContactName">
-            <summary>
-            联系人
-            </summary>
-        </member>
-        <member name="P:EasyAbp.EShop.Inventory.Suppliers.ISupplier.ContactPhoneNumber">
-            <summary>
-            联系电话
-            </summary>
-        </member>
-        <member name="P:EasyAbp.EShop.Inventory.Suppliers.ISupplier.BusinessScope">
-            <summary>
-            经营范围
+            备注
             </summary>
         </member>
     </members>

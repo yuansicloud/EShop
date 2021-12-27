@@ -1,10 +1,11 @@
 ﻿using System;
+using Volo.Abp.Data;
 using Volo.Abp.MultiTenancy;
 
 namespace EasyAbp.EShop.Products.ProductInventories
 {
     [Serializable]
-    public class ProductInventoryChangedEto : IMultiTenant
+    public class ProductInventoryChangedEto : IMultiTenant, IHasExtraProperties
     {
         public Guid? TenantId { get; set; }
 
@@ -20,6 +21,8 @@ namespace EasyAbp.EShop.Products.ProductInventories
         
         public long Sold { get; set; }
 
+        public ExtraPropertyDictionary ExtraProperties { get; set; }
+
         public ProductInventoryChangedEto(
             Guid? tenantId,
             Guid storeId,
@@ -27,7 +30,8 @@ namespace EasyAbp.EShop.Products.ProductInventories
             Guid productSkuId,
             int originalInventory,
             int newInventory,
-            long sold)
+            long sold,
+            ExtraPropertyDictionary extraProperties = null)
         {
             TenantId = tenantId;
             StoreId = storeId;
@@ -36,6 +40,7 @@ namespace EasyAbp.EShop.Products.ProductInventories
             OriginalInventory = originalInventory;
             NewInventory = newInventory;
             Sold = sold;
+            ExtraProperties = extraProperties;
         }
     }
 }

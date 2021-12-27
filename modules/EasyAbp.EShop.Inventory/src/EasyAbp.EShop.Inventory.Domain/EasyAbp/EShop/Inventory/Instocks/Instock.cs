@@ -1,13 +1,12 @@
-﻿using EasyAbp.EShop.Inventory.Warehouses;
 using System;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 
 namespace EasyAbp.EShop.Inventory.Instocks
 {
-    public class Instock : FullAuditedEntity<Guid>, IInstock, IMultiWarehouse, IMultiTenant
+    public class Instock : FullAuditedEntity<Guid>, IInstock,  IMultiTenant
     {
-        public DateTime InstockTime { get; protected set; }
+        public Guid ProductId { get; protected set; }
 
         public Guid ProductSkuId { get; protected set; }
 
@@ -15,61 +14,93 @@ namespace EasyAbp.EShop.Inventory.Instocks
 
         public decimal UnitPrice { get; protected set; }
 
-        public int Units { get; protected set; }
+        public DateTime InstockTime { get; protected set; }
 
         public string OperatorName { get; protected set; }
 
-        public Guid WarehouseId { get; protected set; }
-
         public Guid StoreId { get; protected set; }
 
-        public Guid? TenantId { get; protected set; }
-
-        //public Guid SupplierId { get; protected set; }
-
-        public Guid ProductId { get; protected set; }
 
         public InstockType InstockType { get; protected set; }
 
         public string InstockNumber { get; protected set; }
 
+        public string ProductGroupName { get; protected set; }
+
+        public string ProductGroupDisplayName { get; protected set; }
+
+        public string ProductUniqueName { get; protected set; }
+
+        public string ProductDisplayName { get; protected set; }
+
+        public string SkuName { get; protected set; }
+
+        public string SkuDescription { get; protected set; }
+
+        public string MediaResources { get; protected set; }
+
+        public string Currency { get; protected set; }
+
+        public int Quantity { get; protected set; }
+
+        public string Unit { get; protected set; }
+
+        public Guid? TenantId { get; protected set; }
+
+
         protected Instock()
         {
+        }
+
+        public void SetInstockNumber(string instockNumber)
+        {
+            InstockNumber = instockNumber;
         }
 
         public Instock(
             Guid id,
             DateTime instockTime,
             Guid productSkuId,
-            Guid productId,
             string description,
             decimal unitPrice,
-            int units,
             string operatorName,
-            //Guid supplierId,
-            Guid warehouseId,
             Guid storeId,
+            Guid? tenantId,
+            Guid productId,
             InstockType instockType,
-            Guid? tenantId
+            string instockNumber,
+            string productGroupName,
+            string productGroupDisplayName,
+            string productUniqueName,
+            string productDisplayName,
+            string skuName,
+            string skuDescription,
+            string mediaResources,
+            string currency,
+            int quantity,
+            string unit
         ) : base(id)
         {
-            //SupplierId = supplierId;
             InstockTime = instockTime;
             ProductSkuId = productSkuId;
-            ProductId = productId;
             Description = description;
             UnitPrice = unitPrice;
-            Units = units;
             OperatorName = operatorName;
-            WarehouseId = warehouseId;
             StoreId = storeId;
             TenantId = tenantId;
+            ProductId = productId;
             InstockType = instockType;
-        }
-
-        public void SetInstockNumber(string instockNumber)
-        {
             InstockNumber = instockNumber;
+            ProductGroupName = productGroupName;
+            ProductGroupDisplayName = productGroupDisplayName;
+            ProductUniqueName = productUniqueName;
+            ProductDisplayName = productDisplayName;
+            SkuName = skuName;
+            SkuDescription = skuDescription;
+            MediaResources = mediaResources;
+            Currency = currency;
+            Quantity = quantity;
+            Unit = unit;
         }
     }
 }

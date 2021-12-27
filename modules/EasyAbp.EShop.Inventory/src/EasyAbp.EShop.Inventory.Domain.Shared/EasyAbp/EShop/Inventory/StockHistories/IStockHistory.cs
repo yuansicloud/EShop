@@ -20,23 +20,24 @@
         Guid ProductId { get; }
 
         /// <summary>
-        /// Gets the ProductSkuId.
+        /// 商品SKU
         /// </summary>
         Guid ProductSkuId { get; }
 
         /// <summary>
-        /// Gets the Quantity.
+        /// 库存量
         /// </summary>
         int Quantity { get; }
 
         /// <summary>
-        /// Gets the AdjustedQuantity.
+        /// 变化量
         /// </summary>
         int AdjustedQuantity { get; }
 
         /// <summary>
-        /// Gets the Description.
+        /// 备注
         /// </summary>
         string Description { get; }
+
     }
 }

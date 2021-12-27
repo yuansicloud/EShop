@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Services;
+using Volo.Abp.Data;
 
 namespace EasyAbp.EShop.Products.ProductInventories
 {
@@ -63,18 +64,18 @@ namespace EasyAbp.EShop.Products.ProductInventories
                 await _repository.InsertAsync(productInventory, true);
             }
 
-            await ChangeInventoryAsync(product, productSku, input.ChangedInventory);
+            await ChangeInventoryAsync(product, productSku, input.ChangedInventory, input.ExtraProperties);
 
             return ObjectMapper.Map<ProductInventory, ProductInventoryDto>(productInventory);
         }
 
         protected virtual async Task ChangeInventoryAsync(Product product, ProductSku productSku,
-            int changedInventory)
+            int changedInventory, ExtraPropertyDictionary extraProperties = null)
         {
             if (changedInventory >= 0)
             {
                 if (!await _productInventoryProvider.TryIncreaseInventoryAsync(product, productSku,
-                    changedInventory, false))
+                    changedInventory, false, extraProperties))
                 {
                     throw new InventoryChangeFailedException(product.Id, productSku.Id);
                 }
@@ -82,7 +83,7 @@ namespace EasyAbp.EShop.Products.ProductInventories
             else
             {
                 if (!await _productInventoryProvider.TryReduceInventoryAsync(product, productSku,
-                    -changedInventory, false))
+                    -changedInventory, false, extraProperties))
                 {
                     throw new InventoryChangeFailedException(product.Id, productSku.Id);
                 }

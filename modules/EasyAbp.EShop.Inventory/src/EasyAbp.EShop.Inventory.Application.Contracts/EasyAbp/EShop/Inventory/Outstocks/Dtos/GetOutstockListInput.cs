@@ -16,11 +16,6 @@ namespace EasyAbp.EShop.Inventory.Outstocks.Dtos
         public Guid? ProductId { get; set; }
 
         /// <summary>
-        /// 仓库ID
-        /// </summary>
-        public Guid? WarehouseId { get; set; }
-
-        /// <summary>
         /// 店铺ID
         /// </summary>
         public Guid? StoreId { get; set; }
@@ -33,22 +28,22 @@ namespace EasyAbp.EShop.Inventory.Outstocks.Dtos
         /// <summary>
         /// 创建时间开始
         /// </summary>
-        public DateTime? CreationStartTime { get; set; }
+        public DateTime? MinCreationTime { get; set; }
 
         /// <summary>
         /// 创建时间结束
         /// </summary>
-        public DateTime? CreationEndTime { get; set; }
+        public DateTime? MaxCreationTime { get; set; }
 
         /// <summary>
         /// 出库时间开始
         /// </summary>
-        public DateTime? OutstockStartTime { get; set; }
+        public DateTime? MinOutstockTime { get; set; }
 
         /// <summary>
         /// 出库时间结束
         /// </summary>
-        public DateTime? OutstockEndTime { get; set; }
+        public DateTime? MaxOutstockTime { get; set; }
 
         /// <summary>
         /// 出库人

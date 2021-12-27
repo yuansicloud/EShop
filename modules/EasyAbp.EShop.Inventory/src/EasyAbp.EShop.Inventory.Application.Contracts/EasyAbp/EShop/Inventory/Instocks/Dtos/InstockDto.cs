@@ -60,5 +60,25 @@
         public InstockType InstockType { get; set; }
 
         public string InstockNumber { get; set; }
+
+        public string ProductGroupName { get; set; }
+
+        public string ProductGroupDisplayName { get; set; }
+
+        public string ProductUniqueName { get; set; }
+
+        public string ProductDisplayName { get; set; }
+
+        public string SkuName { get; set; }
+
+        public string SkuDescription { get; set; }
+
+        public string MediaResources { get; set; }
+
+        public string Currency { get; set; }
+
+        public int Quantity { get; set; }
+
+        public string Unit { get; set; }
     }
 }

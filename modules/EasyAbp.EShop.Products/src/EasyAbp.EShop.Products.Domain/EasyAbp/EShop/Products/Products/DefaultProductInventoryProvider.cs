@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EasyAbp.EShop.Products.ProductInventories;
+using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.EventBus.Distributed;
 using Volo.Abp.Uow;
@@ -44,21 +45,21 @@ namespace EasyAbp.EShop.Products.Products
             return dict;
         }
 
-        public virtual async Task<bool> TryIncreaseInventoryAsync(Product product, ProductSku productSku, int quantity, bool decreaseSold)
+        public virtual async Task<bool> TryIncreaseInventoryAsync(Product product, ProductSku productSku, int quantity, bool decreaseSold, ExtraPropertyDictionary extraProperties = null)
         {
             var productInventory = await _productInventoryRepository.GetAsync(x => x.ProductSkuId == productSku.Id);
 
-            return await TryIncreaseInventoryAsync(product, productInventory, quantity, decreaseSold);
+            return await TryIncreaseInventoryAsync(product, productInventory, quantity, decreaseSold, extraProperties);
         }
 
-        public virtual async Task<bool> TryReduceInventoryAsync(Product product, ProductSku productSku, int quantity, bool increaseSold)
+        public virtual async Task<bool> TryReduceInventoryAsync(Product product, ProductSku productSku, int quantity, bool increaseSold, ExtraPropertyDictionary extraProperties = null)
         {
             var productInventory = await _productInventoryRepository.GetAsync(x => x.ProductSkuId == productSku.Id);
 
-            return await TryReduceInventoryAsync(product, productInventory, quantity, increaseSold);
+            return await TryReduceInventoryAsync(product, productInventory, quantity, increaseSold, extraProperties);
         }
 
-        public virtual async Task<bool> TryIncreaseInventoryAsync(Product product, ProductInventory productInventory, int quantity, bool decreaseSold)
+        public virtual async Task<bool> TryIncreaseInventoryAsync(Product product, ProductInventory productInventory, int quantity, bool decreaseSold, ExtraPropertyDictionary extraProperties = null)
         {
             if (quantity < 0)
             {
@@ -78,14 +79,14 @@ namespace EasyAbp.EShop.Products.Products
 
             PublishInventoryChangedEventOnUowCompleted(uow, product.TenantId, product.StoreId,
                 productInventory.ProductId, productInventory.ProductSkuId, originalInventory,
-                productInventory.Inventory, productInventory.Sold);
+                productInventory.Inventory, productInventory.Sold, extraProperties);
 
             await uow.CompleteAsync();
 
             return true;
         }
 
-        public virtual async Task<bool> TryReduceInventoryAsync(Product product, ProductInventory productInventory, int quantity, bool increaseSold)
+        public virtual async Task<bool> TryReduceInventoryAsync(Product product, ProductInventory productInventory, int quantity, bool increaseSold, ExtraPropertyDictionary extraProperties = null)
         {
             if (quantity < 0)
             {
@@ -105,7 +106,7 @@ namespace EasyAbp.EShop.Products.Products
 
             PublishInventoryChangedEventOnUowCompleted(uow, product.TenantId, product.StoreId,
                 productInventory.ProductId, productInventory.ProductSkuId, originalInventory,
-                productInventory.Inventory, productInventory.Sold);
+                productInventory.Inventory, productInventory.Sold, extraProperties);
 
             await uow.CompleteAsync();
 
@@ -113,7 +114,7 @@ namespace EasyAbp.EShop.Products.Products
         }
 
         protected virtual void PublishInventoryChangedEventOnUowCompleted(IUnitOfWork uow, Guid? tenantId, Guid storeId,
-            Guid productId, Guid productSkuId, int originalInventory, int newInventory, long sold)
+            Guid productId, Guid productSkuId, int originalInventory, int newInventory, long sold, ExtraPropertyDictionary extraProperties = null)
         {
             uow.OnCompleted(async () => await _distributedEventBus.PublishAsync(new ProductInventoryChangedEto(
                 tenantId,
@@ -122,7 +123,8 @@ namespace EasyAbp.EShop.Products.Products
                 productSkuId,
                 originalInventory,
                 newInventory,
-                sold)));
+                sold,
+                extraProperties)));
         }
     }
 }
