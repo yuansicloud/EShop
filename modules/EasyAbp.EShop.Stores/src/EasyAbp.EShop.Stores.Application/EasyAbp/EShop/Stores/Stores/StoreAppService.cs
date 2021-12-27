@@ -17,8 +17,8 @@ namespace EasyAbp.EShop.Stores.Stores
         protected override string CreatePolicyName { get; set; } = StoresPermissions.Stores.Create;
         protected override string DeletePolicyName { get; set; } = StoresPermissions.Stores.Delete;
         protected override string UpdatePolicyName { get; set; } = StoresPermissions.Stores.Update;
-        protected override string GetPolicyName { get; set; } = StoresPermissions.Stores.Default;
-        protected override string GetListPolicyName { get; set; } = StoresPermissions.Stores.Default;
+        protected override string GetPolicyName { get; set; } = null;
+        protected override string GetListPolicyName { get; set; } = null;
 
         private readonly IPermissionChecker _permissionChecker;
         private readonly IStoreRepository _repository;
@@ -93,18 +93,18 @@ namespace EasyAbp.EShop.Stores.Stores
 
         protected override async Task<IQueryable<Store>> CreateFilteredQueryAsync(GetStoreListInput input)
         {
-            IQueryable<Store> query = null;
+            //IQueryable<Store> query = null;
 
-            if (!input.OnlyManageable || await _permissionChecker.IsGrantedAsync(StoresPermissions.Stores.CrossStore))
-            {
-                query = _repository.AsQueryable();
-            }
-            else
-            {
-                query = await _repository.GetQueryableOnlyOwnStoreAsync(CurrentUser.GetId());
-            }
+            //if (!input.OnlyManageable || await _permissionChecker.IsGrantedAsync(StoresPermissions.Stores.CrossStore))
+            //{
+            //    query = _repository.AsQueryable();
+            //}
+            //else
+            //{
+            //    query = await _repository.GetQueryableOnlyOwnStoreAsync(CurrentUser.GetId());
+            //}
 
-            return query
+            return _repository
                 .WhereIf(input.IsRetail.HasValue, x => x.IsRetail == input.IsRetail.Value);
         }
 
