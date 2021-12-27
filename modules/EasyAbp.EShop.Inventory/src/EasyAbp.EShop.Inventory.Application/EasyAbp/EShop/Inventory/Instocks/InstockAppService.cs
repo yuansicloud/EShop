@@ -35,9 +35,9 @@ namespace EasyAbp.EShop.Inventory.Instocks
                 .WhereIf(input.MinCreationTime.HasValue, s => s.CreationTime.Date >= input.MinCreationTime.Value.Date)
                 .WhereIf(input.MaxCreationTime.HasValue, s => s.CreationTime.Date >= input.MaxCreationTime.Value.Date)
                 .WhereIf(input.MinInstockTime.HasValue, s => s.InstockTime.Date >= input.MinInstockTime.Value.Date)
-                .WhereIf(input.MaxInstockTime.HasValue, s => s.InstockTime.Date <= input.MaxInstockTime.Value.Date);
+                .WhereIf(input.MaxInstockTime.HasValue, s => s.InstockTime.Date <= input.MaxInstockTime.Value.Date)
+                .WhereIf(input.InstockType.HasValue, s => s.InstockType == input.InstockType.Value);
         }
-
 
     }
 }

@@ -49,5 +49,10 @@ namespace EasyAbp.EShop.Inventory.Instocks.Dtos
         /// 入库人
         /// </summary>
         public string OperatorName { get; set; }
+
+        /// <summary>
+        /// 入库类型
+        /// </summary>
+        public InstockType? InstockType { get; set; }
     }
 }

@@ -37,6 +37,7 @@ namespace EasyAbp.EShop.Inventory.Outstocks
                 .WhereIf(input.MaxCreationTime.HasValue, s => s.CreationTime.Date >= input.MaxCreationTime.Value.Date)
                 .WhereIf(input.MinOutstockTime.HasValue, s => s.OutstockTime.Date >= input.MinOutstockTime.Value.Date)
                 .WhereIf(input.MaxOutstockTime.HasValue, s => s.OutstockTime.Date <= input.MaxOutstockTime.Value.Date)
+                .WhereIf(input.OutstockType.HasValue, s => s.OutstockType == input.OutstockType.Value)
                 .WhereIf(!input.OperatorName.IsNullOrEmpty(), s => s.OperatorName.Contains(input.OperatorName));
         }
     }
