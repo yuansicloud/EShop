@@ -15,9 +15,9 @@ namespace EasyAbp.EShop.Stores.StoreOwners
         protected override string CreatePolicyName { get; set; } = StoresPermissions.Stores.Manage;
         protected override string DeletePolicyName { get; set; } = StoresPermissions.Stores.Manage;
         protected override string UpdatePolicyName { get; set; } = StoresPermissions.Stores.Manage;
-        protected override string GetPolicyName { get; set; } = StoresPermissions.Stores.Manage;
-        protected override string GetListPolicyName { get; set; } = StoresPermissions.Stores.Manage;
-        protected override string CrossStorePolicyName { get; set; } = StoresPermissions.Stores.CrossStore;
+        protected override string GetPolicyName { get; set; } = null;
+        protected override string GetListPolicyName { get; set; } = null;
+        protected override string CrossStorePolicyName { get; set; } = null;
 
         private readonly IStoreOwnerRepository _repository;
         private readonly IExternalUserLookupServiceProvider _externalUserLookupServiceProvider;
