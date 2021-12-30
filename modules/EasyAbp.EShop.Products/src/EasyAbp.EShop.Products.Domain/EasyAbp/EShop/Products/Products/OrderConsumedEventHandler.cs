@@ -30,15 +30,15 @@ namespace EasyAbp.EShop.Products.Products
             _productRepository = productRepository;
             _productManager = productManager;
         }
-        
+
         public virtual async Task HandleEventAsync(OrderConsumedEto eventData)
         {
             using var uow = _unitOfWorkManager.Begin(isTransactional: true);
-            
+
             using var changeTenant = _currentTenant.Change(eventData.Order.TenantId);
 
             var models = new List<ConsumeInventoryModel>();
-                
+
             foreach (var orderLine in eventData.Order.OrderLines)
             {
                 // Todo: Should use ProductHistory.
@@ -49,10 +49,10 @@ namespace EasyAbp.EShop.Products.Products
                 if (productSku == null)
                 {
                     await PublishResultEventAsync(eventData, false);
-                    
+
                     return;
                 }
-                    
+
                 if (product.InventoryStrategy != InventoryStrategy.ReduceAfterConsuming)
                 {
                     continue;
@@ -61,7 +61,7 @@ namespace EasyAbp.EShop.Products.Products
                 if (!await _productManager.IsInventorySufficientAsync(product, productSku, orderLine.Quantity))
                 {
                     await PublishResultEventAsync(eventData, false);
-                    
+
                     return;
                 }
 
@@ -83,20 +83,20 @@ namespace EasyAbp.EShop.Products.Products
 
             foreach (var model in models)
             {
-                if (await _productManager.TryReduceInventoryAsync(model.Product, model.ProductSku, model.Quantity, true))
+                if (await _productManager.TryReduceInventoryAsync(model.Product, model.ProductSku, model.Quantity, true, model.ExtraProperties))
                 {
                     continue;
                 }
 
                 await uow.RollbackAsync();
-                
+
                 await PublishResultEventAsync(eventData, false);
-                
+
                 return;
             }
 
             await uow.CompleteAsync();
-            
+
             await PublishResultEventAsync(eventData, true);
         }
 

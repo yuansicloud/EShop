@@ -85,7 +85,7 @@ namespace EasyAbp.EShop.Products.Products
 
             foreach (var model in models)
             {
-                if (await _productManager.TryReduceInventoryAsync(model.Product, model.ProductSku, model.Quantity, true))
+                if (await _productManager.TryReduceInventoryAsync(model.Product, model.ProductSku, model.Quantity, true, model.ExtraProperties))
                 {
                     continue;
                 }
