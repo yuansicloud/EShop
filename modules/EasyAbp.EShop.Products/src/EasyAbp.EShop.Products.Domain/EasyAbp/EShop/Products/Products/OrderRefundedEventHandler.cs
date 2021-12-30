@@ -76,7 +76,7 @@ namespace EasyAbp.EShop.Products.Products
 
                 model.ExtraProperties.Add("Description", "订单退款返库存");
                 model.ExtraProperties.Add("InstockType", 4.ToString());
-
+                model.ExtraProperties.Add("OperatorName", "系统自动");
                 models.Add(model);
             }
 

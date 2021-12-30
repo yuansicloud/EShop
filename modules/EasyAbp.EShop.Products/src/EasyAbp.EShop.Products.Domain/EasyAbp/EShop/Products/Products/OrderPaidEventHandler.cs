@@ -74,8 +74,9 @@ namespace EasyAbp.EShop.Products.Products
                     ExtraProperties = new()
                 };
 
+                model.ExtraProperties.Add("Description", "订单付款减库存");
                 model.ExtraProperties.Add("UnitPrice", orderLine.ActualTotalPrice / orderLine.Quantity);
-
+                model.ExtraProperties.Add("OperatorName", "系统自动");
                 models.Add(model);
             }
 

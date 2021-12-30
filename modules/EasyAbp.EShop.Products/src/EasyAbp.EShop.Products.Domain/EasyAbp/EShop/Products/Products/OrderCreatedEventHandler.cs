@@ -66,13 +66,21 @@ namespace EasyAbp.EShop.Products.Products
                     return;
                 }
 
-                models.Add(new ConsumeInventoryModel
+                var model = new ConsumeInventoryModel
                 {
                     Product = product,
                     ProductSku = productSku,
                     StoreId = eventData.Entity.StoreId,
-                    Quantity = orderLine.Quantity
-                });
+                    Quantity = orderLine.Quantity,
+                    ExtraProperties = new()
+                };
+
+                model.ExtraProperties.Add("Description", "订单下单减库存");
+                model.ExtraProperties.Add("UnitPrice", orderLine.ActualTotalPrice / orderLine.Quantity);
+                model.ExtraProperties.Add("OperatorName", "系统自动");
+
+                models.Add(model);
+
             }
 
             foreach (var model in models)
