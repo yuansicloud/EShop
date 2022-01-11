@@ -1,8 +1,5 @@
 ﻿using EasyAbp.EShop.Products.Products;
 using EasyAbp.EShop.Products.Products.Dtos;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.EventBus.Distributed;
@@ -52,7 +49,7 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
             if (item != null)
             {
 
-                await UpdateProductDataAsync(eventData.Quantity, item, productDto, eventData.UnitPrice);
+                await UpdateProductDataAsync(eventData.Quantity, item, productDto, eventData.UnitPrice, eventData.TotalDiscount ?? 0);
 
                 await _repository.UpdateAsync(item, autoSave: true);
 
@@ -70,7 +67,7 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
             item = new BasketItem(_guidGenerator.Create(), eventData.TenantId, eventData.BasketName, eventData.IdentifierId,
                 productDto.StoreId, eventData.ProductId, eventData.ProductSkuId, true);
 
-            await UpdateProductDataAsync(eventData.Quantity, item, productDto, eventData.UnitPrice);
+            await UpdateProductDataAsync(eventData.Quantity, item, productDto, eventData.UnitPrice, eventData.TotalDiscount ?? 0);
 
             await _repository.InsertAsync(item, autoSave: true);
         }

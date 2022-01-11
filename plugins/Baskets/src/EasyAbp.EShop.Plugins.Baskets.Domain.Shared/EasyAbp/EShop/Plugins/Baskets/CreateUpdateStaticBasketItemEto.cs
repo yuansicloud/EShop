@@ -20,5 +20,7 @@ namespace EasyAbp.EShop.Plugins.Baskets
         public decimal? UnitPrice { get; set; }
 
         public int Quantity { get; set; }
+
+        public decimal? TotalDiscount { get; set; }
     }
 }
