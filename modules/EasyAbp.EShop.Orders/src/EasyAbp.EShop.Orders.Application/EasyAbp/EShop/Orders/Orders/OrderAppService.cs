@@ -59,7 +59,8 @@ namespace EasyAbp.EShop.Orders.Orders
                 .WhereIf(input.OrderStatus.HasValue, x => x.OrderStatus == input.OrderStatus.Value)
                 .WhereIf(!input.Filter.IsNullOrEmpty(), x => x.OrderNumber.Contains(input.Filter))
                 .WhereIf(!input.Ids.IsNullOrEmpty(), x => input.Ids.Contains(x.Id))
-                .WhereIf(input.RegionId.HasValue, x => x.RegionId == input.RegionId);
+                .WhereIf(input.RegionId.HasValue, x => x.RegionId == input.RegionId)
+                .WhereIf(!input.OrderType.IsNullOrEmpty(), x => x.OrderType == input.OrderType);
         }
 
         [Authorize]

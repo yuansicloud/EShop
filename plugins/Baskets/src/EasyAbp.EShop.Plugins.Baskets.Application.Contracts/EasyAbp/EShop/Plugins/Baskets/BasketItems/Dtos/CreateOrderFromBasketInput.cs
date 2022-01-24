@@ -31,5 +31,7 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems.Dtos
         public Guid? GraveId { get; set; }
 
         public Guid? OccupantId { get; set; }
+
+        public string OrderType { get; set; }
     }
 }

@@ -347,8 +347,8 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
                     OccupantId = input.OccupantId,
                     StaffUserId = input.StaffUserId,
                     StoreId = orderGroup.Key,
-                    OrderLines = orderLines.ToList()
-
+                    OrderLines = orderLines.ToList(),
+                    OrderType = input.OrderType
                 });
 
             }
