@@ -31,22 +31,18 @@ namespace EasyAbp.EShop.Orders.Orders
         [UnitOfWork(true)]
         public virtual async Task HandleEventAsync(ConsumeOrderEto eventData)
         {
-            try
+
+            using var currentTenant = _currentTenant.Change(eventData.TenantId);
+
+            var order = await _orderRepository.GetAsync(eventData.OrderId);
+
+            if (order.ReducedInventoryAfterConsumingTime.HasValue || order.OrderStatus == OrderStatus.Canceled)
             {
-                using var currentTenant = _currentTenant.Change(eventData.TenantId);
-
-                var order = await _orderRepository.GetAsync(eventData.OrderId);
-
-                if (order.ReducedInventoryAfterConsumingTime.HasValue || order.OrderStatus == OrderStatus.Canceled)
-                {
-                    throw new OrderIsInWrongStageException(order.Id);
-                }
-
-                await _distributedEventBus.PublishAsync(new OrderConsumedEto(_objectMapper.Map<Order, OrderEto>(order)));
-
-
+                throw new OrderIsInWrongStageException(order.Id);
             }
-            catch { }
+
+            await _distributedEventBus.PublishAsync(new OrderConsumedEto(_objectMapper.Map<Order, OrderEto>(order)));
+
         }
     }
 }

@@ -70,10 +70,11 @@ namespace EasyAbp.EShop.Products.Products
                     Product = product,
                     ProductSku = productSku,
                     StoreId = eventData.Order.StoreId,
-                    Quantity = orderLine.Quantity,
+                    Quantity = orderLine.RefundedQuantity,
                     ExtraProperties = new()
                 };
 
+                model.ExtraProperties.Add("UnitPrice", orderLine.RefundAmount / orderLine.RefundedQuantity);
                 model.ExtraProperties.Add("Description", "订单退款返库存");
                 model.ExtraProperties.Add("InstockType", 4.ToString());
                 model.ExtraProperties.Add("OperatorName", "系统自动");
