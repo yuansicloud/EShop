@@ -88,9 +88,6 @@ namespace EasyAbp.EShop.Orders.Orders
 
             input.MapExtraPropertiesTo(order, MappingPropertyDefinitionChecks.None);
 
-
-            input.MapExtraPropertiesTo(order, MappingPropertyDefinitionChecks.Destination);
-
             await AddOrderExtraFeesAsync(order, customerUserId, input, productDict);
 
             order.SetOrderLines(orderLines);

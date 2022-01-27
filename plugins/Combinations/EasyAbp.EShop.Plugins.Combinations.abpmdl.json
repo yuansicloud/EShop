@@ -1,0 +1,111 @@
+{
+  "folders": {
+    "items": {
+      "src": {},
+      "test": {},
+      "host": {}
+    }
+  },
+  "packages": {
+    "EasyAbp.EShop.Plugins.Combinations.Domain.Shared": {
+      "path": "src/EasyAbp.EShop.Plugins.Combinations.Domain.Shared/EasyAbp.EShop.Plugins.Combinations.Domain.Shared.abppkg.json",
+      "folder": "src"
+    },
+    "EasyAbp.EShop.Plugins.Combinations.Domain": {
+      "path": "src/EasyAbp.EShop.Plugins.Combinations.Domain/EasyAbp.EShop.Plugins.Combinations.Domain.abppkg.json",
+      "folder": "src"
+    },
+    "EasyAbp.EShop.Plugins.Combinations.Application.Contracts": {
+      "path": "src/EasyAbp.EShop.Plugins.Combinations.Application.Contracts/EasyAbp.EShop.Plugins.Combinations.Application.Contracts.abppkg.json",
+      "folder": "src"
+    },
+    "EasyAbp.EShop.Plugins.Combinations.Application": {
+      "path": "src/EasyAbp.EShop.Plugins.Combinations.Application/EasyAbp.EShop.Plugins.Combinations.Application.abppkg.json",
+      "folder": "src"
+    },
+    "EasyAbp.EShop.Plugins.Combinations.EntityFrameworkCore": {
+      "path": "src/EasyAbp.EShop.Plugins.Combinations.EntityFrameworkCore/EasyAbp.EShop.Plugins.Combinations.EntityFrameworkCore.abppkg.json",
+      "folder": "src"
+    },
+    "EasyAbp.EShop.Plugins.Combinations.MongoDB": {
+      "path": "src/EasyAbp.EShop.Plugins.Combinations.MongoDB/EasyAbp.EShop.Plugins.Combinations.MongoDB.abppkg.json",
+      "folder": "src"
+    },
+    "EasyAbp.EShop.Plugins.Combinations.HttpApi": {
+      "path": "src/EasyAbp.EShop.Plugins.Combinations.HttpApi/EasyAbp.EShop.Plugins.Combinations.HttpApi.abppkg.json",
+      "folder": "src"
+    },
+    "EasyAbp.EShop.Plugins.Combinations.HttpApi.Client": {
+      "path": "src/EasyAbp.EShop.Plugins.Combinations.HttpApi.Client/EasyAbp.EShop.Plugins.Combinations.HttpApi.Client.abppkg.json",
+      "folder": "src"
+    },
+    "EasyAbp.EShop.Plugins.Combinations.TestBase": {
+      "path": "test/EasyAbp.EShop.Plugins.Combinations.TestBase/EasyAbp.EShop.Plugins.Combinations.TestBase.abppkg.json",
+      "folder": "test"
+    },
+    "EasyAbp.EShop.Plugins.Combinations.EntityFrameworkCore.Tests": {
+      "path": "test/EasyAbp.EShop.Plugins.Combinations.EntityFrameworkCore.Tests/EasyAbp.EShop.Plugins.Combinations.EntityFrameworkCore.Tests.abppkg.json",
+      "folder": "test"
+    },
+    "EasyAbp.EShop.Plugins.Combinations.MongoDB.Tests": {
+      "path": "test/EasyAbp.EShop.Plugins.Combinations.MongoDB.Tests/EasyAbp.EShop.Plugins.Combinations.MongoDB.Tests.abppkg.json",
+      "folder": "test"
+    },
+    "EasyAbp.EShop.Plugins.Combinations.Domain.Tests": {
+      "path": "test/EasyAbp.EShop.Plugins.Combinations.Domain.Tests/EasyAbp.EShop.Plugins.Combinations.Domain.Tests.abppkg.json",
+      "folder": "test"
+    },
+    "EasyAbp.EShop.Plugins.Combinations.Application.Tests": {
+      "path": "test/EasyAbp.EShop.Plugins.Combinations.Application.Tests/EasyAbp.EShop.Plugins.Combinations.Application.Tests.abppkg.json",
+      "folder": "test"
+    },
+    "EasyAbp.EShop.Plugins.Combinations.HttpApi.Host": {
+      "path": "host/EasyAbp.EShop.Plugins.Combinations.HttpApi.Host/EasyAbp.EShop.Plugins.Combinations.HttpApi.Host.abppkg.json",
+      "folder": "host"
+    },
+    "EasyAbp.EShop.Plugins.Combinations.Web": {
+      "path": "src/EasyAbp.EShop.Plugins.Combinations.Web/EasyAbp.EShop.Plugins.Combinations.Web.abppkg.json",
+      "folder": "src"
+    },
+    "EasyAbp.EShop.Plugins.Combinations.HttpApi.Client.ConsoleTestApp": {
+      "path": "test/EasyAbp.EShop.Plugins.Combinations.HttpApi.Client.ConsoleTestApp/EasyAbp.EShop.Plugins.Combinations.HttpApi.Client.ConsoleTestApp.abppkg.json",
+      "folder": "test"
+    },
+    "EasyAbp.EShop.Plugins.Combinations.Web.Host": {
+      "path": "host/EasyAbp.EShop.Plugins.Combinations.Web.Host/EasyAbp.EShop.Plugins.Combinations.Web.Host.abppkg.json",
+      "folder": "host"
+    },
+    "EasyAbp.EShop.Plugins.Combinations.IdentityServer": {
+      "path": "host/EasyAbp.EShop.Plugins.Combinations.IdentityServer/EasyAbp.EShop.Plugins.Combinations.IdentityServer.abppkg.json",
+      "folder": "host"
+    },
+    "EasyAbp.EShop.Plugins.Combinations.Host.Shared": {
+      "path": "host/EasyAbp.EShop.Plugins.Combinations.Host.Shared/EasyAbp.EShop.Plugins.Combinations.Host.Shared.abppkg.json",
+      "folder": "host"
+    },
+    "EasyAbp.EShop.Plugins.Combinations.Web.Unified": {
+      "path": "host/EasyAbp.EShop.Plugins.Combinations.Web.Unified/EasyAbp.EShop.Plugins.Combinations.Web.Unified.abppkg.json",
+      "folder": "host"
+    },
+    "EasyAbp.EShop.Plugins.Combinations.Blazor": {
+      "path": "src/EasyAbp.EShop.Plugins.Combinations.Blazor/EasyAbp.EShop.Plugins.Combinations.Blazor.abppkg.json",
+      "folder": "src"
+    },
+    "EasyAbp.EShop.Plugins.Combinations.Blazor.Host": {
+      "path": "host/EasyAbp.EShop.Plugins.Combinations.Blazor.Host/EasyAbp.EShop.Plugins.Combinations.Blazor.Host.abppkg.json",
+      "folder": "host"
+    },
+    "EasyAbp.EShop.Plugins.Combinations.Blazor.Server": {
+      "path": "src/EasyAbp.EShop.Plugins.Combinations.Blazor.Server/EasyAbp.EShop.Plugins.Combinations.Blazor.Server.abppkg.json",
+      "folder": "src"
+    },
+    "EasyAbp.EShop.Plugins.Combinations.Blazor.WebAssembly": {
+      "path": "src/EasyAbp.EShop.Plugins.Combinations.Blazor.WebAssembly/EasyAbp.EShop.Plugins.Combinations.Blazor.WebAssembly.abppkg.json",
+      "folder": "src"
+    },
+    "EasyAbp.EShop.Plugins.Combinations.Blazor.Server.Host": {
+      "path": "host/EasyAbp.EShop.Plugins.Combinations.Blazor.Server.Host/EasyAbp.EShop.Plugins.Combinations.Blazor.Server.Host.abppkg.json",
+      "folder": "host"
+    }
+  }
+}

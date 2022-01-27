@@ -1,0 +1,7 @@
+{
+  "modules": {
+    "EasyAbp.EShop.Plugins.Combinations": {
+      "path": "EasyAbp.EShop.Plugins.Combinations.abpmdl.json"
+    }
+  }
+}
