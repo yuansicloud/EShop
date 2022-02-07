@@ -8,15 +8,15 @@ using Microsoft.Extensions.DependencyInjection;
 namespace EasyAbp.EShop.Plugins.Combinations;
 
 [DependsOn(
-    typeof(CombinationsApplicationContractsModule),
+    typeof(EShopPluginsCombinationsApplicationContractsModule),
     typeof(AbpAspNetCoreMvcModule))]
-public class CombinationsHttpApiModule : AbpModule
+public class EShopPluginsCombinationsHttpApiModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {
         PreConfigure<IMvcBuilder>(mvcBuilder =>
         {
-            mvcBuilder.AddApplicationPartIfNotExists(typeof(CombinationsHttpApiModule).Assembly);
+            mvcBuilder.AddApplicationPartIfNotExists(typeof(EShopPluginsCombinationsHttpApiModule).Assembly);
         });
     }
 

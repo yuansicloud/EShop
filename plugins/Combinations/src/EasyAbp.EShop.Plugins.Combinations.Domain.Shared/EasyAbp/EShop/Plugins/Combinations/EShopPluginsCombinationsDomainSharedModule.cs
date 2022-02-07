@@ -14,13 +14,13 @@ namespace EasyAbp.EShop.Plugins.Combinations
         typeof(AbpValidationModule),
         typeof(EShopStoresDomainSharedModule)
     )]
-    public class CombinationsDomainSharedModule : AbpModule
+    public class EShopPluginsCombinationsDomainSharedModule : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
             Configure<AbpVirtualFileSystemOptions>(options =>
             {
-                options.FileSets.AddEmbedded<CombinationsDomainSharedModule>();
+                options.FileSets.AddEmbedded<EShopPluginsCombinationsDomainSharedModule>();
             });
 
             Configure<AbpLocalizationOptions>(options =>

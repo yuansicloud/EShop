@@ -5,11 +5,11 @@ using Volo.Abp.Authorization;
 namespace EasyAbp.EShop.Plugins.Combinations;
 
 [DependsOn(
-    typeof(CombinationsDomainSharedModule),
+    typeof(EShopPluginsCombinationsDomainSharedModule),
     typeof(AbpDddApplicationContractsModule),
     typeof(AbpAuthorizationModule)
     )]
-public class CombinationsApplicationContractsModule : AbpModule
+public class EShopPluginsCombinationsApplicationContractsModule : AbpModule
 {
 
 }

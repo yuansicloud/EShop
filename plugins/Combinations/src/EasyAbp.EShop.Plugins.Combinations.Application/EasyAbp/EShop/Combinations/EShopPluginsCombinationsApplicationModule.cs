@@ -7,19 +7,19 @@ namespace EasyAbp.EShop.Plugins.Combinations
 {
 
     [DependsOn(
-        typeof(CombinationsDomainModule),
-        typeof(CombinationsApplicationContractsModule),
+        typeof(EShopPluginsCombinationsDomainModule),
+        typeof(EShopPluginsCombinationsApplicationContractsModule),
         typeof(AbpDddApplicationModule),
         typeof(AbpAutoMapperModule)
         )]
-    public class CombinationsApplicationModule : AbpModule
+    public class EShopPluginsCombinationsApplicationModule : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
-            context.Services.AddAutoMapperObjectMapper<CombinationsApplicationModule>();
+            context.Services.AddAutoMapperObjectMapper<EShopPluginsCombinationsApplicationModule>();
             Configure<AbpAutoMapperOptions>(options =>
             {
-                options.AddMaps<CombinationsApplicationModule>(validate: true);
+                options.AddMaps<EShopPluginsCombinationsApplicationModule>(validate: true);
             });
         }
     }

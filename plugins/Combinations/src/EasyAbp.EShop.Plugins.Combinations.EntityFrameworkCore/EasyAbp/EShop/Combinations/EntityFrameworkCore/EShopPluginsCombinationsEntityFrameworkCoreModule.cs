@@ -7,10 +7,10 @@ using Volo.Abp.Modularity;
 namespace EasyAbp.EShop.Plugins.Combinations.EntityFrameworkCore;
 
 [DependsOn(
-    typeof(CombinationsDomainModule),
+    typeof(EShopPluginsCombinationsDomainModule),
     typeof(AbpEntityFrameworkCoreModule)
 )]
-public class CombinationsEntityFrameworkCoreModule : AbpModule
+public class EShopPluginsCombinationsEntityFrameworkCoreModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {

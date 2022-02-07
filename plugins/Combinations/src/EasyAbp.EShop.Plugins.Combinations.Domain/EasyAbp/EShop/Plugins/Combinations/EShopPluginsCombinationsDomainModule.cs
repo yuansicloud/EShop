@@ -5,9 +5,9 @@ namespace EasyAbp.EShop.Plugins.Combinations;
 
 [DependsOn(
     typeof(AbpDddDomainModule),
-    typeof(CombinationsDomainSharedModule)
+    typeof(EShopPluginsCombinationsDomainSharedModule)
 )]
-public class CombinationsDomainModule : AbpModule
+public class EShopPluginsCombinationsDomainModule : AbpModule
 {
 
 }

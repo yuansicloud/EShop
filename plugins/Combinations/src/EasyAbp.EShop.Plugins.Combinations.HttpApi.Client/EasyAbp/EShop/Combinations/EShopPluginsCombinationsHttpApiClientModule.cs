@@ -6,20 +6,20 @@ using Volo.Abp.VirtualFileSystem;
 namespace EasyAbp.EShop.Plugins.Combinations;
 
 [DependsOn(
-    typeof(CombinationsApplicationContractsModule),
+    typeof(EShopPluginsCombinationsApplicationContractsModule),
     typeof(AbpHttpClientModule))]
-public class CombinationsHttpApiClientModule : AbpModule
+public class EShopPluginsCombinationsHttpApiClientModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
         context.Services.AddHttpClientProxies(
-            typeof(CombinationsApplicationContractsModule).Assembly,
+            typeof(EShopPluginsCombinationsApplicationContractsModule).Assembly,
             CombinationsRemoteServiceConsts.RemoteServiceName
         );
 
         Configure<AbpVirtualFileSystemOptions>(options =>
         {
-            options.FileSets.AddEmbedded<CombinationsHttpApiClientModule>();
+            options.FileSets.AddEmbedded<EShopPluginsCombinationsHttpApiClientModule>();
         });
 
     }

@@ -8,6 +8,6 @@ public abstract class CombinationsAppService : ApplicationService
     protected CombinationsAppService()
     {
         LocalizationResource = typeof(CombinationsResource);
-        ObjectMapperContext = typeof(CombinationsApplicationModule);
+        ObjectMapperContext = typeof(EShopPluginsCombinationsApplicationModule);
     }
 }
