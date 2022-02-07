@@ -2,6 +2,10 @@
   "culture": "zh-Hans",
   "texts": {
     "MyAccount": "我的账户",
-    "SamplePageMessage": "Combinations模块的示例页面"
+    "SamplePageMessage": "Combinations模块的示例页面",
+    "Permission:Combinations": "商品套餐管理",
+    "Permission:Combination": "商品套餐",
+    "Permission:Manage": "管理",
+    "Permission:CrossStore": "跨店铺"
   }
 }

@@ -11,9 +11,8 @@ public class CombinationsPermissionDefinitionProvider : PermissionDefinitionProv
         var myGroup = context.AddGroup(CombinationsPermissions.GroupName, L("Permission:Combinations"));
 
             var combinationPermission = myGroup.AddPermission(CombinationsPermissions.Combinations.Default, L("Permission:Combination"));
-            combinationPermission.AddChild(CombinationsPermissions.Combinations.Create, L("Permission:Create"));
-            combinationPermission.AddChild(CombinationsPermissions.Combinations.Update, L("Permission:Update"));
-            combinationPermission.AddChild(CombinationsPermissions.Combinations.Delete, L("Permission:Delete"));
+            combinationPermission.AddChild(CombinationsPermissions.Combinations.Manage, L("Permission:Manage"));
+            combinationPermission.AddChild(CombinationsPermissions.Combinations.CrossStore, L("Permission:CrossStore"));
     }
 
     private static LocalizableString L(string name)

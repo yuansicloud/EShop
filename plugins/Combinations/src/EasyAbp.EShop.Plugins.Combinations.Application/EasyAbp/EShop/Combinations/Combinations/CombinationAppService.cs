@@ -14,9 +14,9 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations
     {
         protected override string GetPolicyName { get; set; } = CombinationsPermissions.Combinations.Default;
         protected override string GetListPolicyName { get; set; } = CombinationsPermissions.Combinations.Default;
-        protected override string CreatePolicyName { get; set; } = CombinationsPermissions.Combinations.Create;
-        protected override string UpdatePolicyName { get; set; } = CombinationsPermissions.Combinations.Update;
-        protected override string DeletePolicyName { get; set; } = CombinationsPermissions.Combinations.Delete;
+        protected override string CreatePolicyName { get; set; } = CombinationsPermissions.Combinations.Manage;
+        protected override string UpdatePolicyName { get; set; } = CombinationsPermissions.Combinations.Manage;
+        protected override string DeletePolicyName { get; set; } = CombinationsPermissions.Combinations.Manage;
 
         protected override string CrossStorePolicyName { get; set; } = CombinationsPermissions.Combinations.CrossStore;
 

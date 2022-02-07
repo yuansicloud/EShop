@@ -4,7 +4,7 @@ namespace EasyAbp.EShop.Plugins.Combinations.Permissions;
 
 public class CombinationsPermissions
 {
-    public const string GroupName = "Combinations";
+    public const string GroupName = "EasyAbp.EShop.Plugins.Combinations";
 
     public static string[] GetAll()
     {
@@ -16,8 +16,5 @@ public class CombinationsPermissions
         public const string Default = GroupName + ".Combination";
         public const string CrossStore = Default + ".CrossStore";
         public const string Manage = Default + ".Manage";
-        public const string Update = Default + ".Update";
-        public const string Create = Default + ".Create";
-        public const string Delete = Default + ".Delete";
     }
 }
