@@ -2,9 +2,9 @@
 
 public static class CombinationsDbProperties
 {
-    public static string DbTablePrefix { get; set; } = "Combinations";
+    public static string DbTablePrefix { get; set; } = "EasyAbpEShopPluginsCombinations";
 
     public static string DbSchema { get; set; } = null;
 
-    public const string ConnectionStringName = "Combinations";
+    public const string ConnectionStringName = "EasyAbpEShopPluginsCombinations";
 }
