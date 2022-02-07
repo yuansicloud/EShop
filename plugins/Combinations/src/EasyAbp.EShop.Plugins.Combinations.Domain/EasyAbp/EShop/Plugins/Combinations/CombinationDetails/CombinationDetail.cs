@@ -1,7 +1,5 @@
 using JetBrains.Annotations;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 
@@ -31,18 +29,6 @@ namespace EasyAbp.EShop.Plugins.Combinations.CombinationDetails
 
         public void SetDescription(string description)
         {
-            Description = description;
-        }
-
-        public CombinationDetail(
-            Guid id,
-            Guid? tenantId,
-            Guid? storeId,
-            string description
-        ) : base(id)
-        {
-            TenantId = tenantId;
-            StoreId = storeId;
             Description = description;
         }
     }
