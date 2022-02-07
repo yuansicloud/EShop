@@ -3,22 +3,24 @@ using Volo.Abp.AutoMapper;
 using Volo.Abp.Modularity;
 using Volo.Abp.Application;
 
-namespace EasyAbp.EShop.Plugins.Combinations;
-
-[DependsOn(
-    typeof(CombinationsDomainModule),
-    typeof(CombinationsApplicationContractsModule),
-    typeof(AbpDddApplicationModule),
-    typeof(AbpAutoMapperModule)
-    )]
-public class CombinationsApplicationModule : AbpModule
+namespace EasyAbp.EShop.Plugins.Combinations
 {
-    public override void ConfigureServices(ServiceConfigurationContext context)
+
+    [DependsOn(
+        typeof(CombinationsDomainModule),
+        typeof(CombinationsApplicationContractsModule),
+        typeof(AbpDddApplicationModule),
+        typeof(AbpAutoMapperModule)
+        )]
+    public class CombinationsApplicationModule : AbpModule
     {
-        context.Services.AddAutoMapperObjectMapper<CombinationsApplicationModule>();
-        Configure<AbpAutoMapperOptions>(options =>
+        public override void ConfigureServices(ServiceConfigurationContext context)
         {
-            options.AddMaps<CombinationsApplicationModule>(validate: true);
-        });
+            context.Services.AddAutoMapperObjectMapper<CombinationsApplicationModule>();
+            Configure<AbpAutoMapperOptions>(options =>
+            {
+                options.AddMaps<CombinationsApplicationModule>(validate: true);
+            });
+        }
     }
 }

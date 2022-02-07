@@ -1,5 +1,6 @@
-﻿namespace EasyAbp.EShop.Plugins.Combinations;
-
-public static class CombinationsErrorCodes
+﻿namespace EasyAbp.EShop.Plugins.Combinations
 {
+    public static class CombinationsErrorCodes
+    {
+    }
 }

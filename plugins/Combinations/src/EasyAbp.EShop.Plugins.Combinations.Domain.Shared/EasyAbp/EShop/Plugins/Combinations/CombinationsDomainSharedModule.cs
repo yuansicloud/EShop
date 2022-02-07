@@ -7,32 +7,34 @@ using Volo.Abp.Validation.Localization;
 using Volo.Abp.VirtualFileSystem;
 using EasyAbp.EShop.Stores;
 
-namespace EasyAbp.EShop.Plugins.Combinations;
-
-[DependsOn(
-    typeof(AbpValidationModule),
-    typeof(EShopStoresDomainSharedModule)
-)]
-public class CombinationsDomainSharedModule : AbpModule
+namespace EasyAbp.EShop.Plugins.Combinations
 {
-    public override void ConfigureServices(ServiceConfigurationContext context)
+
+    [DependsOn(
+        typeof(AbpValidationModule),
+        typeof(EShopStoresDomainSharedModule)
+    )]
+    public class CombinationsDomainSharedModule : AbpModule
     {
-        Configure<AbpVirtualFileSystemOptions>(options =>
+        public override void ConfigureServices(ServiceConfigurationContext context)
         {
-            options.FileSets.AddEmbedded<CombinationsDomainSharedModule>();
-        });
+            Configure<AbpVirtualFileSystemOptions>(options =>
+            {
+                options.FileSets.AddEmbedded<CombinationsDomainSharedModule>();
+            });
 
-        Configure<AbpLocalizationOptions>(options =>
-        {
-            options.Resources
-                .Add<CombinationsResource>("en")
-                .AddBaseTypes(typeof(AbpValidationResource))
-                .AddVirtualJson("/Localization/Combinations");
-        });
+            Configure<AbpLocalizationOptions>(options =>
+            {
+                options.Resources
+                    .Add<CombinationsResource>("en")
+                    .AddBaseTypes(typeof(AbpValidationResource))
+                    .AddVirtualJson("/Localization/Combinations");
+            });
 
-        Configure<AbpExceptionLocalizationOptions>(options =>
-        {
-            options.MapCodeNamespace("Combinations", typeof(CombinationsResource));
-        });
+            Configure<AbpExceptionLocalizationOptions>(options =>
+            {
+                options.MapCodeNamespace("Combinations", typeof(CombinationsResource));
+            });
+        }
     }
 }
