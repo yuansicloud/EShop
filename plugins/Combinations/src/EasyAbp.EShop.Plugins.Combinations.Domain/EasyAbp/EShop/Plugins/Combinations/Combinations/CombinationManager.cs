@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace EasyAbp.EShop.Plugins.Combinations.Combinations
 {
@@ -19,39 +21,67 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations
 
             await _combinationRepository.InsertAsync(combination, autoSave: true);
 
-            //await CheckCombinationDetailAvailableAsync(combination.Id, combination.CombinationDetailId);
+            await CheckCombinationDetailAvailableAsync(combination.Id, combination.CombinationDetailId);
 
             return combination;
+
         }
 
-        public Task<Combination> CreateCombinationItemAsync(Combination combination, CombinationItem combinationItem)
+        public async Task<Combination> CreateCombinationItemAsync(Combination combination, CombinationItem combinationItem)
         {
-            throw new System.NotImplementedException();
+
+            combination.CombinationItems.AddIfNotContains(combinationItem);
+
+            return await _combinationRepository.UpdateAsync(combination, true);
         }
 
-        public Task DeleteAsync(Combination combination)
+        public async Task DeleteAsync(Combination combination)
         {
-            throw new System.NotImplementedException();
+            await _combinationRepository.DeleteAsync(combination, true);
         }
 
-        public Task<Combination> DeleteCombinationItemAsync(Combination combination, CombinationItem combinationItem)
+        public async Task DeleteAsync(Guid id)
         {
-            throw new System.NotImplementedException();
+            await _combinationRepository.DeleteAsync(id, true);
         }
 
-        public Task<Combination> UpdateAsync(Combination combination)
+        public async Task<Combination> DeleteCombinationItemAsync(Combination combination, CombinationItem combinationItem)
         {
-            throw new System.NotImplementedException();
+            combination.CombinationItems.Remove(combinationItem);
+
+            return await _combinationRepository.UpdateAsync(combination, true);
         }
 
-        public Task<Combination> UpdateCombinationItemAsync(Combination combination, CombinationItem combinationItem)
+        public async Task<Combination> UpdateAsync(Combination combination)
         {
-            throw new System.NotImplementedException();
+            await CheckCombinationUniqueNameAsync(combination);
+
+            return await _combinationRepository.UpdateAsync(combination, true);
+        }
+
+        public async Task<Combination> UpdateCombinationItemAsync(Combination combination, CombinationItem combinationItem)
+        {
+
+            return await _combinationRepository.UpdateAsync(combination, true);
         }
 
         protected virtual async Task CheckCombinationUniqueNameAsync(Combination combination)
         {
             await _combinationRepository.CheckUniqueNameAsync(combination);
         }
+
+        protected virtual async Task CheckCombinationDetailAvailableAsync(Guid currentCombinationId, Guid desiredCombinationDetailId)
+        {
+            var otherOwner = await _combinationRepository.FindAsync(x =>
+                x.CombinationDetailId == desiredCombinationDetailId && x.Id != currentCombinationId);
+
+            // Todo: should also check ProductSku owner
+
+            if (otherOwner != null)
+            {
+                throw new CombinationDetailHasBeenUsedException(desiredCombinationDetailId);
+            }
+        }
+
     }
 }
