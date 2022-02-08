@@ -27,5 +27,9 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations
         bool IsFixedPrice { get; }
 
         string Unit { get; }
+
+        Guid ProductId { get; }
+
+        Guid ProductSkuId { get; }
     }
 }

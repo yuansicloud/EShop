@@ -29,9 +29,6 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations.Dtos
         [DisplayName("CombinationItemUnitPrice")]
         public decimal UnitPrice { get; set; }
 
-        [DisplayName("CombinationItemTotalPrice")]
-        public decimal TotalPrice { get; set; }
-
         [DisplayName("CombinationItemTotalDiscount")]
         public decimal TotalDiscount { get; set; }
 
@@ -40,6 +37,12 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations.Dtos
 
         [DisplayName("CombinationItemUnit")]
         public string Unit { get; set; }
+
+        [DisplayName("CombinationItemProductId")]
+        public Guid ProductId { get; set; }
+
+        [DisplayName("CombinationItemProductSkuId")]
+        public Guid ProductSkuId { get; set; }
 
     }
 }

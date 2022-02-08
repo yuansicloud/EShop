@@ -1,4 +1,5 @@
 using System;
+using Volo.Abp;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 
@@ -29,6 +30,10 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations
         public virtual bool IsFixedPrice { get; protected set; }
 
         public virtual string Unit { get; protected set; }
+
+        public virtual Guid ProductId { get; protected set; }
+
+        public virtual Guid ProductSkuId { get; protected set; }
 
         public virtual Guid? TenantId { get; protected set; }
 
@@ -66,6 +71,16 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations
             IsFixedPrice = isFixedPrice;
             Unit = unit;
             TenantId = tenantId;
+        }
+
+        public virtual void UpdateTotalPrice()
+        {
+            TotalPrice = UnitPrice * Quantity - TotalDiscount;
+
+            if (TotalPrice < 0)
+            {
+                throw new BusinessException(null, "TotalPrice can not be less than 0");
+            }
         }
     }
 }

@@ -106,6 +106,8 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations
 
         public async Task<CombinationDto> CreateCombinationItemAsync(Guid combinationId, CreateCombinationItemDto input)
         {
+            //TODO: Add Store Validation
+
             var combination = await GetEntityByIdAsync(combinationId);
 
             await CheckMultiStorePolicyAsync(combination.StoreId, UpdatePolicyName);

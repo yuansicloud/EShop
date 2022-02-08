@@ -30,5 +30,9 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations.Dtos
 
         public string Unit { get; set; }
 
+        public Guid ProductId { get; set; }
+
+        public Guid ProductSkuId { get; set; }
+
     }
 }
