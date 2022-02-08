@@ -75,7 +75,7 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations
 
         public virtual void UpdateTotalPrice()
         {
-            TotalPrice = UnitPrice * Quantity - TotalDiscount;
+            TotalPrice = UnitPrice * Quantity;
 
             if (TotalPrice < 0)
             {
