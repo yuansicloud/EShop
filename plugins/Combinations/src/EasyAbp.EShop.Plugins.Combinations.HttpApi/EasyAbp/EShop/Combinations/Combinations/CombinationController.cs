@@ -55,23 +55,23 @@
 
         [HttpPost]
         [Route("{id}/item")]
-        public Task<CombinationDto> CreateCombinationItemAsync(Guid combinationId, CreateCombinationItemDto input)
+        public Task<CombinationDto> CreateCombinationItemAsync(Guid id, CreateCombinationItemDto input)
         {
-            return _service.CreateCombinationItemAsync(combinationId, input);
+            return _service.CreateCombinationItemAsync(id, input);
         }
 
         [HttpPut]
-        [Route("{id}/item/{combinationSkuId}")]
-        public Task<CombinationDto> UpdateCombinationItemAsync(Guid combinationId, Guid combinationItemId, UpdateCombinationItemDto input)
+        [Route("{id}/item/{combinationItemId}")]
+        public Task<CombinationDto> UpdateCombinationItemAsync(Guid id, Guid combinationItemId, UpdateCombinationItemDto input)
         {
-            return _service.UpdateCombinationItemAsync(combinationId, combinationItemId, input);
+            return _service.UpdateCombinationItemAsync(id, combinationItemId, input);
         }
 
         [HttpDelete]
-        [Route("{id}/item/{combinationSkuId}")]
-        public Task<CombinationDto> DeleteCombinationItemAsync(Guid combinationId, Guid combinationItemId)
+        [Route("{id}/item/{combinationItemId}")]
+        public Task<CombinationDto> DeleteCombinationItemAsync(Guid id, Guid combinationItemId)
         {
-            return _service.DeleteCombinationItemAsync(combinationId, combinationItemId);
+            return _service.DeleteCombinationItemAsync(id, combinationItemId);
         }
 
         [HttpGet]

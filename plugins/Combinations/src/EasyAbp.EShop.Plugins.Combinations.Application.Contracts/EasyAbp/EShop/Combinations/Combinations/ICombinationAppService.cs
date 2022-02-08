@@ -15,10 +15,10 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations
     {
         Task<CombinationDto> FindAsync(Guid id);
 
-        Task<CombinationDto> CreateCombinationItemAsync(Guid combinationId, CreateCombinationItemDto input);
+        Task<CombinationDto> CreateCombinationItemAsync(Guid id, CreateCombinationItemDto input);
 
-        Task<CombinationDto> UpdateCombinationItemAsync(Guid combinationId, Guid combinationItemId, UpdateCombinationItemDto input);
+        Task<CombinationDto> UpdateCombinationItemAsync(Guid id, Guid combinationItemId, UpdateCombinationItemDto input);
 
-        Task<CombinationDto> DeleteCombinationItemAsync(Guid combinationId, Guid combinationItemId);
+        Task<CombinationDto> DeleteCombinationItemAsync(Guid id, Guid combinationItemId);
     }
 }
