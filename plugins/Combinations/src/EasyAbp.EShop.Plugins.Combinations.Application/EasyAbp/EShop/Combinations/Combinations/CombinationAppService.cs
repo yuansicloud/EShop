@@ -104,11 +104,11 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations
             return dto;
         }
 
-        public async Task<CombinationDto> CreateCombinationItemAsync(Guid combinationId, CreateCombinationItemDto input)
+        public async Task<CombinationDto> CreateCombinationItemAsync(Guid id, CreateCombinationItemDto input)
         {
             //TODO: Add Store Validation
 
-            var combination = await GetEntityByIdAsync(combinationId);
+            var combination = await GetEntityByIdAsync(id);
 
             await CheckMultiStorePolicyAsync(combination.StoreId, UpdatePolicyName);
 
@@ -123,9 +123,9 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations
             return dto;
         }
 
-        public async Task<CombinationDto> UpdateCombinationItemAsync(Guid combinationId, Guid combinationItemId, UpdateCombinationItemDto input)
+        public async Task<CombinationDto> UpdateCombinationItemAsync(Guid id, Guid combinationItemId, UpdateCombinationItemDto input)
         {
-            var combination = await GetEntityByIdAsync(combinationId);
+            var combination = await GetEntityByIdAsync(id);
 
             await CheckMultiStorePolicyAsync(combination.StoreId, UpdatePolicyName);
 
@@ -140,9 +140,9 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations
             return dto;
         }
 
-        public async Task<CombinationDto> DeleteCombinationItemAsync(Guid combinationId, Guid combinationItemId)
+        public async Task<CombinationDto> DeleteCombinationItemAsync(Guid id, Guid combinationItemId)
         {
-            var combination = await GetEntityByIdAsync(combinationId);
+            var combination = await GetEntityByIdAsync(id);
 
             await CheckMultiStorePolicyAsync(combination.StoreId, UpdatePolicyName);
 
@@ -155,6 +155,20 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations
             return dto;
         }
 
+        public virtual async Task<CombinationDto> ChangeCombinationPublished(Guid id, ChangeCombinationPublishedDto input)
+        {
+            var combination = await GetEntityByIdAsync(id);
+
+            await CheckMultiStorePolicyAsync(combination.StoreId, UpdatePolicyName);
+
+            combination.TogglePublished(input.IsPublished);
+
+            await _repository.UpdateAsync(combination, autoSave: true);
+
+            var dto = await MapToGetOutputDtoAsync(combination);
+
+            return dto;
+        }
         protected override async Task<IQueryable<Combination>> CreateFilteredQueryAsync(GetCombinationListInput input)
         {
             var query = await _repository.WithDetailsAsync();

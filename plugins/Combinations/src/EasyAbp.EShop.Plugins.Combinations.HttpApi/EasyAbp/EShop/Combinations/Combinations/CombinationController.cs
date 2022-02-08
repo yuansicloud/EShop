@@ -80,5 +80,12 @@
         {
             return _service.FindAsync(id);
         }
+
+        [HttpPut]
+        [Route("{id}/change-published")]
+        public Task<CombinationDto> ChangeCombinationPublished(Guid id, ChangeCombinationPublishedDto input)
+        {
+            return _service.ChangeCombinationPublished(id, input);
+        }
     }
 }

@@ -20,5 +20,7 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations
         Task<CombinationDto> UpdateCombinationItemAsync(Guid id, Guid combinationItemId, UpdateCombinationItemDto input);
 
         Task<CombinationDto> DeleteCombinationItemAsync(Guid id, Guid combinationItemId);
+
+        Task<CombinationDto> ChangeCombinationPublished(Guid id, ChangeCombinationPublishedDto input);
     }
 }

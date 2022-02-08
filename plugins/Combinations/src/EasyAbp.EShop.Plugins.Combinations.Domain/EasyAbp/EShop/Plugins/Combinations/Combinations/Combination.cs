@@ -56,6 +56,10 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations
         {
             UniqueName = UniqueName?.Trim();
         }
+        public void TogglePublished(bool isPublished)
+        {
+            IsPublished = isPublished;
+        }
 
     }
 }
