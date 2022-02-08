@@ -9,7 +9,7 @@
     using Volo.Abp.Application.Dtos;
 
     [RemoteService(Name = "EasyAbpEShopCombinations")]
-    [Route("/api/e-shop/combinations/combination-detail")]
+    [Route("/api/e-shop/plugins/combinations/combination-detail")]
     public class CombinationDetailController : CombinationsController, ICombinationDetailAppService
     {
 
