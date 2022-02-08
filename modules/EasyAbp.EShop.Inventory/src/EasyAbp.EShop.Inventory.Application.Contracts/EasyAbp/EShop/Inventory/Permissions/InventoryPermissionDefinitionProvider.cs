@@ -11,7 +11,7 @@ namespace EasyAbp.EShop.Inventory.Permissions
             var myGroup = context.AddGroup(InventoryPermissions.GroupName, L("Permission:Inventory"));
 
         }
-
+         
         private static LocalizableString L(string name)
         {
             return LocalizableString.Create<InventoryResource>(name);

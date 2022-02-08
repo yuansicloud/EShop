@@ -28,12 +28,12 @@ namespace EasyAbp.EShop.Plugins.Combinations
                 options.Resources
                     .Add<CombinationsResource>("en")
                     .AddBaseTypes(typeof(AbpValidationResource))
-                    .AddVirtualJson("/Localization/Combinations");
+                    .AddVirtualJson("/EasyAbp/EShop/Plugins/Combinations/Localization/Combinations");
             });
 
             Configure<AbpExceptionLocalizationOptions>(options =>
             {
-                options.MapCodeNamespace("Combinations", typeof(CombinationsResource));
+                options.MapCodeNamespace("EasyAbp.EShop.Plugins.Combinations", typeof(CombinationsResource));
             });
         }
     }
