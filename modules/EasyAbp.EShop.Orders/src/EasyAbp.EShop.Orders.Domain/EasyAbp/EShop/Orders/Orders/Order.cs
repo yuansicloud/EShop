@@ -181,17 +181,17 @@ namespace EasyAbp.EShop.Orders.Orders
             CustomerUserId = id;
         }
 
-        public void SetStaffUserId(Guid id)
+        public void SetStaffUserId(Guid? id)
         {
             StaffUserId = id;
         }
 
-        public void SetGraveId(Guid id)
+        public void SetGraveId(Guid? id)
         {
             GraveId = id;
         }
 
-        public void SetOccupantId(Guid id)
+        public void SetOccupantId(Guid? id)
         {
             OccupantId = id;
         }
