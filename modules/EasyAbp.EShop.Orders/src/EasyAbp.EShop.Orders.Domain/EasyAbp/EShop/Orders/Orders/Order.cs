@@ -176,6 +176,27 @@ namespace EasyAbp.EShop.Orders.Orders
             PaidTime = paidTime;
         }
 
+        public void SetCustomerUserId(Guid id)
+        {
+            CustomerUserId = id;
+        }
+
+        public void SetStaffUserId(Guid id)
+        {
+            StaffUserId = id;
+        }
+
+        public void SetGraveId(Guid id)
+        {
+            GraveId = id;
+        }
+
+        public void SetOccupantId(Guid id)
+        {
+            OccupantId = id;
+        }
+
+
         public void SetOrderStatus(OrderStatus orderStatus)
         {
             OrderStatus = orderStatus;
