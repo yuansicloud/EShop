@@ -14,7 +14,6 @@ public class CombinationsPermissions
     public class Combinations
     {
         public const string Default = GroupName + ".Combination";
-        public const string CrossStore = Default + ".CrossStore";
         public const string Manage = Default + ".Manage";
     }
 }

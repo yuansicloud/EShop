@@ -29,7 +29,7 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations
 
         public async Task<Combination> CreateCombinationItemAsync(Combination combination, CombinationItem combinationItem)
         {
-            combinationItem.UpdateTotalPrice();
+            //combinationItem.UpdateTotalPrice();
 
             combination.CombinationItems.AddIfNotContains(combinationItem);
 
@@ -62,7 +62,7 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations
 
         public async Task<Combination> UpdateCombinationItemAsync(Combination combination, CombinationItem combinationItem)
         {
-            combinationItem.UpdateTotalPrice();
+            //combinationItem.UpdateTotalPrice();
 
             return await _combinationRepository.UpdateAsync(combination, true);
         }

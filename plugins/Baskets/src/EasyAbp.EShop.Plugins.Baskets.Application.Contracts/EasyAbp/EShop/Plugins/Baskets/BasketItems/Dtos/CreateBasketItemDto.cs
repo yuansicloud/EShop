@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Volo.Abp.ObjectExtending;
 
@@ -21,7 +20,11 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems.Dtos
         public Guid ProductSkuId { get; set; }
         
         public int Quantity { get; set; }
-        
+
+        public decimal? UnitPrice { get; set; }
+
+        public decimal TotalDiscount { get; set; } = 0;
+
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             base.Validate(validationContext);
@@ -33,7 +36,23 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems.Dtos
                     new[] { "Quantity" }
                 );
             }
-            
+
+            if (UnitPrice.HasValue && UnitPrice.Value < 0)
+            {
+                yield return new ValidationResult(
+                    "UnitPrice should be greater than 0.",
+                    new[] { "UnitPrice" }
+                );
+            }
+
+            if (TotalDiscount < 0)
+            {
+                yield return new ValidationResult(
+                    "TotalDiscount should be greater than 0.",
+                    new[] { "TotalDiscount" }
+                );
+            }
+
             if (BasketName.IsNullOrWhiteSpace())
             {
                 yield return new ValidationResult(

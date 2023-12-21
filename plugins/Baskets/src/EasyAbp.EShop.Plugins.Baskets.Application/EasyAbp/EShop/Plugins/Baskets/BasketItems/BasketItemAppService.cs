@@ -252,7 +252,7 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
             item = new BasketItem(GuidGenerator.Create(), CurrentTenant.Id, input.BasketName, identifierId,
                 productDto.StoreId, input.ProductId, input.ProductSkuId, false);
 
-            await UpdateProductDataAsync(input.Quantity, item, productDto);
+            await UpdateProductDataAsync(input.Quantity, item, productDto, input.UnitPrice, input.TotalDiscount);
 
             await Repository.InsertAsync(item, autoSave: true);
 

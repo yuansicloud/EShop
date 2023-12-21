@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace EasyAbp.EShop.Plugins.Combinations.Combinations
 {
@@ -28,8 +26,6 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations
 
         string Unit { get; }
 
-        Guid ProductId { get; }
-
-        Guid ProductSkuId { get; }
+        int Inventory { get; }
     }
 }

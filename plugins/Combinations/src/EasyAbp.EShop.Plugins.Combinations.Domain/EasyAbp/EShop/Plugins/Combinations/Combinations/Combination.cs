@@ -19,14 +19,13 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations
 
         public virtual bool IsPublished { get; protected set; }
 
-        public virtual Guid StoreId { get; protected set; }
-
         public virtual List<CombinationItem> CombinationItems { get; protected set; }
 
         public virtual Guid? TenantId { get; protected set; }
 
         protected Combination()
         {
+            CombinationItems = new List<CombinationItem>();
         }
 
         public Combination(
@@ -37,7 +36,6 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations
             string mediaResources,
             int displayOrder,
             bool isPublished,
-            Guid storeId,
             Guid? tenantId
         ) : base(id)
         {
@@ -47,7 +45,6 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations
             MediaResources = mediaResources;
             DisplayOrder = displayOrder;
             IsPublished = isPublished;
-            StoreId = storeId;
             TenantId = tenantId;
             CombinationItems = new List<CombinationItem>();
         }

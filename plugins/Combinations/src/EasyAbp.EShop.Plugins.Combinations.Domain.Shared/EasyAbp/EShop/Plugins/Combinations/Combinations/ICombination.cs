@@ -4,7 +4,7 @@ using Volo.Abp.Data;
 
 namespace EasyAbp.EShop.Plugins.Combinations.Combinations
 {
-    public interface ICombination : IHasExtraProperties, IMultiStore
+    public interface ICombination : IHasExtraProperties
     {
 
         Guid CombinationDetailId { get; }

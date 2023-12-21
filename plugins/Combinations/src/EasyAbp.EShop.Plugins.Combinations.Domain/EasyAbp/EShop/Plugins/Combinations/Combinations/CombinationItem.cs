@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System;
 using Volo.Abp;
 using Volo.Abp.Domain.Entities.Auditing;
@@ -37,6 +38,10 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations
 
         public virtual Guid? TenantId { get; protected set; }
 
+        public virtual Guid StoreId { get; protected set; }
+
+        public int Inventory { get; protected set; }
+
         protected CombinationItem()
         {
         }
@@ -55,6 +60,7 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations
             decimal totalDiscount,
             bool isFixedPrice,
             string unit,
+            Guid storeId,
             Guid? tenantId
         ) : base(id)
         {
@@ -71,16 +77,48 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations
             IsFixedPrice = isFixedPrice;
             Unit = unit;
             TenantId = tenantId;
+            StoreId = storeId;
         }
 
-        public virtual void UpdateTotalPrice()
+        public CombinationItem(
+            Guid id,
+            Guid? tenantId,
+            Guid storeId,
+            Guid productId,
+            Guid productSkuId) : base(id)
         {
-            TotalPrice = UnitPrice * Quantity;
+            TenantId = tenantId;
+            StoreId = storeId;
+            ProductId = productId;
+            ProductSkuId = productSkuId;
+        }
 
-            if (TotalPrice < 0)
-            {
-                throw new BusinessException(null, "TotalPrice can not be less than 0");
-            }
+        //public virtual void UpdateTotalPrice()
+        //{
+        //    TotalPrice = UnitPrice * Quantity;
+
+        //    if (TotalPrice < 0)
+        //    {
+        //        throw new BusinessException(null, "TotalPrice can not be less than 0");
+        //    }
+        //}
+
+        public void UpdateProductData(int quantity, IProductData productData)
+        {
+            Quantity = quantity;
+
+            MediaResources = productData.MediaResources;
+            ProductUniqueName = productData.ProductUniqueName;
+            ProductDisplayName = productData.ProductDisplayName;
+            SkuName = productData.SkuName;
+            SkuDescription = productData.SkuDescription;
+            Currency = productData.Currency;
+            UnitPrice = productData.UnitPrice;
+            TotalPrice = productData.TotalPrice;
+            TotalDiscount = productData.TotalDiscount;
+            Inventory = productData.Inventory;
+            IsFixedPrice = productData.IsFixedPrice;
+            Unit = productData.Unit;
         }
     }
 }

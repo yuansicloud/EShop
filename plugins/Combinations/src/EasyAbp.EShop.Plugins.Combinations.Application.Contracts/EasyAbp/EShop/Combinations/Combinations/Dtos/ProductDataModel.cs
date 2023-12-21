@@ -1,13 +1,10 @@
+﻿using EasyAbp.EShop.Plugins.Combinations.Combinations;
 using System;
-using Volo.Abp.Application.Dtos;
 
-namespace EasyAbp.EShop.Plugins.Combinations.Combinations.Dtos
+namespace EasyAbp.EShop.Plugins.Combinations.Application.Contracts.EasyAbp.EShop.Combinations.Combinations.Dtos
 {
-    [Serializable]
-    public class CombinationItemDto : FullAuditedEntityDto<Guid>
+    public class ProductDataModel : IProductData
     {
-        public int Quantity { get; set; }
-
         public string MediaResources { get; set; }
 
         public string ProductUniqueName { get; set; }
@@ -26,14 +23,10 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations.Dtos
 
         public decimal TotalDiscount { get; set; }
 
+        public int Inventory { get; set; }
+
         public bool IsFixedPrice { get; set; }
 
         public string Unit { get; set; }
-
-        public Guid ProductId { get; set; }
-
-        public Guid ProductSkuId { get; set; }
-
-        public Guid StoreId { get; set; }
     }
 }

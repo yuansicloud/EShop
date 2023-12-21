@@ -4,7 +4,6 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations.Dtos
 {
     public class GetCombinationListInput
     {
-        public Guid? StoreId { get; set; }
 
         public string Filter { get; set; }
 

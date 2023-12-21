@@ -10,7 +10,7 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations.Dtos
         public int Quantity { get; set; }
 
         [DisplayName("CombinationItemUnitPrice")]
-        public decimal UnitPrice { get; set; }
+        public decimal? UnitPrice { get; set; }
 
         [DisplayName("CombinationItemTotalDiscount")]
         public decimal TotalDiscount { get; set; }

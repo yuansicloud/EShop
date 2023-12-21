@@ -77,7 +77,6 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
             ProductId = productId;
             ProductSkuId = productSkuId;
             IsStatic = isStatic;
-            IsFixedPrice = IsFixedPrice;
         }
 
         public void UpdateProductData(int quantity, IProductData productData)
