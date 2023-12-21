@@ -12,7 +12,7 @@ public class CombinationsPermissionDefinitionProvider : PermissionDefinitionProv
 
             var combinationPermission = myGroup.AddPermission(CombinationsPermissions.Combinations.Default, L("Permission:Combination"));
             combinationPermission.AddChild(CombinationsPermissions.Combinations.Manage, L("Permission:Manage"));
-            combinationPermission.AddChild(CombinationsPermissions.Combinations.CrossStore, L("Permission:CrossStore"));
+            //combinationPermission.AddChild(CombinationsPermissions.Combinations.CrossStore, L("Permission:CrossStore"));
     }
 
     private static LocalizableString L(string name)

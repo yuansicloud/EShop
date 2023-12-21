@@ -2,11 +2,13 @@
 using Volo.Abp.AutoMapper;
 using Volo.Abp.Modularity;
 using Volo.Abp.Application;
+using EasyAbp.EShop.Products;
 
 namespace EasyAbp.EShop.Plugins.Combinations
 {
 
     [DependsOn(
+        typeof(EShopProductsApplicationContractsModule),
         typeof(EShopPluginsCombinationsDomainModule),
         typeof(EShopPluginsCombinationsApplicationContractsModule),
         typeof(AbpDddApplicationModule),

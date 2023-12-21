@@ -37,7 +37,7 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations
             }
 
             if (await (await GetDbSetAsync()).AnyAsync(
-                x => x.StoreId == entity.StoreId && x.UniqueName == entity.UniqueName && x.Id != entity.Id,
+                x => x.UniqueName == entity.UniqueName && x.Id != entity.Id,
                 cancellationToken))
             {
                 throw new DuplicatedCombinationUniqueNameException(entity.UniqueName);

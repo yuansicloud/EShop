@@ -10,7 +10,7 @@
   <ItemGroup>
     <PackageReference Include="Volo.Abp.AutoMapper" Version="$(AbpVersion)" />
     <PackageReference Include="Volo.Abp.Ddd.Application" Version="$(AbpVersion)" />
-    <ProjectReference Include="..\..\..\..\modules\EasyAbp.EShop.Stores\src\EasyAbp.EShop.Stores.Application.Shared\EasyAbp.EShop.Stores.Application.Shared.csproj" />
+    <ProjectReference Include="..\..\..\..\modules\EasyAbp.EShop.Products\src\EasyAbp.EShop.Products.Application.Contracts\EasyAbp.EShop.Products.Application.Contracts.csproj" />
     <ProjectReference Include="..\EasyAbp.EShop.Plugins.Combinations.Application.Contracts\EasyAbp.EShop.Plugins.Combinations.Application.Contracts.csproj" />
     <ProjectReference Include="..\EasyAbp.EShop.Plugins.Combinations.Domain\EasyAbp.EShop.Plugins.Combinations.Domain.csproj" />
   </ItemGroup>
