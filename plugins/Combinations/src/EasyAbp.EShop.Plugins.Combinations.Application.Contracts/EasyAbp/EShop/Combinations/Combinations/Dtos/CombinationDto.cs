@@ -20,8 +20,6 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations.Dtos
 
         public bool IsPublished { get; set; }
 
-        public Guid StoreId { get; set; }
-
         public List<CombinationItemDto> CombinationItems { get; set; }
 
         public decimal Price

@@ -13,13 +13,13 @@ public class CombinationsApplicationAutoMapperProfile : Profile
         /* You can configure your AutoMapper mapping configuration here.
          * Alternatively, you can split your mapping configurations
          * into multiple profile classes for a better organization. */
-            CreateMap<Combination, CombinationDto>();
+            CreateMap<Combination, CombinationDto>(MemberList.None);
             CreateMap<CreateCombinationDto, Combination>(MemberList.Source);
             CreateMap<UpdateCombinationDto, Combination>(MemberList.Source);
-            CreateMap<CombinationItem, CombinationItemDto>();
+            CreateMap<CombinationItem, CombinationItemDto>(MemberList.None);
             CreateMap<CreateCombinationItemDto, CombinationItem>(MemberList.Source);
             CreateMap<UpdateCombinationItemDto, CombinationItem>(MemberList.Source);
-            CreateMap<CombinationDetail, CombinationDetailDto>();
+            CreateMap<CombinationDetail, CombinationDetailDto>(MemberList.None);
             CreateMap<CreateCombinationDetailDto, CombinationDetail>(MemberList.Source);
             CreateMap<UpdateCombinationDetailDto, CombinationDetail>(MemberList.Source);
     }
