@@ -1,12 +1,13 @@
 using JetBrains.Annotations;
 using System;
 using Volo.Abp;
+using Volo.Abp.Data;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 
 namespace EasyAbp.EShop.Plugins.Combinations.Combinations
 {
-    public class CombinationItem : FullAuditedEntity<Guid>, IProductData, IMultiTenant
+    public class CombinationItem : FullAuditedEntity<Guid>, IProductData, IMultiTenant, IHasExtraProperties
     {
         public virtual int Quantity { get; protected set; }
 
@@ -41,6 +42,8 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations
         public virtual Guid StoreId { get; protected set; }
 
         public int Inventory { get; protected set; }
+
+        public ExtraPropertyDictionary ExtraProperties { get; protected set; }
 
         protected CombinationItem()
         {
@@ -78,6 +81,7 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations
             Unit = unit;
             TenantId = tenantId;
             StoreId = storeId;
+            ExtraProperties = new ExtraPropertyDictionary();
         }
 
         public CombinationItem(
@@ -91,6 +95,7 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations
             StoreId = storeId;
             ProductId = productId;
             ProductSkuId = productSkuId;
+            ExtraProperties = new ExtraPropertyDictionary();
         }
 
         //public virtual void UpdateTotalPrice()

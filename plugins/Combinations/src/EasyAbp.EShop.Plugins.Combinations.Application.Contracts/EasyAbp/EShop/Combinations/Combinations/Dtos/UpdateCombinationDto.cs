@@ -5,7 +5,7 @@ using System.ComponentModel;
 namespace EasyAbp.EShop.Plugins.Combinations.Combinations.Dtos
 {
     [Serializable]
-    public class UpdateCombinationDto : IMultiStore
+    public class UpdateCombinationDto
     {
         [DisplayName("CombinationCombinationDetailId")]
         public Guid CombinationDetailId { get; set; }
@@ -24,9 +24,6 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations.Dtos
 
         [DisplayName("CombinationIsPublished")]
         public bool IsPublished { get; set; }
-
-        [DisplayName("CombinationStoreId")]
-        public Guid StoreId { get; set; }
 
     }
 }
