@@ -9,8 +9,6 @@ namespace EasyAbp.EShop.Plugins.Combinations.CombinationDetails
     {
         public virtual Guid? TenantId { get; protected set; }
 
-        public virtual Guid? StoreId { get; protected set; }
-
         [CanBeNull]
         public virtual string Description { get; protected set; }
 
@@ -19,11 +17,9 @@ namespace EasyAbp.EShop.Plugins.Combinations.CombinationDetails
         public CombinationDetail(
             Guid id,
             Guid? tenantId,
-            Guid? storeId,
             [CanBeNull] string description) : base(id)
         {
             TenantId = tenantId;
-            StoreId = storeId;
             Description = description;
         }
 

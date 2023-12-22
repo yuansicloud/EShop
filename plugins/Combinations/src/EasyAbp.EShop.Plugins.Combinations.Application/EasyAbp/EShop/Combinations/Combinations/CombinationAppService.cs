@@ -1,15 +1,13 @@
 using EasyAbp.EShop.Plugins.Combinations.Combinations.Dtos;
 using EasyAbp.EShop.Plugins.Combinations.Permissions;
-using EasyAbp.EShop.Products.Products.Dtos;
 using EasyAbp.EShop.Products.Products;
+using EasyAbp.EShop.Products.Products.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Entities;
-using EasyAbp.EShop.Plugins.Combinations.Application.Contracts.EasyAbp.EShop.Combinations.Combinations.Dtos;
 
 namespace EasyAbp.EShop.Plugins.Combinations.Combinations
 {

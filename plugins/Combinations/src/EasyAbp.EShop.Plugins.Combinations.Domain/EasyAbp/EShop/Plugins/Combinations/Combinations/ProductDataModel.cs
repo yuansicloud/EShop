@@ -1,7 +1,4 @@
-﻿using EasyAbp.EShop.Plugins.Combinations.Combinations;
-using System;
-
-namespace EasyAbp.EShop.Plugins.Combinations.Application.Contracts.EasyAbp.EShop.Combinations.Combinations.Dtos
+﻿namespace EasyAbp.EShop.Plugins.Combinations.Combinations.Dtos
 {
     public class ProductDataModel : IProductData
     {
