@@ -4,6 +4,7 @@
     using EasyAbp.EShop.Plugins.Combinations.Combinations.Dtos;
     using Microsoft.AspNetCore.Mvc;
     using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using Volo.Abp;
     using Volo.Abp.Application.Dtos;
@@ -86,6 +87,13 @@
         public Task<CombinationDto> ChangeCombinationPublished(Guid id, ChangeCombinationPublishedDto input)
         {
             return _service.ChangeCombinationPublished(id, input);
+        }
+
+        [HttpPost]
+        [Route("{id}/replace")]
+        public Task<CombinationDto> ReplaceCombinationItemsAsync(Guid id, List<CreateCombinationItemDto> newItems)
+        {
+            return _service.ReplaceCombinationItemsAsync(id, newItems);
         }
     }
 }

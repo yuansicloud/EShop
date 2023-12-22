@@ -4,6 +4,7 @@ using EasyAbp.EShop.Products.Products;
 using EasyAbp.EShop.Products.Products.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Volo.Abp;
@@ -170,6 +171,46 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations
 
             return dto;
         }
+
+        public async Task<CombinationDto> ReplaceCombinationItemsAsync(Guid id, List<CreateCombinationItemDto> newItems)
+        {
+            await CheckUpdatePolicyAsync();
+
+            var combination = await GetEntityByIdAsync(id);
+            var existingItems = combination.CombinationItems;
+
+            // Replace or add new items
+            foreach (var newItem in newItems)
+            {
+                var existingItem = existingItems.FirstOrDefault(x => x.ProductSkuId == newItem.ProductSkuId);
+
+                var productDto = await _productAppService.GetAsync(newItem.ProductId);
+
+                if (existingItem != null)
+                {
+                    // Update existing item
+                    await UpdateProductDataAsync(newItem.Quantity, existingItem, productDto, newItem.UnitPrice, newItem.TotalDiscount);
+                }
+                else
+                {
+                    // Add new item
+                    var newItemEntity = new CombinationItem(GuidGenerator.Create(), CurrentTenant.Id, productDto.StoreId, newItem.ProductId, newItem.ProductSkuId);
+                    
+                    combination.CombinationItems.Add(newItemEntity);
+                }
+            }
+
+            // Optional: Remove items not present in the new list
+            var itemIdsToRemove = existingItems.Where(x => !newItems.Any(ni => ni.ProductSkuId == x.ProductSkuId)).Select(x => x.Id).ToList();
+
+            combination.CombinationItems.RemoveAll(x => itemIdsToRemove.Contains(x.Id));
+
+            await _repository.UpdateAsync(combination, autoSave: true);
+
+            var dto = await MapToGetOutputDtoAsync(combination);
+            return dto;
+        }
+
 
         public virtual async Task<CombinationDto> ChangeCombinationPublished(Guid id, ChangeCombinationPublishedDto input)
         {

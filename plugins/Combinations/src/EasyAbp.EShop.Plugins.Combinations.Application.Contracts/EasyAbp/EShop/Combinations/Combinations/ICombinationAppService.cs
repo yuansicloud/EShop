@@ -1,5 +1,6 @@
 using EasyAbp.EShop.Plugins.Combinations.Combinations.Dtos;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Services;
 
@@ -22,5 +23,7 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations
         Task<CombinationDto> DeleteCombinationItemAsync(Guid id, Guid combinationItemId);
 
         Task<CombinationDto> ChangeCombinationPublished(Guid id, ChangeCombinationPublishedDto input);
+
+        Task<CombinationDto> ReplaceCombinationItemsAsync(Guid id, List<CreateCombinationItemDto> newItems);
     }
 }
