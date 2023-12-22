@@ -168,7 +168,7 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
 
             if (productSkuDto.IsFixedPrice && unitPrice.HasValue && unitPrice.Value != productSkuDto.DiscountedPrice)
             {
-                throw new UserFriendlyException("·Ç¿Éµ÷¼ÛÉÌÆ·£¡");
+                throw new UserFriendlyException("éžå¯è°ƒä»·å•†å“ï¼");
             }
 
             if (productDto.InventoryStrategy != InventoryStrategy.NoNeed && quantity > productSkuDto.Inventory)
@@ -320,7 +320,7 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
 
             if (basketItems.Where(i => i.IsInvalid).Count() > 0)
             {
-                throw new UserFriendlyException("¹ºÎï³µ´æÔÚÊ§Ð§ÉÌÆ·, ÇëÏÈÉ¾³ý!");
+                throw new UserFriendlyException("è´­ç‰©è½¦å­˜åœ¨å¤±æ•ˆå•†å“, è¯·å…ˆåˆ é™¤!");
             }
 
             var orderGroups = basketItems.GroupBy(x => x.StoreId);

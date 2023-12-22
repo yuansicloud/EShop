@@ -116,14 +116,14 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations
 
             if (item != null)
             {
-                throw new UserFriendlyException("Ì×²ÍÖÐÒÑ¾­´æÔÚ¸ÃÉÌÆ·SKU");
+                throw new UserFriendlyException("å¥—é¤ä¸­å·²ç»å­˜åœ¨è¯¥å•†å“SKU");
             }
 
             var productSkuDto = productDto.FindSkuById(input.ProductSkuId);
 
             if (productSkuDto == null)
             {
-                throw new UserFriendlyException("ÉÌÆ·²»´æÔÚ");
+                throw new UserFriendlyException("å•†å“ä¸å­˜åœ¨");
             }
 
             item = new CombinationItem(GuidGenerator.Create(), CurrentTenant.Id,
@@ -195,7 +195,10 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations
                 {
                     // Add new item
                     var newItemEntity = new CombinationItem(GuidGenerator.Create(), CurrentTenant.Id, productDto.StoreId, newItem.ProductId, newItem.ProductSkuId);
-                    
+
+                    // Update existing item
+                    await UpdateProductDataAsync(newItem.Quantity, newItemEntity, productDto, newItem.UnitPrice, newItem.TotalDiscount);
+
                     combination.CombinationItems.Add(newItemEntity);
                 }
             }
@@ -258,7 +261,7 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations
 
             if (productSkuDto.IsFixedPrice && unitPrice.HasValue && unitPrice.Value != productSkuDto.DiscountedPrice)
             {
-                throw new UserFriendlyException("·Ç¿Éµ÷¼ÛÉÌÆ·£¡");
+                throw new UserFriendlyException("éžå¯è°ƒä»·å•†å“ï¼");
             }
 
             //if (productDto.InventoryStrategy != InventoryStrategy.NoNeed && quantity > productSkuDto.Inventory)
