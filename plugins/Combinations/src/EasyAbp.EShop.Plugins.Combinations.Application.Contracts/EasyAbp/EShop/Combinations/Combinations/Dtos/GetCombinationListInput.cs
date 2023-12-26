@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Volo.Abp.Application.Dtos;
 
 namespace EasyAbp.EShop.Plugins.Combinations.Combinations.Dtos
 {
-    public class GetCombinationListInput
+    public class GetCombinationListInput : PagedAndSortedResultRequestDto
     {
 
         public string Filter { get; set; }
