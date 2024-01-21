@@ -57,6 +57,15 @@ namespace EasyAbp.EShop.Inventory.Instocks
             InstockNumber = instockNumber;
         }
 
+        public void Update(decimal unitPrice, DateTime instockTime, InstockType instockType, string operatorName, string description)
+        {
+            UnitPrice = unitPrice;
+            InstockTime = instockTime;
+            InstockType = instockType;
+            OperatorName = operatorName;
+            Description = description;
+        }
+
         public Instock(
             Guid id,
             DateTime instockTime,

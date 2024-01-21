@@ -1,5 +1,6 @@
 ﻿using EasyAbp.EShop.Inventory.Instocks.Dtos;
 using System;
+using System.Threading.Tasks;
 using Volo.Abp.Application.Services;
 
 namespace EasyAbp.EShop.Inventory.Instocks
@@ -10,5 +11,6 @@ namespace EasyAbp.EShop.Inventory.Instocks
             Guid,
             GetInstockListInput>
     {
+        Task UpdateInstock(Guid id, UpdateInstockDto input);
     }
 }

@@ -51,6 +51,17 @@
             return _service.GetListAsync(input);
         }
 
-
+        /// <summary>
+        /// 更新
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("{id}")]
+        public Task UpdateOutstock(Guid id, UpdateOutstockDto input)
+        {
+            return _service.UpdateOutstock(id, input);
+        }
     }
 }

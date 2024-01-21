@@ -1,3 +1,4 @@
+using EasyAbp.EShop.Inventory.Instocks;
 using System;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
@@ -53,6 +54,15 @@ namespace EasyAbp.EShop.Inventory.Outstocks
         public void SetOutstockNumber(string outstockNumber)
         {
             OutstockNumber = outstockNumber;
+        }
+
+        public void Update(decimal unitPrice, DateTime outstockTime, OutstockType outstockType, string operatorName, string description)
+        {
+            UnitPrice = unitPrice;
+            OutstockTime = outstockTime;
+            OutstockType = outstockType;
+            OperatorName = operatorName;
+            Description = description;
         }
 
         public Outstock(

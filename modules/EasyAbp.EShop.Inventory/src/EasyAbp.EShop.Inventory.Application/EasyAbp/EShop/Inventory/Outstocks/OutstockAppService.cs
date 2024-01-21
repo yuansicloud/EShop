@@ -40,5 +40,14 @@ namespace EasyAbp.EShop.Inventory.Outstocks
                 .WhereIf(input.OutstockType.HasValue, s => s.OutstockType == input.OutstockType.Value)
                 .WhereIf(!input.OperatorName.IsNullOrEmpty(), s => s.OperatorName.Contains(input.OperatorName));
         }
+
+        public async Task UpdateOutstock(Guid id, UpdateOutstockDto input)
+        {
+            var record = await _repository.GetAsync(id);
+
+            record.Update(input.UnitPrice, input.OutstockTime, input.OutstockType, input.OperatorName, input.Description);
+
+            await _repository.UpdateAsync(record);
+        }
     }
 }

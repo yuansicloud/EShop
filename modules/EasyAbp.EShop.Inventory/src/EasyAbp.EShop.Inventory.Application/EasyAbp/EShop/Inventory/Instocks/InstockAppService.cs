@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Volo.Abp.Domain.Repositories;
 
 namespace EasyAbp.EShop.Inventory.Instocks
 {
@@ -39,5 +40,13 @@ namespace EasyAbp.EShop.Inventory.Instocks
                 .WhereIf(input.InstockType.HasValue, s => s.InstockType == input.InstockType.Value);
         }
 
+        public async Task UpdateInstock(Guid id, UpdateInstockDto input)
+        {
+            var record = await _repository.GetAsync(id);
+
+            record.Update(input.UnitPrice, input.InstockTime, input.InstockType, input.OperatorName, input.Description);
+
+            await _repository.UpdateAsync(record);
+        }
     }
 }
