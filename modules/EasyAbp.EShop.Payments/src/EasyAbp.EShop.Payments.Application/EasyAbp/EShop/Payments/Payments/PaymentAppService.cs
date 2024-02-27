@@ -13,6 +13,7 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Data;
 using Volo.Abp.EventBus.Distributed;
+using Volo.Abp.ObjectExtending;
 using Volo.Abp.Users;
 
 namespace EasyAbp.EShop.Payments.Payments
