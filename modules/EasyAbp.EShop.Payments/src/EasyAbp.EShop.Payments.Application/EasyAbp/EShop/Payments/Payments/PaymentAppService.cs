@@ -127,6 +127,8 @@ namespace EasyAbp.EShop.Payments.Payments
                 }).ToList()
             );
 
+            input.MapExtraPropertiesTo(createPaymentEto);
+
             await _distributedEventBus.PublishAsync(createPaymentEto);
         }
     }
