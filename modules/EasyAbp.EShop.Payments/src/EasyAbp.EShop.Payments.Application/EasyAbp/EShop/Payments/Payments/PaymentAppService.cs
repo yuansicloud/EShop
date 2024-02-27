@@ -114,17 +114,30 @@ namespace EasyAbp.EShop.Payments.Payments
                 new PaymentOperationAuthorizationRequirement(PaymentOperation.Creation)
             );
 
+            // Prepare CreatePaymentEto
             var createPaymentEto = new CreatePaymentEto(
                 CurrentTenant.Id,
                 orders.FirstOrDefault()?.CustomerUserId ?? CurrentUser.GetId(),
                 input.PaymentMethod,
                 orders.First().Currency,
-                orders.Select(order => new CreatePaymentItemEto
+                orders.Select(order =>
                 {
-                    ItemType = PaymentsConsts.PaymentItemType,
-                    ItemKey = order.Id.ToString(),
-                    OriginalPaymentAmount = order.ActualTotalPrice,
-                    ExtraProperties = new ExtraPropertyDictionary {{"StoreId", order.StoreId.ToString()}}
+                    var paymentItemEto = new CreatePaymentItemEto
+                    {
+                        ItemType = PaymentsConsts.PaymentItemType,
+                        ItemKey = order.Id.ToString(),
+                        OriginalPaymentAmount = order.ActualTotalPrice,
+                        ExtraProperties = new ExtraPropertyDictionary { { "StoreId", order.StoreId.ToString() } }
+                    };
+
+                    // Find the matching discount and add it to ExtraProperties if it exists
+                    var discountInfo = input.OrderDiscounts.FirstOrDefault(d => d.OrderId == order.Id);
+                    if (discountInfo != null)
+                    {
+                        paymentItemEto.ExtraProperties.Add("PaymentDiscount", discountInfo.PaymentDiscount);
+                    }
+
+                    return paymentItemEto;
                 }).ToList()
             );
 
@@ -132,5 +145,6 @@ namespace EasyAbp.EShop.Payments.Payments
 
             await _distributedEventBus.PublishAsync(createPaymentEto);
         }
+
     }
 }

@@ -12,7 +12,9 @@ namespace EasyAbp.EShop.Payments.Payments.Dtos
         public string PaymentMethod { get; set; }
 
         public List<Guid> OrderIds { get; set; }
-        
+
+        public List<OrderDiscountInfo> OrderDiscounts { get; set; } = new();
+
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             base.Validate(validationContext);
@@ -32,6 +34,12 @@ namespace EasyAbp.EShop.Payments.Payments.Dtos
                     new[] {"OrderIds"}
                 );
             }
+        }
+
+        public class OrderDiscountInfo
+        {
+            public Guid OrderId { get; set; }
+            public decimal PaymentDiscount { get; set; }
         }
     }
 }
