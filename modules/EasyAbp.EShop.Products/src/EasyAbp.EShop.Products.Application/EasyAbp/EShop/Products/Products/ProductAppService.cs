@@ -76,7 +76,7 @@ namespace EasyAbp.EShop.Products.Products
                 .WhereIf(input.StoreId.HasValue, x => x.StoreId == input.StoreId)
                 .WhereIf(!input.ShowHidden, x => !x.IsHidden)
                 .WhereIf(input.IsPublished.HasValue, x => x.IsPublished == input.IsPublished.Value)
-                .WhereIf(!input.Filter.IsNullOrEmpty(), x => x.DisplayName.Contains(input.Filter))
+                .WhereIf(!input.Filter.IsNullOrEmpty(), x => x.DisplayName.Contains(input.Filter) || x.ProductSkus.Any(x => x.Name.Contains(input.Filter)))
                 .WhereIf(input.MinimumPrice.HasValue, x => x.ProductSkus.Min(x => x.Price) >= input.MinimumPrice.Value)
                 .WhereIf(input.MaximumPrice.HasValue, x => x.ProductSkus.Max(x => x.Price) <= input.MaximumPrice.Value)
                 .WhereIf(input.IsRetail.HasValue, x => x.IsRetail == input.IsRetail.Value)

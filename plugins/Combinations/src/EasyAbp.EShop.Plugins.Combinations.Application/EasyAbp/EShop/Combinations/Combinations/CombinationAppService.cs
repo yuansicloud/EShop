@@ -241,7 +241,7 @@ namespace EasyAbp.EShop.Plugins.Combinations.Combinations
             }
 
             return query
-                .WhereIf(!input.Filter.IsNullOrEmpty(), x => x.DisplayName.Contains(input.Filter))
+                .WhereIf(!input.Filter.IsNullOrEmpty(), x => x.DisplayName.Contains(input.Filter) && x.CombinationItems.Any(x => x.SkuName.Contains(input.Filter)))
                 .WhereIf(input.MinimumPrice.HasValue, x => x.CombinationItems.Sum(x => x.UnitPrice * x.Quantity - x.TotalDiscount) >= input.MinimumPrice.Value)
                 .WhereIf(input.MaximumPrice.HasValue, x => x.CombinationItems.Sum(x => x.UnitPrice * x.Quantity - x.TotalDiscount) <= input.MaximumPrice.Value);
         }
