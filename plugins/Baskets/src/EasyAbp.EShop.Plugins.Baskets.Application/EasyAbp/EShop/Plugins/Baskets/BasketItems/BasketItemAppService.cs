@@ -207,14 +207,32 @@ namespace EasyAbp.EShop.Plugins.Baskets.BasketItems
 
         public async Task<List<BasketItemDto>> CreateInBulkAsync(List<CreateBasketItemDto> input)
         {
+            if (input.IsNullOrEmpty())
+            {
+                return new List<BasketItemDto>();
+            }
+
             List<BasketItemDto> basketItems = new();
 
-            foreach(var item in input)
+            bool hasDifferentIdentifierId = basketItems.GroupBy(item => item.IdentifierId).Count() > 1;
+            bool hasDifferentBasketName = basketItems.GroupBy(item => item.BasketName).Count() > 1;
+
+            if (hasDifferentIdentifierId || hasDifferentBasketName)
+            {
+                throw new UserFriendlyException("不能同时加入不同购物车的商品！");
+            }
+
+            foreach (var item in input)
             {
                 basketItems.Add(await CreateAsync(item));
             }
 
-            return basketItems;
+            return (await GetListAsync(new GetBasketItemListDto
+            {
+                BasketName = input.First().BasketName,
+                IdentifierId = input.First().IdentifierId,
+                MaxResultCount = 999
+            })).Items.ToList();
         }
 
         public override async Task<BasketItemDto> CreateAsync(CreateBasketItemDto input)
