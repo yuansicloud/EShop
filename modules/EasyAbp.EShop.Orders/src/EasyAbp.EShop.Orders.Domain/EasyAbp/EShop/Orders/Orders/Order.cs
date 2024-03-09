@@ -134,6 +134,16 @@ namespace EasyAbp.EShop.Orders.Orders
             OrderType = orderType;
         }
 
+        public void SetStaffRemark(string staffRemark)
+        {
+            StaffRemark = staffRemark;
+        }
+
+        public void SetCustomerRemark(string customerRemark)
+        {
+            CustomerRemark = customerRemark;
+        }
+
         public void SetOrderNumber([NotNull] string orderNumber)
         {
             OrderNumber = orderNumber;

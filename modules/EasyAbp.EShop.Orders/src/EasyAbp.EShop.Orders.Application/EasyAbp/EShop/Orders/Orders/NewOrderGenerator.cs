@@ -153,7 +153,7 @@ namespace EasyAbp.EShop.Orders.Orders
                 unit: productSku.Unit?.DisplayName
             );
             
-            inputOrderLine.MapExtraPropertiesTo(orderLine, MappingPropertyDefinitionChecks.Destination);
+            inputOrderLine.MapExtraPropertiesTo(orderLine, MappingPropertyDefinitionChecks.None);
 
             return orderLine;
         }
