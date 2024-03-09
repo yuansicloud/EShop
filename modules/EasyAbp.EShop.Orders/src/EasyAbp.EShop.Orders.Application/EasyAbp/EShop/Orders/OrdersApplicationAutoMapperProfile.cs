@@ -1,7 +1,6 @@
-﻿using EasyAbp.EShop.Orders.Orders;
+﻿using AutoMapper;
+using EasyAbp.EShop.Orders.Orders;
 using EasyAbp.EShop.Orders.Orders.Dtos;
-using AutoMapper;
-using Volo.Abp.ObjectExtending;
 
 namespace EasyAbp.EShop.Orders
 {
@@ -12,8 +11,8 @@ namespace EasyAbp.EShop.Orders
             /* You can configure your AutoMapper mapping configuration here.
              * Alternatively, you can split your mapping configurations
              * into multiple profile classes for a better organization. */
-            CreateMap<Order, OrderDto>();
-            CreateMap<OrderLine, OrderLineDto>();
+            CreateMap<Order, OrderDto>().MapExtraProperties();
+            CreateMap<OrderLine, OrderLineDto>().MapExtraProperties();
         }
     }
 }
