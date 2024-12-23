@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Volo.Abp;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 
@@ -254,6 +255,11 @@ namespace EasyAbp.EShop.Orders.Orders
 
         public void AddDiscount(Guid orderLineId, decimal expectedDiscountAmount)
         {
+            if (OrderStatus != OrderStatus.Pending)
+            {
+                throw new OrderIsInWrongStageException(Id);
+            }
+
             var orderLine = OrderLines.Single(x => x.Id == orderLineId);
 
             orderLine.AddDiscount(expectedDiscountAmount);
@@ -285,6 +291,52 @@ namespace EasyAbp.EShop.Orders.Orders
 
             TotalPrice += extraFee;
             ActualTotalPrice += extraFee;
+        }
+
+        public void UpdateOrderLineQuantity (Guid orderLineId, int changedQuantity)
+        {
+            var orderLine = OrderLines.FirstOrDefault(x => x.Id == orderLineId)
+                             ?? throw new UserFriendlyException("订单商品不存在");
+
+            if (changedQuantity == 0)
+            {
+                OrderLines.Remove(orderLine);
+
+                if (!OrderLines.Any())
+                {
+                    throw new UserFriendlyException("订单需要至少一个商品");
+                }
+            }
+            else
+            {
+                orderLine.UpdateQuantity(changedQuantity);
+            }
+
+            RecalculateTotalPrices();
+        }
+
+
+
+        private void RecalculateTotalPrices()
+        {
+            ProductTotalPrice = OrderLines.Sum(x => x.TotalPrice);
+            TotalDiscount = OrderLines.Sum(x => x.TotalDiscount);
+
+            if (ProductTotalPrice < decimal.Zero)
+            {
+                throw new UserFriendlyException("产品总价格不能小于零");
+            }
+
+            if (TotalDiscount < decimal.Zero)
+            {
+                throw new UserFriendlyException("总折扣不能小于零");
+            }
+
+            TotalPrice = ProductTotalPrice;
+
+            TotalPrice += OrderExtraFees.Sum(x => x.Fee);
+
+            ActualTotalPrice = TotalPrice - TotalDiscount;
         }
     }
 }

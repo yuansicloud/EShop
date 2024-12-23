@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using Volo.Abp;
 using Volo.Abp.Data;
 using Volo.Abp.Domain.Entities.Auditing;
 
@@ -126,6 +127,26 @@ namespace EasyAbp.EShop.Orders.Orders
             {
                 throw new DiscountAmountOverflowException();
             }
+        }
+
+        internal void UpdateQuantity(int changedQuantity)
+        {
+            if (changedQuantity == 0)
+            {
+                throw new UserFriendlyException("数量变更不能为零");
+            }
+
+            if (Quantity + changedQuantity < 0)
+            {
+                throw new UserFriendlyException("数量不能小于零");
+            }
+
+            // Update quantity
+            Quantity += changedQuantity;
+
+            // Recalculate the total price based on new quantity
+            TotalPrice = UnitPrice * Quantity;
+            ActualTotalPrice = TotalPrice - TotalDiscount;
         }
     }
 }
