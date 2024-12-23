@@ -129,20 +129,20 @@ namespace EasyAbp.EShop.Orders.Orders
             }
         }
 
-        internal void UpdateQuantity(int changedQuantity)
+        internal void UpdateQuantity(int quantity)
         {
-            if (changedQuantity == 0)
+            if (quantity == 0)
             {
                 throw new UserFriendlyException("数量变更不能为零");
             }
 
-            if (Quantity + changedQuantity < 0)
+            if (Quantity < 0)
             {
                 throw new UserFriendlyException("数量不能小于零");
             }
 
             // Update quantity
-            Quantity += changedQuantity;
+            Quantity = quantity;
 
             // Recalculate the total price based on new quantity
             TotalPrice = UnitPrice * Quantity;

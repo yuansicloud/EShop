@@ -293,12 +293,17 @@ namespace EasyAbp.EShop.Orders.Orders
             ActualTotalPrice += extraFee;
         }
 
-        public void UpdateOrderLineQuantity (Guid orderLineId, int changedQuantity)
+        public void UpdateOrderLineQuantity (Guid orderLineId, int quantity)
         {
             var orderLine = OrderLines.FirstOrDefault(x => x.Id == orderLineId)
                              ?? throw new UserFriendlyException("订单商品不存在");
 
-            if (changedQuantity == 0)
+            if (quantity < 0)
+            {
+                throw new UserFriendlyException("商品数量不能为负");
+            }
+
+            if (quantity == 0)
             {
                 OrderLines.Remove(orderLine);
 
@@ -309,7 +314,7 @@ namespace EasyAbp.EShop.Orders.Orders
             }
             else
             {
-                orderLine.UpdateQuantity(changedQuantity);
+                orderLine.UpdateQuantity(quantity);
             }
 
             RecalculateTotalPrices();
