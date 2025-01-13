@@ -35,12 +35,12 @@ namespace EasyAbp.EShop.Orders.Orders
                 return;
             }
 
-            //if (!await IsInventoriesSufficientAsync(resource.Input, resource.ProductDictionary))
-            //{
-            //    context.Fail();
-            //    return;
-            //}
-            
+            if (!await IsInventoriesSufficientAsync(resource.Input, resource.ProductDictionary))
+            {
+                context.Fail();
+                return;
+            }
+
             context.Succeed(requirement);
         }
 

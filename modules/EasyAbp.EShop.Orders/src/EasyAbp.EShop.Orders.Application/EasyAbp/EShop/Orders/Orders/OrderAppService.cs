@@ -127,14 +127,14 @@ namespace EasyAbp.EShop.Orders.Orders
 
             var productDict = await GetProductDictionaryAsync(input.OrderLines.Select(dto => dto.ProductId).ToList());
 
-            //await AuthorizationService.CheckAsync(
-            //    new OrderCreationResource
-            //    {
-            //        Input = input,
-            //        ProductDictionary = productDict
-            //    },
-            //    new OrderOperationAuthorizationRequirement(OrderOperation.Creation)
-            //);
+            await AuthorizationService.CheckAsync(
+                new OrderCreationResource
+                {
+                    Input = input,
+                    ProductDictionary = productDict
+                },
+                new OrderOperationAuthorizationRequirement(OrderOperation.Creation)
+            );
 
             var order = await _newOrderGenerator.GenerateAsync(input.CustomerUserId ?? CurrentUser.GetId(), input, productDict);
 
