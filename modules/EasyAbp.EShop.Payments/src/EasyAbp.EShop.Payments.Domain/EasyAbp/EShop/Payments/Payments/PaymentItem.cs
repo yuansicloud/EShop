@@ -1,8 +1,7 @@
-using System;
-using System.Collections.Generic;
 using EasyAbp.EShop.Stores.Stores;
 using EasyAbp.PaymentService.Payments;
 using JetBrains.Annotations;
+using System;
 using Volo.Abp.Data;
 using Volo.Abp.Domain.Entities.Auditing;
 
